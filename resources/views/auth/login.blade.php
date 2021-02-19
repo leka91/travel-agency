@@ -2,34 +2,38 @@
 
 @section('content')
 
-<div class="page-top">
-</div>
+<div class="page-top"></div>
 
-<div class="contact-page">
-<div class="container">
-    <div class="row">
-        <div class="col-md-5 col-sm-6">
-            <h3 class="widget-title">Contact Us</h3>
-            <div class="contact-form">
-                <form name="contactform" id="contactform" action="#" method="post">
-                    <p>
-                        <input name="name" type="text" id="name" placeholder="Your Name">
-                    </p>
-                    <p>
-                        <input name="email" type="text" id="email" placeholder="Your Email"> 
-                    </p>
-                    <p>
-                        <input name="subject" type="text" id="subject" placeholder="Subject"> 
-                    </p>
-                    <p>
-                        <textarea name="message" id="message" placeholder="Message"></textarea>    
-                    </p>
-                    <input type="submit" class="mainBtn" id="submit" value="Send Message">
-                </form>
-            </div> <!-- /.contact-form -->
+<div class="login-page">
+    <div class="container">
+        <div class="row"> 
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <h3 class="widget-title">
+                        Login
+                    </h3>
+                </div>
+                <div class="contact-form">
+                    <form method="POST" action="#">
+                        @csrf
+
+                        <div class="form-group">
+                            <input class="login-input-mb-0" name="email" type="text" id="email" placeholder="Your Email">
+                            {{-- <span>Error</span> --}}
+                        </div>
+                        
+                        <div class="form-group">
+                            <input class="login-input-mb-0" name="password" type="password" id="password" placeholder="Your Password">
+                        </div>
+
+                        <input type="submit" class="mainBtn" id="submit" value="Login">
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
         </div>
     </div>
-</div>
 </div>
 
 

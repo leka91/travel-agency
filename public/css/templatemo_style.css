@@ -3,7 +3,87 @@ Travel Template
 http://www.templatemo.com/tm-409-travel
 */
 
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -15,16 +95,19 @@ body {
     line-height: 1;
 }
 
-ol,ul {
+ol,
+ul {
     list-style: none;
 }
 
-blockquote,q {
+blockquote,
+q {
     quotes: none;
 }
 
-blockquote:before,blockquote:after {
-    content: '';
+blockquote:before,
+blockquote:after {
+    content: "";
     content: none;
 }
 
@@ -44,18 +127,30 @@ a:focus {
 }
 
 .blue {
-	color: #06C;
+    color: #06c;
 }
 
 .green {
-	color: #090;
+    color: #090;
 }
 
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,img {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+img {
     display: block;
 }
 
-audio,canvas,video {
+audio,
+canvas,
+video {
     display: inline-block;
     *display: inline;
     *zoom: 1;
@@ -65,18 +160,19 @@ audio:not([controls]) {
     display: none;
 }
 
-sub,sup {
+sub,
+sup {
     line-height: 0;
     position: relative;
     vertical-align: baseline;
 }
 
 sup {
-    top: -.5em;
+    top: -0.5em;
 }
 
 sub {
-    bottom: -.25em;
+    bottom: -0.25em;
 }
 
 img {
@@ -84,24 +180,32 @@ img {
     -ms-interpolation-mode: bicubic;
 }
 
-button,input,select,textarea {
+button,
+input,
+select,
+textarea {
     font-size: 100%;
     margin: 0;
     vertical-align: baseline;
     *vertical-align: middle;
 }
 
-button,input {
+button,
+input {
     line-height: normal;
     *overflow: visible;
 }
 
-button::-moz-focus-inner,input::-moz-focus-inner {
+button::-moz-focus-inner,
+input::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
 
-button,input[type="button"],input[type="reset"],input[type="submit"] {
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
     cursor: pointer;
     -webkit-appearance: button;
 }
@@ -123,7 +227,7 @@ textarea {
 }
 
 body {
-    font-family: "Open Sans",Arial,sans-serif;
+    font-family: "Open Sans", Arial, sans-serif;
     font-size: 13px;
     line-height: 19px;
     font-weight: 300;
@@ -146,25 +250,38 @@ a:hover {
     text-decoration: none;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: "Open Sans",Arial,sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Open Sans", Arial, sans-serif;
     color: #444;
 }
 
-*,*:before,*:after {
+*,
+*:before,
+*:after {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-button,input,select,textarea {
+button,
+input,
+select,
+textarea {
     border: 1px solid #eee;
     outline: 0;
     padding: 10px 12px;
     color: #888;
 }
 
-button:focus,input:focus,select:focus,textarea:focus {
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
     border-color: #888;
 }
 
@@ -242,7 +359,7 @@ hr {
 }
 
 .main-menu ul li a {
-	display: block;
+    display: block;
     text-transform: uppercase;
     font-size: 14px;
     color: #888;
@@ -274,7 +391,7 @@ a.toggle-menu {
 }
 
 .menu-responsive {
-    background: rgba(68,68,68,0.95);
+    background: rgba(68, 68, 68, 0.95);
     padding: 15px 30px;
     display: none;
 }
@@ -285,7 +402,7 @@ a.toggle-menu {
 }
 
 .menu-responsive ul li a {
-	display: block;
+    display: block;
     color: #fff;
     text-transform: uppercase;
     font-size: 18px;
@@ -303,7 +420,7 @@ a.toggle-menu {
 }
 
 .overlay {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -353,10 +470,11 @@ a.toggle-menu {
     background: #90be2c;
 }
 
-a.flex-prev,a.flex-next {
+a.flex-prev,
+a.flex-next {
     width: 40px;
     height: 60px;
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255, 255, 255, 0.6);
     display: inline-block;
     line-height: 60px;
     text-align: center;
@@ -366,18 +484,21 @@ a.flex-prev,a.flex-next {
     top: 50%;
 }
 
-a.flex-prev:hover,a.flex-next:hover {
+a.flex-prev:hover,
+a.flex-next:hover {
     background: #fff;
 }
 
 @media screen and (min-width: 240px) {
-    a.flex-prev,a.flex-next {
+    a.flex-prev,
+    a.flex-next {
         display: none;
     }
 }
 
 @media screen and (min-width: 992px) {
-    a.flex-prev,a.flex-next {
+    a.flex-prev,
+    a.flex-next {
         display: block;
     }
 }
@@ -523,7 +644,8 @@ h3.widget-title {
     background-color: #90be2c;
 }
 
-.owl-next,.owl-prev {
+.owl-next,
+.owl-prev {
     position: absolute;
     top: 50%;
     margin-top: -20px;
@@ -727,7 +849,6 @@ h4.consult-title {
 .act-btn .inner .title {
     overflow: hidden;
     margin-left: 150px;
-
 }
 
 .act-btn .inner .title h2 {
@@ -861,23 +982,25 @@ h4.consult-title {
 }
 
 .first-map {
-	height: 120px;
+    height: 120px;
 }
 
 .map-holder {
-	height: 360px;
+    height: 360px;
 }
 
 .map-wrapper {
     margin-bottom: 30px;
 }
 
-input,textarea {
+input,
+textarea {
     border: 1px solid #cfcfcf;
     margin-bottom: 20px;
 }
 
-div.contact-form input,div.contact-form textarea {
+div.contact-form input,
+div.contact-form textarea {
     width: 100%;
     min-width: 100%;
     max-width: 100%;
@@ -947,4 +1070,14 @@ div.contact-form input.mainBtn {
         text-align: right;
         margin-top: 0;
     }
+}
+
+/* Custom CSS */
+
+.login-page {
+    margin: 80px 0 180px 0;
+}
+
+.login-input-mb-0 {
+    margin-bottom: 0;
 }
