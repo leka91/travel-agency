@@ -1075,9 +1075,39 @@ div.contact-form input.mainBtn {
 /* Custom CSS */
 
 .login-page {
-    margin: 80px 0 180px 0;
+    margin: 60px 0 160px 0;
 }
 
 .login-input-mb-0 {
     margin-bottom: 0;
+}
+
+.login-form .loginBtn {
+    width: 100%;
+    border: 0;
+    background: #9ed034;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.login-form label {
+    margin-bottom: 5px;
+}
+
+.login-form .form-control:focus {
+    border-color: #888;
+    box-shadow: none;
+}
+
+.login-form input {
+    margin-bottom: 5px;
+    border-radius: 0;
+    color: #000;
+}
+
+.login-form .login-error {
+    color: red;
+    font-weight: 500;
 }

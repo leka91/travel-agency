@@ -36,20 +36,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Logout
-                            </a>
-
-                            {{-- <form class="navbar-form navbar-right">
-                                <input type="submit" id="submit" value="Logout">
-                            </form> --}}
-
-                            
+                            <form class="navbar-form"  action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <input class="btn btn-primary" type="submit" id="submit" value="Logout">
+                            </form>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Search...">
-                    </form>
                 </div>
             </div>
         </nav>

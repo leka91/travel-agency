@@ -14,20 +14,51 @@
                         Login
                     </h3>
                 </div>
-                <div class="contact-form">
-                    <form method="POST" action="#">
+                <div class="login-form">
+                    <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group">
-                            <input class="login-input-mb-0" name="email" type="text" id="email" placeholder="Your Email">
-                            {{-- <span>Error</span> --}}
-                        </div>
-                        
-                        <div class="form-group">
-                            <input class="login-input-mb-0" name="password" type="password" id="password" placeholder="Your Password">
+                            <label for="email">
+                                Email address
+                            </label>
+
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ old('email') }}" autofocus>
+
+                            @error('email')
+                                <span class="login-error">
+                                    {{ $message }}
+                                </span>
+                            @enderror
                         </div>
 
-                        <input type="submit" class="mainBtn" id="submit" value="Login">
+                        <div class="form-group">
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+
+                            @error('password')
+                                <span class="login-error">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember me
+                            </label>
+                        </div>
+
+                        <button type="submit" class="loginBtn">Login</button>
+
+                        @if (Route::has('password.request'))
+                            <a class="btn-link" href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                        @endif
                     </form>
                 </div>
             </div>
