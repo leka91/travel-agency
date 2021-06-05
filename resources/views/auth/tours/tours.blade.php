@@ -1,12 +1,19 @@
 @extends('auth.admin-index')
 
-@section('title', 'Dashboard')
+@section('title', 'Tours')
 
 @section('content')
 
-<h1 class="page-header">Dashboard</h1>
+<div class="clearfix">
+    <h2 class="pull-left">Tours</h2>
 
-<h2 class="sub-header">Section title</h2>
+    <a href="{{ route('admin.addNewTour') }}" class="btn btn-primary pull-right mt">
+        Add new Tour
+    </a>
+</div>
+
+<div class="page-header"></div>
+
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>
