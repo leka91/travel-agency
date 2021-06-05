@@ -72,7 +72,7 @@
 
     <div class="form-group">
         <label for="hero_image">Hero image</label>
-        <input type="file" id="hero_image">
+        <input type="file" id="hero_image" name="hero_image">
         <p class="help-block">Upload hero image</p>
     </div>
 
