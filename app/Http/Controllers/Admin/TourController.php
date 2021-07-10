@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Category;
 
 class TourController extends Controller
 {
@@ -12,8 +12,10 @@ class TourController extends Controller
         return view('auth.tours.tours');
     }
 
-    public function addNewTour()
+    public function newTourForm()
     {
-        return view('auth.tours.add-new-tour');
+        $categories = Category::all();
+        
+        return view('auth.tours.add-new-tour', compact('categories'));
     }
 }

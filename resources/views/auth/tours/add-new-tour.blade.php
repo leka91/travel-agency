@@ -12,21 +12,11 @@
     <div class="form-group">
         <label for="category">Choose tour category</label>
         <select class="form-control" name="category" id="category">
-            <option value="1">
-                Belgrade tour
+            @foreach ($categories as $category)
+            <option value="{{ $category->id }}">
+                {{ $category->name }}
             </option>
-            <option value="2">
-                Hiking tour
-            </option>
-            <option value="3">
-                Wine tour
-            </option>
-            <option value="4">
-                One day tour
-            </option>
-            <option value="5">
-                Multi day tour
-            </option>
+            @endforeach
         </select>
     </div>
 
@@ -97,7 +87,10 @@
         </div>
     </div>
     
-    <button type="submit" class="btn btn-default mt">Submit</button>
+    <button type="submit" class="btn btn-primary mt">Save</button>
+    <a href="{{ route('admin.tours') }}" class="btn btn-default mt">
+        Back
+    </a>
 </form>
 
 @endsection

@@ -7,7 +7,7 @@
 <div class="clearfix">
     <h2 class="pull-left">Tours</h2>
 
-    <a href="{{ route('admin.addNewTour') }}" class="btn btn-primary pull-right mt">
+    <a href="{{ route('admin.newTourForm') }}" class="btn btn-primary pull-right mt">
         Add new Tour
     </a>
 </div>
