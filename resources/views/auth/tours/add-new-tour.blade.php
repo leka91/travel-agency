@@ -2,6 +2,10 @@
 
 @section('title', 'Add new Tour')
 
+@section('links')
+<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+@endsection
+
 @section('content')
 
 <h2>Add new Tour</h2>
@@ -62,7 +66,7 @@
 
     <div class="form-group">
         <label for="hero_image">Hero image</label>
-        <input type="file" id="hero_image" name="hero_image">
+        <input type="file" id="hero_image" name="hero_image" class="filepond">
         <p class="help-block">Upload hero image</p>
     </div>
 
@@ -93,4 +97,9 @@
     </a>
 </form>
 
+@endsection
+
+@section('scripts')
+
+    
 @endsection

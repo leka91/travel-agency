@@ -27,9 +27,9 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Created at</th>
+                <th>@sortablelink('id', 'ID')</th>
+                <th>@sortablelink('name', 'Name')</th>
+                <th>@sortablelink('created_at', 'Created at')</th>
                 <th class="text-right"></th>
             </tr>
         </thead>

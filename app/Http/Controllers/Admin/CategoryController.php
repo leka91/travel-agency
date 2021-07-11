@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function getAllCategories()
     {
-        $categories = Category::paginate(10);
+        $categories = Category::sortable()->paginate(10);
         
         return view('auth.categories.categories', compact('categories'));
     }
