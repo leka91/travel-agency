@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/categories', [CategoryController::class, 'addNewCategory'])->name('admin.addNewCategory');
     Route::get('/categories/edit-category/{category}', [CategoryController::class, 'editCategoryForm'])->name('admin.editCategoryForm');
     Route::put('/categories/{category}', [CategoryController::class, 'editCategory'])->name('admin.editCategory');
+
+    Route::post('/upload', [UploadController::class, 'store']);
+    Route::delete('/upload-remove', [UploadController::class, 'destroy']);
 });

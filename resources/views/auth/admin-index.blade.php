@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         {{-- <meta name="description" content="">
         <meta name="author" content="">
@@ -14,7 +15,6 @@
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
         <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-        @yield('links')
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
         <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 
@@ -42,6 +42,25 @@
         @yield('scripts')
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+        <script>
+        const inputElement = document.querySelector('input[id="hero_image"]');
+        const pond = FilePond.create(inputElement);
+
+        FilePond.setOptions({
+            server: {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+                },
+                process: {
+                    url: '/upload'
+                },
+                revert: {
+                    url: '/upload-remove',
+                }
+            }
+        });
+        </script>
 
         @yield('scripts')
     </body>

@@ -6,6 +6,4 @@ jQuery(document).ready(function ($) {
         placeholder: "Select tour requirements",
         tags: true,
     });
-
-    FilePond.create(document.querySelector('input[id="hero_image"]'));
 });
