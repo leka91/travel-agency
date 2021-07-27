@@ -15,5 +15,10 @@
                 Categories
             </a>
         </li>
+        <li class="{{ Request::is('requirements') ? 'active' : '' }}">
+            <a href="{{ route('admin.requirements') }}">
+                Requirements
+            </a>
+        </li>
     </ul>
 </div>

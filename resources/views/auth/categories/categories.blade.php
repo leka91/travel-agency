@@ -40,7 +40,7 @@
                 <td>{{ $category->name }}</td>
                 <td>{{ $category->created_at->format('d M Y') }}</td>
                 <td class="text-right">
-                    <a href="{{ route('admin.editCategoryForm', $category) }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.editCategoryForm', $category->id) }}" class="btn btn-primary btn-sm">
                         Edit
                     </a>
                 </td>

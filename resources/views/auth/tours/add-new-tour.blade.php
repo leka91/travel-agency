@@ -48,15 +48,11 @@
     <div class="form-group">
         <label for="tour_requirements">Tour requirements</label>
         <select class="form-control" name="tour_requirements[]" multiple="multiple" id="tour_requirements">
-            <option value="1">
-                Boots
+            @foreach ($requirements as $requirement)
+            <option value="{{ $requirement->id }}">
+                {{ $requirement->name }}
             </option>
-            <option value="2">
-                Water
-            </option>
-            <option value="3">
-                Backpack
-            </option>
+            @endforeach
         </select>
     </div>
 
