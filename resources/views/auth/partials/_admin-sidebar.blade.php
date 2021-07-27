@@ -6,7 +6,7 @@
             </a>
         </li>
         <li class="{{ Request::is('tours') ? 'active' : '' }}">
-            <a href="{{ route('admin.tours') }}">
+            <a href="{{ route('admin.getAlltours') }}">
                 Tours
             </a>
         </li>

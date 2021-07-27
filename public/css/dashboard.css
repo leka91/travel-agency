@@ -105,7 +105,9 @@ body {
     margin-top: 10px;
 }
 
-.locations input {
+.locations .latitude,
+.locations .longitude {
     margin-bottom: 10px;
-    width: 25%;
+    margin-right: 10px;
+    display: inline-block;
 }

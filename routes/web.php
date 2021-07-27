@@ -29,8 +29,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // tours
-    Route::get('/tours', [TourController::class, 'tours'])->name('admin.tours');
+    Route::get('/tours', [TourController::class, 'getAlltours'])->name('admin.getAlltours');
     Route::get('/tours/add-new-tour', [TourController::class, 'newTourForm'])->name('admin.newTourForm');
+    Route::post('/tours', [TourController::class, 'addNewTour'])->name('admin.addNewTour');
 
     // categories
     Route::get('/categories', [CategoryController::class, 'getAllCategories'])->name('admin.categories');

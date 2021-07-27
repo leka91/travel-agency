@@ -8,7 +8,8 @@
 
 <div class="page-header"></div>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.addNewTour') }}" enctype="multipart/form-data">
+    @csrf
     <div class="form-group">
         <label for="category">Choose tour category</label>
         <select class="form-control" name="category" id="category">
@@ -71,33 +72,26 @@
         <label>Locations</label>
 
         <div id="location_items">
+            @for ($i = 0; $i < 10; $i++)
             <div class="locations">
-                <small>
-                    Location
-                    <span>1</span>
-                </small>
-                <input type="text" name="locations[]" class="form-control">
-            </div>
-    
-            <div class="locations">
-                <small>
-                    Location
-                    <span>2</span>
-                </small>
-                <input type="text" name="locations[]" class="form-control">
-            </div>
-    
-            <div class="locations">
-                <small>
-                    Location
-                    <span>3</span>
-                </small>
-                <input type="text" name="locations[]" class="form-control">
-            </div>
+                <div class="latitude">
+                    <small>
+                        Latitude
+                    </small>
+                    <input type="text" name="locations[{{ $i }}][latitude]" class="form-control">
+                </div>
+                <div class="longitude">
+                    <small>
+                        Longitude
+                    </small>
+                    <input type="text" name="locations[{{ $i }}][longitude]" class="form-control">
+                </div>
+            </div>  
+            @endfor
 
-            <button type="button" class="btn btn-default btn-xs" id="locationBtn">
+            {{-- <button type="button" class="btn btn-default btn-xs" id="locationBtn">
                 Add location
-            </button>
+            </button> --}}
         </div>
     </div>
 
@@ -118,7 +112,7 @@
     </div>
     
     <button type="submit" class="btn btn-primary mt">Save</button>
-    <a href="{{ route('admin.tours') }}" class="btn btn-default mt">
+    <a href="{{ route('admin.getAlltours') }}" class="btn btn-default mt">
         Back
     </a>
 </form>
