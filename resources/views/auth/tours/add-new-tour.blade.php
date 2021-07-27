@@ -68,6 +68,40 @@
     </div>
 
     <div class="form-group">
+        <label>Locations</label>
+
+        <div id="location_items">
+            <div class="locations">
+                <small>
+                    Location
+                    <span>1</span>
+                </small>
+                <input type="text" name="locations[]" class="form-control">
+            </div>
+    
+            <div class="locations">
+                <small>
+                    Location
+                    <span>2</span>
+                </small>
+                <input type="text" name="locations[]" class="form-control">
+            </div>
+    
+            <div class="locations">
+                <small>
+                    Location
+                    <span>3</span>
+                </small>
+                <input type="text" name="locations[]" class="form-control">
+            </div>
+
+            <button type="button" class="btn btn-default btn-xs" id="locationBtn">
+                Add location
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group">
         <label>Payment method</label>
         <div class="radio">
             <label for="cash">
