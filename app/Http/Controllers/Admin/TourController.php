@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AddTourRequest;
 use App\Models\Category;
 use App\Models\Requirement;
+use App\Models\TemporaryFile;
 
 class TourController extends Controller
 {
@@ -24,12 +25,23 @@ class TourController extends Controller
 
     public function addNewTour(AddTourRequest $request)
     {
-        $locations = collect($request->locations)->filter(function ($value) {
-            return $value['latitude'] != null && $value['longitude'] != null;
-        })->toArray();
+        // $locations = collect($request->locations)->filter(function ($value) {
+        //     return $value['latitude'] != null && $value['longitude'] != null;
+        // })->values()->toArray();
+
+        $folders = [];
+
+        if ($request->hero_image) {
+            $timestamp = explode('-', $request->hero_image)[1];
+
+            $folders = TemporaryFile::where('timestamp', $timestamp)->get();
+
+            // dd($folders);
+        }
         
         $data = [
-            'locations' => $locations
+            // 'locations' => $locations,
+            'hero_image' => $folders
         ];
 
         dd($data);

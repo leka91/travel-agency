@@ -44,7 +44,7 @@
         <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
         <script>
-        const inputElement = document.querySelector('input[id="hero_image"]');
+        const inputElement = document.querySelector('input[type="file"]');
         const pond = FilePond.create(inputElement);
 
         FilePond.setOptions({
@@ -58,7 +58,10 @@
                 revert: {
                     url: '/upload-remove',
                 }
-            }
+            },
+            multiple: true,
+            maxParallelUploads: 3,
+            maxFiles: 5
         });
         </script>
 

@@ -24,7 +24,8 @@ class AddTourRequest extends FormRequest
     public function rules()
     {
         return [
-            'locations' => 'array'
+            'locations' => 'array|max:10',
+            'hero_image' => 'nullable'
         ];
     }
 }

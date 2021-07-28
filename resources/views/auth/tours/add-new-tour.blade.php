@@ -8,6 +8,16 @@
 
 <div class="page-header"></div>
 
+@if ($errors->all())
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        @foreach ($errors->all() as $message)
+            <p>
+                {{ $message }}
+            </p>
+        @endforeach
+    </div>
+@endif
+
 <form method="POST" action="{{ route('admin.addNewTour') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -59,7 +69,7 @@
 
     <div class="form-group">
         <label for="hero_image">Hero image</label>
-        <input type="file" id="hero_image" name="hero_image" class="filepond" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="3">
+        <input type="file" id="hero_image" name="hero_image" class="filepond" multiple data-allow-reorder="true" data-max-file-size="3MB">
         <p class="help-block">Upload hero image</p>
     </div>
 
@@ -89,9 +99,11 @@
             </div>  
             @endfor
 
-            {{-- <button type="button" class="btn btn-default btn-xs" id="locationBtn">
-                Add location
-            </button> --}}
+            @error('locations')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+            @enderror
         </div>
     </div>
 

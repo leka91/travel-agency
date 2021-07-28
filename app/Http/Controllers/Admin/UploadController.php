@@ -15,12 +15,14 @@ class UploadController extends Controller
         {
             $file = $request->file('hero_image');
             $fileName = $file->getClientOriginalName();
-            $folder = uniqid() . '-' . now()->timestamp;
+            $timestamp = now()->roundMinute()->timestamp;
+            $folder = uniqid() . '-' . $timestamp;
             $file->storeAs('uploads/tmp/' . $folder, $fileName, 'public');
 
             TemporaryFile::create([
-                'folder'   => $folder,
-                'filename' => $fileName
+                'folder'    => $folder,
+                'filename'  => $fileName,
+                'timestamp' => $timestamp,
             ]);
 
             return $folder;
