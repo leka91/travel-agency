@@ -15,7 +15,7 @@ class UploadController extends Controller
         {
             $file = $request->file('hero_image');
             $fileName = $file->getClientOriginalName();
-            $timestamp = now()->roundMinute()->timestamp;
+            $timestamp = now()->roundMinutes(5)->timestamp;
             $folder = uniqid() . '-' . $timestamp;
             $file->storeAs('uploads/tmp/' . $folder, $fileName, 'public');
 

@@ -8,7 +8,7 @@
 
 <div class="page-header"></div>
 
-@if ($errors->all())
+{{-- @if ($errors->all())
     <div class="alert alert-danger alert-dismissible" role="alert">
         @foreach ($errors->all() as $message)
             <p>
@@ -16,29 +16,47 @@
             </p>
         @endforeach
     </div>
-@endif
+@endif --}}
 
 <form method="POST" action="{{ route('admin.addNewTour') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label for="category">Choose tour category</label>
-        <select class="form-control" name="category" id="category">
+        <select class="form-control" name="category_id" id="category">
             @foreach ($categories as $category)
             <option value="{{ $category->id }}">
                 {{ $category->name }}
             </option>
             @endforeach
         </select>
+
+        @error('category_id')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" name="title" class="form-control" id="title" placeholder="Enter title">
+
+        @error('title')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="subtitle">Subtitle</label>
         <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Enter subtitle">
+
+        @error('subtitle')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
 
     <div class="form-group">

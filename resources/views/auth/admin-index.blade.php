@@ -44,10 +44,8 @@
         <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
         <script>
-        const inputElement = document.querySelector('input[type="file"]');
-        const pond = FilePond.create(inputElement);
-
-        FilePond.setOptions({
+        const heroImage = document.querySelector('input[id="hero_image"]');
+        const heroImageOptions = {
             server: {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
@@ -60,9 +58,11 @@
                 }
             },
             multiple: true,
-            maxParallelUploads: 3,
             maxFiles: 5
-        });
+        };
+        FilePond.create(heroImage, heroImageOptions);
+
+       
         </script>
 
         @yield('scripts')

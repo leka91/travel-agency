@@ -16,4 +16,9 @@ class Category extends Model
         'name', 
         'created_at'
     ];
+
+    public function tours()
+    {
+        return $this->hasMany(Tour::class);
+    }
 }
