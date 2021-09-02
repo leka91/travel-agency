@@ -14,7 +14,7 @@ class AddTimestampColumnToTemporaryFilesTable extends Migration
     public function up()
     {
         Schema::table('temporary_files', function (Blueprint $table) {
-            $table->string('timestamp')->after('filename');
+            $table->string('timestamp')->nullable()->after('filename');
         });
     }
 

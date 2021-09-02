@@ -25,10 +25,18 @@ class AddTourRequest extends FormRequest
     {
         return [
             'category_id' => 'required|integer',
-            'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'locations' => 'nullable|array|max:10',
-            'hero_image' => 'nullable'
+            'title'       => 'required|string|max:255',
+            'subtitle'    => 'required|string|max:255',
+            'locations'   => 'nullable|array|max:10',
+            'heroimage'   => 'required',
+            'gallery'     => 'nullable'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'heroimage.required' => 'Please select Hero image'
         ];
     }
 }

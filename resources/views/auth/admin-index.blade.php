@@ -43,28 +43,6 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
-        <script>
-        const heroImage = document.querySelector('input[id="hero_image"]');
-        const heroImageOptions = {
-            server: {
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
-                },
-                process: {
-                    url: '/upload'
-                },
-                revert: {
-                    url: '/upload-remove',
-                }
-            },
-            multiple: true,
-            maxFiles: 5
-        };
-        FilePond.create(heroImage, heroImageOptions);
-
-       
-        </script>
-
         @yield('scripts')
     </body>
 </html>

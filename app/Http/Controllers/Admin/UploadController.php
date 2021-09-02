@@ -11,24 +11,40 @@ class UploadController extends Controller
 {
     public function store(Request $request)
     {
-        if ($request->hasFile('hero_image')) 
-        {
-            $file = $request->file('hero_image');
-            $fileName = $file->getClientOriginalName();
-            $timestamp = now()->roundMinutes(5)->timestamp;
-            $folder = uniqid() . '-' . $timestamp;
-            $file->storeAs('uploads/tmp/' . $folder, $fileName, 'public');
-
-            TemporaryFile::create([
-                'folder'    => $folder,
-                'filename'  => $fileName,
-                'timestamp' => $timestamp,
-            ]);
-
-            return $folder;
+        // TODO: add new route for hero image
+        
+        if ($request->hasFile('gallery')) {
+            $file = $request->file('gallery');
+        } elseif ($request->hasFile('heroimage')) {
+            $file = $request->file('heroimage');
+        } else {
+            return '';
         }
 
-        return '';
+        if (!in_array($file->extension(), ['jpeg','png','jpg'])) {
+            return response()->json(
+                'Invalid image format', 422
+            );
+        }
+
+        if ($file->getSize() > 1e+6) {
+            return response()->json(
+                'Image Size is exceeding 1 Mb', 422
+            );
+        }
+
+        $fileName = $file->getClientOriginalName();
+        $timestamp = now()->roundYear()->timestamp;
+        $folder = uniqid() . '-' . $timestamp;
+        $file->storeAs('uploads/tmp/' . $folder, $fileName, 'public');
+
+        TemporaryFile::create([
+            'folder'    => $folder,
+            'filename'  => $fileName,
+            'timestamp' => $request->hasFile('gallery') ? $timestamp : null,
+        ]);
+
+        return $folder;
     }
 
     public function destroy()

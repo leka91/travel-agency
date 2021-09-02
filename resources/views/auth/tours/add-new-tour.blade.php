@@ -86,9 +86,21 @@
     </div>
 
     <div class="form-group">
-        <label for="hero_image">Hero image</label>
-        <input type="file" id="hero_image" name="hero_image" class="filepond" multiple data-allow-reorder="true" data-max-file-size="3MB">
+        <label for="heroimage">Hero image</label>
+        <input type="file" id="heroimage" name="heroimage" class="filepond" data-max-file-size="1MB">
         <p class="help-block">Upload hero image</p>
+
+        @error('heroimage')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label for="gallery">Gallery</label>
+        <input type="file" id="gallery" name="gallery" class="filepond" multiple data-allow-reorder="true" data-max-file-size="1MB">
+        <p class="help-block">Upload images for gallery</p>
     </div>
 
     <div class="form-group">

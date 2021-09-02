@@ -22,27 +22,6 @@ class TourController extends Controller
     {
         $categories   = Category::all();
         $requirements = Requirement::all();
-
-        // $images = [];
-
-
-        // for ($i = 1; $i < 6; $i++) { 
-        //     $images[] = [
-        //         'image' => "image_{$i}.png"
-        //     ];
-        // }
-
-        // dump($images);
-
-        // dd('*****************');
-
-        // $path = 'public/uploads/heroimage/Y15IwqlH2OrmqcuFkMaXLwHCnDTDyLikKdTLVZSl.png';
-
-        // $file = explode('/', $path)[3];
-
-        // dump($file);
-
-        // dd('****************');
         
         return view('auth.tours.add-new-tour', compact('categories', 'requirements'));
     }
@@ -50,61 +29,91 @@ class TourController extends Controller
     public function addNewTour(AddTourRequest $request)
     {
         $user = auth()->user();
-        
-        // $locations = collect($request->locations)->filter(function ($value) {
-        //     return $value['latitude'] != null && $value['longitude'] != null;
-        // })->values()->toArray();
 
         $data = [
             'category_id' => $request->category_id,
-            'title' => $request->title,
-            'subtitle' => $request->subtitle
+            'title'       => $request->title,
+            'subtitle'    => $request->subtitle,
+            'hero_image'  => $this->getHeroImage($request->heroimage)
         ];
 
         $tour = $user->tours()->create($data);
 
+        if ($request->locations) {
+            $locations = collect($request->locations)
+                ->filter(function ($value){
+                    return $value['latitude'] != null && 
+                           $value['longitude'] != null;
+                })->values()->toArray();
+        }
+
+        if ($request->gallery) {
+            $images = $this->getGalleryImages($request->gallery);
+            $tour->galleries()->createMany($images);
+        }
+
+        return back();
+    }
+
+    public function getHeroImage($heroImage)
+    {
+        $folderName = explode('-', $heroImage)[0];
+
+        $temporaryFile = TemporaryFile::where('folder', $folderName)->first();
+        
+        if ($temporaryFile) {
+            $folder   = $temporaryFile->folder;
+            $filename = $temporaryFile->filename;
+
+            $filenamePath = storage_path('app/public/uploads/tmp/' . $folder . '/' . $filename);
+
+            $folderPath = storage_path('app/public/uploads/tmp/' . $folder);
+
+            $file = Storage::putFile(
+                'public/uploads/heroimage', new File($filenamePath)
+            );
+
+            $image = explode('/', $file)[3];
+
+            FileFacade::deleteDirectory($folderPath);
+
+            $temporaryFile->delete();
+
+            return $image;
+        }
+    }
+
+    public function getGalleryImages($gallery)
+    {
         $images = [];
+        $timestamp = explode('-', $gallery)[1];
 
-        if ($request->hero_image) {
-            $timestamp = explode('-', $request->hero_image)[1];
+        $temporaryFiles = TemporaryFile::where('timestamp', $timestamp)->get();
 
-            $temporaryFiles = TemporaryFile::where('timestamp', $timestamp)
-                ->get();
+        foreach ($temporaryFiles as $temporaryFile) {
+            if ($temporaryFile) {
+                $folder   = $temporaryFile->folder;
+                $filename = $temporaryFile->filename;
 
-            if ($temporaryFiles->count()) {
-                foreach ($temporaryFiles as $temporaryFile) {
-                    if ($temporaryFile) {
-                        $folder   = $temporaryFile->folder;
-                        $filename = $temporaryFile->filename;
+                $filenamePath = storage_path('app/public/uploads/tmp/' . $folder . '/' . $filename);
 
-                        $filenamePath = storage_path('app/public/uploads/tmp/' . $folder . '/' . $filename);
+                $folderPath = storage_path('app/public/uploads/tmp/' . $folder);
 
-                        $folderPath = storage_path('app/public/uploads/tmp/' . $folder);
+                $file = Storage::putFile(
+                    'public/uploads/gallery', new File($filenamePath)
+                );
 
-                        $file = Storage::putFile(
-                            'public/uploads/heroimage', new File($filenamePath)
-                        );
+                $image = explode('/', $file)[3];
+                $images[] = [
+                    'image' => $image
+                ];
 
-                        $image = explode('/', $file)[3];
-                        $images[] = [
-                            'image' => $image
-                        ];
+                FileFacade::deleteDirectory($folderPath);
 
-                        FileFacade::deleteDirectory($folderPath);
-
-                        $temporaryFile->delete();
-                    }
-                }
-
-                $tour->galleries()->createMany($images);
+                $temporaryFile->delete();
             }
         }
-        
-        // $data = [
-        //     // 'locations' => $locations,
-        //     'hero_image' => $images
-        // ];
 
-        dd('SUCCESS');
+        return $images;
     }
 }

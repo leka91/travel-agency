@@ -111,3 +111,7 @@ body {
     margin-right: 10px;
     display: inline-block;
 }
+
+.filepond--root {
+    font-size: 16px !important;
+}
