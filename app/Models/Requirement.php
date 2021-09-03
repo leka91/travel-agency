@@ -15,4 +15,9 @@ class Requirement extends Model
         'name', 
         'created_at'
     ];
+
+    public function tours()
+    {
+        return $this->belongsToMany(Tour::class);
+    }
 }

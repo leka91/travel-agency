@@ -75,8 +75,8 @@
     </div>
 
     <div class="form-group">
-        <label for="tour_requirements">Tour requirements</label>
-        <select class="form-control" name="tour_requirements[]" multiple="multiple" id="tour_requirements">
+        <label for="requirements">Tour requirements</label>
+        <select class="form-control" name="requirements[]" multiple="multiple" id="requirements">
             @foreach ($requirements as $requirement)
             <option value="{{ $requirement->id }}">
                 {{ $requirement->name }}

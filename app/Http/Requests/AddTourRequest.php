@@ -24,12 +24,13 @@ class AddTourRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required|integer',
-            'title'       => 'required|string|max:255',
-            'subtitle'    => 'required|string|max:255',
-            'locations'   => 'nullable|array|max:10',
-            'heroimage'   => 'required',
-            'gallery'     => 'nullable'
+            'category_id'  => 'required|integer',
+            'title'        => 'required|string|max:255',
+            'subtitle'     => 'required|string|max:255',
+            'requirements' => 'nullable|array',
+            'locations'    => 'nullable|array|max:10',
+            'heroimage'    => 'nullable',
+            'gallery'      => 'nullable'
         ];
     }
 
