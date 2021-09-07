@@ -26,6 +26,11 @@ class Tour extends Model
         return $this->hasMany(Gallery::class);
     }
 
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
+
     public function requirements()
     {
         return $this->belongsToMany(Requirement::class);

@@ -29,6 +29,8 @@ class AddTourRequest extends FormRequest
             'subtitle'     => 'required|string|max:255',
             'requirements' => 'nullable|array',
             'locations'    => 'nullable|array|max:10',
+            'locations.*.lat' => 'nullable|numeric|between:-90,90',
+            'locations.*.lng' => 'nullable|numeric|between:-180,180',
             'heroimage'    => 'nullable',
             'gallery'      => 'nullable'
         ];
@@ -37,7 +39,11 @@ class AddTourRequest extends FormRequest
     public function messages()
     {
         return [
-            'heroimage.required' => 'Please select Hero image'
+            'heroimage.required'       => 'Please select Hero image',
+            'locations.*.lat.numeric'  => 'Latitude must be numeric',
+            'locations.*.lng.numeric'  => 'longitude must be numeric',
+            'locations.*.lat.between'  => 'The latitude must be in range between -90 and 90',
+            'locations.*.lng.between'  => 'The longitude must be in range between -180 and 180'
         ];
     }
 }

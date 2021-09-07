@@ -40,25 +40,29 @@ class TourController extends Controller
 
         $tour = $user->tours()->create($data);
 
-        if ($request->requirements) {
-            $requirements = $this->checkForExistingRows($request->requirements);
-            $tour->requirements()->sync($requirements);
-        }
-
         if ($request->locations) {
-            $locations = collect($request->locations)
-                ->filter(function ($value){
-                    return $value['latitude'] != null && 
-                           $value['longitude'] != null;
-                })->values()->toArray();
+            $locations = $this->getLocations($request->locations);
+            $tour->locations()->createMany($locations);
         }
 
-        if ($request->gallery) {
-            $images = $this->getGalleryImages($request->gallery);
-            $tour->galleries()->createMany($images);
-        }
+        // if ($request->requirements) {
+        //     $requirements = $this->checkForExistingRows($request->requirements);
+        //     $tour->requirements()->sync($requirements);
+        // }
+
+        // if ($request->gallery) {
+        //     $images = $this->getGalleryImages($request->gallery);
+        //     $tour->galleries()->createMany($images);
+        // }
 
         return back();
+    }
+
+    private function getLocations($locations)
+    {
+        return collect($locations)->filter(function ($value){
+            return $value['lat'] != null && $value['lng'] != null;
+        })->values()->toArray();
     }
 
     private function getHeroImage($heroImage)
