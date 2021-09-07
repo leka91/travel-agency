@@ -11,8 +11,6 @@ class UploadController extends Controller
 {
     public function store(Request $request)
     {
-        // TODO: add new route for hero image
-        
         if ($request->hasFile('gallery')) {
             $file = $request->file('gallery');
         } elseif ($request->hasFile('heroimage')) {

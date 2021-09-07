@@ -7,6 +7,7 @@ use App\Http\Requests\AddTourRequest;
 use App\Models\Category;
 use App\Models\Requirement;
 use App\Models\TemporaryFile;
+use App\Models\Tour;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +17,9 @@ class TourController extends Controller
 {
     public function getAlltours()
     {
-        return view('auth.tours.tours');
+        $tours = Tour::with('requirements')->sortable()->paginate(10);
+        
+        return view('auth.tours.tours', compact('tours'));
     }
 
     public function newTourForm()
@@ -32,11 +35,20 @@ class TourController extends Controller
         $user = auth()->user();
 
         $data = [
-            'category_id' => $request->category_id,
-            'title'       => $request->title,
-            'subtitle'    => $request->subtitle,
-            'hero_image'  => $this->getHeroImage($request->heroimage)
+            'category_id'      => $request->category_id,
+            'title'            => $request->title,
+            'slug'             => Str::slug($request->title),
+            'subtitle'         => $request->subtitle,
+            'meta_keywords'    => $request->meta_keywords,
+            'meta_description' => $request->meta_description,
+            'steps'            => $request->steps,
+            'about'            => $request->about,
+            'concept'          => $request->concept,
+            'price'            => $request->price,
+            'hero_image'       => $this->getHeroImage($request->heroimage)
         ];
+
+        // dd($data);
 
         $tour = $user->tours()->create($data);
 
@@ -45,22 +57,23 @@ class TourController extends Controller
             $tour->locations()->createMany($locations);
         }
 
-        // if ($request->requirements) {
-        //     $requirements = $this->checkForExistingRows($request->requirements);
-        //     $tour->requirements()->sync($requirements);
-        // }
+        if ($request->requirements) {
+            $requirements = $this->checkForExistingRows($request->requirements);
+            $tour->requirements()->sync($requirements);
+        }
 
-        // if ($request->gallery) {
-        //     $images = $this->getGalleryImages($request->gallery);
-        //     $tour->galleries()->createMany($images);
-        // }
+        if ($request->gallery) {
+            $images = $this->getGalleryImages($request->gallery);
+            $tour->galleries()->createMany($images);
+        }
 
-        return back();
+        // return back();
+        return back()->with('status', 'You have added tour successfully');
     }
 
     private function getLocations($locations)
     {
-        return collect($locations)->filter(function ($value){
+        return collect($locations)->filter(function ($value) {
             return $value['lat'] != null && $value['lng'] != null;
         })->values()->toArray();
     }

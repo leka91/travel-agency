@@ -24,26 +24,32 @@ class AddTourRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id'  => 'required|integer',
-            'title'        => 'required|string|max:255',
-            'subtitle'     => 'required|string|max:255',
-            'requirements' => 'nullable|array',
-            'locations'    => 'nullable|array|max:10',
-            'locations.*.lat' => 'nullable|numeric|between:-90,90',
-            'locations.*.lng' => 'nullable|numeric|between:-180,180',
-            'heroimage'    => 'nullable',
-            'gallery'      => 'nullable'
+            'category_id'      => 'required|integer',
+            'title'            => 'required|string|max:255',
+            'subtitle'         => 'required|string|max:255',
+            'meta_keywords'    => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:255',
+            'steps'            => 'nullable|string',
+            'about'            => 'nullable|string',
+            'concept'          => 'nullable|string',
+            'requirements'     => 'nullable|array',
+            'heroimage'        => 'nullable',
+            'gallery'          => 'nullable',
+            'price'            => 'nullable|integer',
+            'locations'        => 'nullable|array|max:10',
+            'locations.*.lat'  => 'nullable|numeric|between:-90,90',
+            'locations.*.lng'  => 'nullable|numeric|between:-180,180'
         ];
     }
 
     public function messages()
     {
         return [
-            'heroimage.required'       => 'Please select Hero image',
-            'locations.*.lat.numeric'  => 'Latitude must be numeric',
-            'locations.*.lng.numeric'  => 'longitude must be numeric',
-            'locations.*.lat.between'  => 'The latitude must be in range between -90 and 90',
-            'locations.*.lng.between'  => 'The longitude must be in range between -180 and 180'
+            'heroimage.required'      => 'Please select Hero image',
+            'locations.*.lat.numeric' => 'Latitude must be numeric',
+            'locations.*.lng.numeric' => 'longitude must be numeric',
+            'locations.*.lat.between' => 'The latitude must be in range between -90 and 90',
+            'locations.*.lng.between' => 'The longitude must be in range between -180 and 180'
         ];
     }
 }

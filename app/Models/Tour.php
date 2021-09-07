@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Tour extends Model
 {
-    use HasFactory;
+    use Sortable;
 
     protected $guarded = [];
+    public $sortable = [
+        'id', 
+        'title', 
+        'subtitle', 
+        'price', 
+        'created_at'
+    ];
 
     public function user()
     {

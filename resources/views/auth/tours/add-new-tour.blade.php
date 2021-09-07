@@ -18,6 +18,9 @@
     </div>
 @endif --}}
 
+@component('auth.components.status.success')
+@endcomponent
+
 <form method="POST" action="{{ route('admin.addNewTour') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -60,18 +63,72 @@
     </div>
 
     <div class="form-group">
+        <label for="meta_keywords">
+            <strong>SEO keywords</strong>
+            <small>
+                <em>
+                    (Preferebly up to 10 words)
+                </em>
+            </small>
+        </label>
+        <input type="text" class="form-control" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords') }}">
+
+        @error('meta_keywords')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label for="meta_description">
+            <strong>SEO description</strong>
+            <small>
+                <em>
+                    (A brief description of the tour)
+                </em>
+            </small>
+        </label>
+        <input type="text" class="form-control" id="meta_description" name="meta_description" value="{{ old('meta_description') }}">
+
+        @error('meta_description')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+    </div>
+
+    <div class="form-group">
         <label for="steps">Steps</label>
-        <textarea name="steps" class="form-control" rows="3" id="steps" placeholder="Step by step"></textarea>
+        <textarea name="steps" class="form-control" rows="3" id="steps" placeholder="Step by step">{{ old('steps') }}</textarea>
+
+        @error('steps')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="about">About</label>
-        <textarea name="about" class="form-control" rows="3" id="about" placeholder="What is it about?"></textarea>
+        <textarea name="about" class="form-control" rows="3" id="about" placeholder="What is it about?">{{ old('about') }}</textarea>
+
+        @error('steps')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
 
     <div class="form-group">
         <label for="concept">Concept</label>
-        <textarea name="concept" class="form-control" rows="3" id="concept" placeholder="What is the concept?"></textarea>
+        <textarea name="concept" class="form-control" rows="3" id="concept" placeholder="What is the concept?">{{ old('concept') }}</textarea>
+
+        @error('concept')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
 
     <div class="form-group">
@@ -83,6 +140,12 @@
             </option>
             @endforeach
         </select>
+
+        @error('requirements')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
     </div>
 
     <div class="form-group">
@@ -109,6 +172,14 @@
     </div>
 
     <div class="form-group">
+        <label for="meta_description">
+            <strong>Locations</strong>
+            <small>
+                <em>
+                    (For google map)
+                </em>
+            </small>
+        </label>
         <div class="locations">
             <div class="lat">
                 <small>
