@@ -29,6 +29,7 @@ class AddTourRequest extends FormRequest
             'subtitle'         => 'required|string|max:255',
             'meta_keywords'    => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:255',
+            'description'      => 'nullable|string',
             'steps'            => 'nullable|string',
             'about'            => 'nullable|string',
             'concept'          => 'nullable|string',

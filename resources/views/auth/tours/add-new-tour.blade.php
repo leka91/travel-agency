@@ -99,32 +99,17 @@
     </div>
 
     <div class="form-group">
-        <label for="steps">Steps</label>
-        <textarea name="steps" class="form-control" rows="3" id="steps" placeholder="Step by step">{{ old('steps') }}</textarea>
+        <label for="description">
+            <strong>Description</strong>
+            <small>
+                <em>
+                    (Includes steps, about and concept of tour)
+                </em>
+            </small>
+        </label>
+        <textarea name="description" class="form-control" id="description">{{ old('description') }}</textarea>
 
-        @error('steps')
-            <span class="text-danger">
-                {{ $message }}
-            </span>
-        @enderror
-    </div>
-
-    <div class="form-group">
-        <label for="about">About</label>
-        <textarea name="about" class="form-control" rows="3" id="about" placeholder="What is it about?">{{ old('about') }}</textarea>
-
-        @error('steps')
-            <span class="text-danger">
-                {{ $message }}
-            </span>
-        @enderror
-    </div>
-
-    <div class="form-group">
-        <label for="concept">Concept</label>
-        <textarea name="concept" class="form-control" rows="3" id="concept" placeholder="What is the concept?">{{ old('concept') }}</textarea>
-
-        @error('concept')
+        @error('description')
             <span class="text-danger">
                 {{ $message }}
             </span>
@@ -172,7 +157,7 @@
     </div>
 
     <div class="form-group">
-        <label for="meta_description">
+        <label>
             <strong>Locations</strong>
             <small>
                 <em>

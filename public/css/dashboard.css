@@ -115,3 +115,7 @@ body {
 .filepond--root {
     font-size: 16px !important;
 }
+
+.ck-editor__editable_inline {
+    min-height: 300px;
+}
