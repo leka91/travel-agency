@@ -48,8 +48,6 @@ class TourController extends Controller
             'hero_image'       => $this->getHeroImage($request->heroimage)
         ];
 
-        // dd($data);
-
         $tour = $user->tours()->create($data);
 
         if ($request->locations) {
@@ -67,7 +65,6 @@ class TourController extends Controller
             $tour->galleries()->createMany($images);
         }
 
-        // return back();
         return back()->with('status', 'You have added tour successfully');
     }
 
