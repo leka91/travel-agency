@@ -14,7 +14,10 @@ class TourController extends Controller
 {
     public function getAlltours()
     {
-        $tours = Tour::with('requirements')->sortable()->paginate(10);
+        $tours = Tour::with([
+            'requirements',
+            'category'
+        ])->sortable()->paginate(10);
         
         return view('auth.tours.tours', compact('tours'));
     }
@@ -69,5 +72,17 @@ class TourController extends Controller
         }
 
         return back()->with('status', 'You have added tour successfully');
+    }
+
+    public function editTourForm(Tour $tour)
+    {
+        $tour->load('requirements', 'locations');
+        
+        $categories   = Category::all();
+        $requirements = Requirement::all();
+
+        dd($tour->toArray());
+
+        return view('auth.tours.edit-tour', compact('tour', 'categories', 'requirements'));
     }
 }

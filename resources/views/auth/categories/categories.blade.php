@@ -37,7 +37,13 @@
             @foreach ($categories as $category)
             <tr>
                 <td>{{ $category->id }}</td>
-                <td>{{ $category->name }}</td>
+                <td>
+                    {{ $category->name }} 
+                    &nbsp;
+                    <span class="badge">
+                        {{ $category->tours->count() }}
+                    </span>
+                </td>
                 <td>{{ $category->created_at->format('d M Y') }}</td>
                 <td class="text-right">
                     <a href="{{ route('admin.editCategoryForm', $category->id) }}" class="btn btn-primary btn-sm">

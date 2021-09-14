@@ -32,6 +32,7 @@
                 <th>@sortablelink('subtitle', 'Subtitle')</th>
                 <th>@sortablelink('price', 'Price')</th>
                 <th>@sortablelink('created_at', 'Created at')</th>
+                <th>Category</th>
                 <th>Requirements</th>
                 <th class="text-right"></th>
             </tr>
@@ -44,6 +45,7 @@
                 <td>{{ $tour->subtitle }}</td>
                 <td>{{ $tour->price ? $tour->price . ' €' : '' }}</td>
                 <td>{{ $tour->created_at->format('d M Y') }}</td>
+                <td>{{ $tour->category->name }}</td>
                 <td>
                     @foreach ($tour->requirements as $requirement)
                     <span class="badge">
@@ -52,7 +54,7 @@
                     @endforeach
                 </td>
                 <td class="text-right">
-                    <a href="#" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.editTourForm', $tour->id) }}" class="btn btn-primary btn-sm">
                         Edit
                     </a>
                 </td>
