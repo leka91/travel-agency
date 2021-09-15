@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\RequirementController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\PageController;
@@ -33,6 +34,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tours/add-new-tour', [TourController::class, 'newTourForm'])->name('admin.newTourForm');
     Route::post('/tours', [TourController::class, 'addNewTour'])->name('admin.addNewTour');
     Route::get('/tours/edit-tour/{tour}', [TourController::class, 'editTourForm'])->name('admin.editTourForm');
+    Route::put('/tours/{tour}', [TourController::class, 'editTour'])->name('admin.editTour');
+
+    // galleries
+    Route::post('/galleries/remove-gallery-image', [GalleryController::class, 'removeGalleryImage']);
 
     // categories
     Route::get('/categories', [CategoryController::class, 'getAllCategories'])->name('admin.categories');

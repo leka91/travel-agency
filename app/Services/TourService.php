@@ -11,6 +11,30 @@ use Illuminate\Support\Str;
 
 class TourService
 {
+    public static function getLocationsForUpdate($locations)
+    {
+        $mappedLocations = collect($locations)->map(function($item) {
+            return [
+                'lat' => $item['lat'],
+                'lng' => $item['lng']
+            ];
+        });
+
+        if ($mappedLocations->count() < 10) {
+            $currentNumberOfLocations   = $mappedLocations->count();
+            $remainingNumberOfLocations = 10 - $currentNumberOfLocations;
+
+            for ($i = $remainingNumberOfLocations; $i > 0; $i--) {
+                $mappedLocations->push([
+                    'lat' => '',
+                    'lng' => ''
+                ]);
+            }
+        }
+
+        return $mappedLocations;
+    }
+    
     public static function getLocations($locations)
     {
         return collect($locations)->filter(function ($value) {

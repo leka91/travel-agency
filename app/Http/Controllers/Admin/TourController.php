@@ -76,13 +76,22 @@ class TourController extends Controller
 
     public function editTourForm(Tour $tour)
     {
-        $tour->load('requirements', 'locations');
+        $tour->load('requirements', 'galleries', 'locations');
         
         $categories   = Category::all();
         $requirements = Requirement::all();
+        $locations    = TourService::getLocationsForUpdate($tour->locations);
 
-        dd($tour->toArray());
+        return view('auth.tours.edit-tour', compact(
+            'tour', 
+            'categories', 
+            'requirements',
+            'locations'
+        ));
+    }
 
-        return view('auth.tours.edit-tour', compact('tour', 'categories', 'requirements'));
+    public function editTour(Tour $tour)
+    {
+        //
     }
 }

@@ -146,11 +146,33 @@
         @enderror
     </div>
 
-    {{-- <div class="form-group">
+    @if ($tour->hero_image)
+    <div class="form-group">
+        <img width="700" src="{{ $tour->heroImage() }}" alt="{{ $tour->title }}" class="img-thumbnail">
+    </div>
+    @endif
+
+    <div class="form-group">
         <label for="gallery">Gallery</label>
         <input type="file" id="gallery" name="gallery" class="filepond" multiple data-allow-reorder="true" data-max-file-size="1MB">
         <p class="help-block">Upload images for gallery</p>
-    </div> --}}
+    </div>
+
+    @if ($tour->galleries)
+    <div class="form-group">
+        <div id="gallery-info-box"></div>
+        @foreach ($tour->galleries as $gallery)
+        <div class="gallery-image">
+            <img width="320" src="{{ $tour->galleryImage($gallery->image) }}" alt="{{ $tour->title }}" class="img-thumbnail">
+            <button type="button" class="btn btn-danger btn-sm gallery-image-btn" data-galleryId="{{ $gallery->id }}">
+                <strong>
+                    X
+                </strong>
+            </button>
+        </div>
+        @endforeach
+    </div>
+    @endif
 
     <div class="form-group">
         <label for="price">Price</label>
@@ -163,7 +185,7 @@
         @enderror
     </div>
 
-    {{-- <div class="form-group">
+    <div class="form-group">
         <label>
             <strong>Locations</strong>
             <small>
@@ -172,15 +194,17 @@
                 </em>
             </small>
         </label>
+
+        @foreach ($locations as $key => $location)
         <div class="locations">
             <div class="lat">
                 <small>
                     Latitude
                 </small>
 
-                <input type="text" name="locations[0][lat]" class="form-control" value="{{ old('locations.0.lat') }}">
+                <input type="text" name="locations[{{ $key }}][lat]" class="form-control" value="{{ $location['lat'] ?? old("locations.{$key}.lat") }}">
 
-                @error('locations.0.lat')
+                @error("locations.{$key}.lat")
                 <span class="text-danger">
                     {{ $message }}
                 </span>
@@ -192,294 +216,25 @@
                     Longitude
                 </small>
 
-                <input type="text" name="locations[0][lng]" class="form-control" value="{{ old('locations.0.lng') }}">
+                <input type="text" name="locations[{{ $key }}][lng]" class="form-control" value="{{ $location['lng'] ?? old("locations.{$key}.lng") }}">
 
-                @error('locations.0.lng')
+                @error("locations.{$key}.lng")
                 <span class="text-danger">
                     {{ $message }}
                 </span>
                 @enderror
             </div>
         </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[1][lat]" class="form-control" value="{{ old('locations.1.lat') }}">
-
-                @error('locations.1.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[1][lng]" class="form-control" value="{{ old('locations.1.lng') }}">
-
-                @error('locations.1.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[2][lat]" class="form-control" value="{{ old('locations.2.lat') }}">
-
-                @error('locations.2.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[2][lng]" class="form-control" value="{{ old('locations.2.lng') }}">
-
-                @error('locations.2.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[3][lat]" class="form-control" value="{{ old('locations.3.lat') }}">
-
-                @error('locations.3.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[3][lng]" class="form-control" value="{{ old('locations.3.lng') }}">
-
-                @error('locations.3.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[4][lat]" class="form-control" value="{{ old('locations.4.lat') }}">
-
-                @error('locations.4.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[4][lng]" class="form-control" value="{{ old('locations.4.lng') }}">
-
-                @error('locations.4.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[5][lat]" class="form-control" value="{{ old('locations.5.lat') }}">
-
-                @error('locations.5.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[5][lng]" class="form-control" value="{{ old('locations.5.lng') }}">
-
-                @error('locations.5.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[6][lat]" class="form-control" value="{{ old('locations.6.lat') }}">
-
-                @error('locations.6.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[6][lng]" class="form-control" value="{{ old('locations.6.lng') }}">
-
-                @error('locations.6.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[7][lat]" class="form-control" value="{{ old('locations.7.lat') }}">
-
-                @error('locations.7.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[7][lng]" class="form-control" value="{{ old('locations.7.lng') }}">
-
-                @error('locations.7.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[8][lat]" class="form-control" value="{{ old('locations.8.lat') }}">
-
-                @error('locations.8.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[8][lng]" class="form-control" value="{{ old('locations.8.lng') }}">
-
-                @error('locations.8.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="locations">
-            <div class="lat">
-                <small>
-                    Latitude
-                </small>
-
-                <input type="text" name="locations[9][lat]" class="form-control" value="{{ old('locations.9.lat') }}">
-
-                @error('locations.9.lat')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-
-            <div class="lng">
-                <small>
-                    Longitude
-                </small>
-
-                <input type="text" name="locations[9][lng]" class="form-control" value="{{ old('locations.9.lng') }}">
-
-                @error('locations.9.lng')
-                <span class="text-danger">
-                    {{ $message }}
-                </span>
-                @enderror
-            </div>
-        </div>
+        @endforeach
 
         @error('locations')
         <span class="text-danger">
             {{ $message }}
         </span>
         @enderror
-    </div> --}}
+    </div>
 
-    {{-- <div class="form-group">
+    <div class="form-group">
         <label>Payment method</label>
         <div class="radio">
             <label for="cash">
@@ -493,12 +248,12 @@
                 Credit card
             </label>
         </div>
-    </div> --}}
+    </div>
     
-    {{-- <button type="submit" class="btn btn-primary mt">Save</button>
+    <button type="submit" class="btn btn-primary mt">Save</button>
     <a href="{{ route('admin.getAlltours') }}" class="btn btn-default mt">
         Back
-    </a> --}}
+    </a>
 </form>
 
 @endsection

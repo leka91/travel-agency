@@ -42,4 +42,14 @@ class Tour extends Model
     {
         return $this->belongsToMany(Requirement::class);
     }
+
+    public function heroImage()
+    {
+        return asset("/storage/uploads/heroimage/{$this->hero_image}");
+    }
+
+    public function galleryImage($image)
+    {
+        return asset("/storage/uploads/gallery/{$this->id}/{$image}");
+    }
 }
