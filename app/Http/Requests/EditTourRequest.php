@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class AddTourRequest extends FormRequest
+class EditTourRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +26,12 @@ class AddTourRequest extends FormRequest
     {
         return [
             'category_id'      => 'required|integer',
-            'title'            => 'required|string|max:255|unique:tours',
+            'title'            => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('tours', 'title')->ignore($this->tour)
+            ],
             'subtitle'         => 'required|string|max:255',
             'meta_keywords'    => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:255',

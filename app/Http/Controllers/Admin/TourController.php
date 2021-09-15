@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddTourRequest;
+use App\Http\Requests\EditTourRequest;
 use App\Models\Category;
 use App\Models\Requirement;
 use App\Models\Tour;
 use App\Services\TourService;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TourController extends Controller
@@ -42,9 +44,6 @@ class TourController extends Controller
             'meta_keywords'    => $request->meta_keywords,
             'meta_description' => $request->meta_description,
             'description'      => clean($request->description),
-            'steps'            => $request->steps,
-            'about'            => $request->about,
-            'concept'          => $request->concept,
             'price'            => $request->price,
             'hero_image'       => TourService::getHeroImage($request->heroimage)
         ];
@@ -90,8 +89,59 @@ class TourController extends Controller
         ));
     }
 
-    public function editTour(Tour $tour)
+    public function editTour(EditTourRequest $request, Tour $tour)
     {
-        //
+        $heroImage = null;
+        
+        if ($request->heroimage) {
+            if ($tour->hero_image) {
+                $image = $tour->hero_image;
+                Storage::disk('public')->delete("uploads/heroimage/{$image}");
+            }
+            $heroImage = TourService::getHeroImage($request->heroimage);
+        } elseif ($tour->hero_image) {
+            $heroImage = $tour->hero_image;
+        }
+        
+        $data = [
+            'category_id'      => $request->category_id,
+            'title'            => $request->title,
+            'slug'             => Str::slug($request->title),
+            'subtitle'         => $request->subtitle,
+            'meta_keywords'    => $request->meta_keywords,
+            'meta_description' => $request->meta_description,
+            'description'      => clean($request->description),
+            'price'            => $request->price,
+            'hero_image'       => $heroImage
+        ];
+
+        $tour->update($data);
+
+        if ($request->locations) {
+            $tour->locations()->delete();
+            $locations = TourService::getLocations($request->locations);
+            $tour->locations()->createMany($locations);
+        }
+
+        if ($request->requirements) {
+            $requirements = TourService::checkForExistingRows(
+                $request->requirements
+            );
+            $tour->requirements()->sync($requirements);
+        } else {
+            if ($tour->requirements) {
+                $tour->requirements()->detach();
+            }
+        }
+
+        if ($request->gallery) {
+            $images = TourService::getGalleryImages(
+                $request->gallery,
+                $tour->id
+            );
+            $tour->galleries()->createMany($images);
+        }
+
+        return back()->with('status', 'You have updated tour successfully');
     }
 }

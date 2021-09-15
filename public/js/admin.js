@@ -17,12 +17,14 @@ jQuery(document).ready(function ($) {
             },
         })
             .done(function (response) {
+                const message = response.message;
+
                 $("#gallery-info-box")
                     .attr({
                         class: "alert alert-success",
                         role: "alert",
                     })
-                    .html(`<strong>Success! </strong>${response.message}`)
+                    .html(`<strong>Success! </strong>${message}`)
                     .fadeIn()
                     .delay(1000)
                     .fadeOut();

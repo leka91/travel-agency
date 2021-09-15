@@ -21,7 +21,7 @@
 @component('auth.components.status.success')
 @endcomponent
 
-<form method="POST" action="" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.editTour', $tour->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="form-group">
