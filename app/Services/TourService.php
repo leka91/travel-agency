@@ -11,7 +11,25 @@ use Illuminate\Support\Str;
 
 class TourService
 {
-    public static function getLocationsForUpdate($locations)
+    public static function getUpdatedHeroImage($requestHeroImage, $tourHeroImage)
+    {
+        $heroImage = null;
+        
+        if ($requestHeroImage) {
+            if ($tourHeroImage) {
+                Storage::disk('public')->delete(
+                    "uploads/heroimage/{$tourHeroImage}"
+                );
+            }
+            $heroImage = self::getHeroImage($requestHeroImage);
+        } elseif ($tourHeroImage) {
+            $heroImage = $tourHeroImage;
+        }
+
+        return $heroImage;
+    }
+    
+    public static function getUpdatedLocations($locations)
     {
         $mappedLocations = collect($locations)->map(function($item) {
             return [

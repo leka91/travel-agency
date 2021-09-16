@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddTourRequest;
+use App\Http\Requests\DeleteTourRequest;
 use App\Http\Requests\EditTourRequest;
 use App\Models\Category;
 use App\Models\Requirement;
 use App\Models\Tour;
 use App\Services\TourService;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TourController extends Controller
@@ -79,7 +79,7 @@ class TourController extends Controller
         
         $categories   = Category::all();
         $requirements = Requirement::all();
-        $locations    = TourService::getLocationsForUpdate($tour->locations);
+        $locations    = TourService::getUpdatedLocations($tour->locations);
 
         return view('auth.tours.edit-tour', compact(
             'tour', 
@@ -91,18 +91,6 @@ class TourController extends Controller
 
     public function editTour(EditTourRequest $request, Tour $tour)
     {
-        $heroImage = null;
-        
-        if ($request->heroimage) {
-            if ($tour->hero_image) {
-                $image = $tour->hero_image;
-                Storage::disk('public')->delete("uploads/heroimage/{$image}");
-            }
-            $heroImage = TourService::getHeroImage($request->heroimage);
-        } elseif ($tour->hero_image) {
-            $heroImage = $tour->hero_image;
-        }
-        
         $data = [
             'category_id'      => $request->category_id,
             'title'            => $request->title,
@@ -112,15 +100,24 @@ class TourController extends Controller
             'meta_description' => $request->meta_description,
             'description'      => clean($request->description),
             'price'            => $request->price,
-            'hero_image'       => $heroImage
+            'hero_image'       => TourService::getUpdatedHeroImage(
+                $request->heroimage,
+                $tour->hero_image
+            )
         ];
 
         $tour->update($data);
 
         if ($request->locations) {
-            $tour->locations()->delete();
+            if ($tour->locations) {
+                $tour->locations()->delete();
+            }
             $locations = TourService::getLocations($request->locations);
             $tour->locations()->createMany($locations);
+        } else {
+            if ($tour->locations) {
+                $tour->locations()->delete();
+            }
         }
 
         if ($request->requirements) {
@@ -143,5 +140,18 @@ class TourController extends Controller
         }
 
         return back()->with('status', 'You have updated tour successfully');
+    }
+
+    public function deleteTour(DeleteTourRequest $request)
+    {
+        $tour = Tour::find($request->tour_id);
+
+        if (!$tour) {
+            return back()->with('error', 'Tour not found');
+        }
+
+        // TODO: Delete tour
+
+        return back()->with('status', 'You have deleted tour successfully');
     }
 }

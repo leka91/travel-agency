@@ -14,6 +14,21 @@
 
 <div class="page-header"></div>
 
+@component('auth.components.status.success')
+@endcomponent
+
+@component('auth.components.status.error')
+@endcomponent
+
+@error('tour_id')
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <strong>Warning!</strong> {{ $message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@enderror
+
 <div class="table-responsive">
 
     @if ($tours->isNotEmpty())
@@ -57,6 +72,9 @@
                     <a href="{{ route('admin.editTourForm', $tour->id) }}" class="btn btn-primary btn-sm">
                         Edit
                     </a>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-tourid="{{ $tour->id }}">
+                        Delete
+                    </button>
                 </td>
             </tr>
             @endforeach
@@ -65,5 +83,8 @@
 
     {{ $tours->appends(request()->except('page'))->links() }}
 </div>
+
+@component('auth.components.modals.delete')
+@endcomponent
 
 @endsection
