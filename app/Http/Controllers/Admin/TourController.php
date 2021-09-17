@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Requirement;
 use App\Models\Tour;
 use App\Services\TourService;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class TourController extends Controller
@@ -91,6 +92,8 @@ class TourController extends Controller
 
     public function editTour(EditTourRequest $request, Tour $tour)
     {
+        $tour->load('requirements', 'locations');
+        
         $data = [
             'category_id'      => $request->category_id,
             'title'            => $request->title,
@@ -144,13 +147,31 @@ class TourController extends Controller
 
     public function deleteTour(DeleteTourRequest $request)
     {
-        $tour = Tour::find($request->tour_id);
+        $tourId = $request->tour_id;
+        $tour   = Tour::with(['galleries'])->find($tourId);
 
         if (!$tour) {
             return back()->with('error', 'Tour not found');
         }
 
-        // TODO: Delete tour
+        if ($tour->hero_image) {
+            $image = $tour->hero_image;
+            $file  = storage_path("app/public/uploads/heroimage/{$image}");
+
+            if (File::exists($file)) {
+                File::delete($file);
+            }
+        }
+
+        if ($tour->galleries) {
+            $folder = storage_path("app/public/uploads/gallery/{$tourId}");
+
+            if (File::exists($folder)) {
+                File::deleteDirectory($folder);
+            }
+        }
+        
+        $tour->delete();
 
         return back()->with('status', 'You have deleted tour successfully');
     }
