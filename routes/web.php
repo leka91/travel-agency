@@ -35,6 +35,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tours', [TourController::class, 'addNewTour'])->name('admin.addNewTour');
     Route::get('/tours/edit-tour/{tour}', [TourController::class, 'editTourForm'])->name('admin.editTourForm');
     Route::put('/tours/{tour}', [TourController::class, 'editTour'])->name('admin.editTour');
+    Route::delete('/tours/remove-tour', [TourController::class, 'removeTour'])->name('admin.removeTour');
+    Route::get('/tours/removed-tours', [TourController::class, 'getAllRemovedTours'])->name('admin.getAllRemovedTours');
+    Route::put('/tours/restore/{tour}', [TourController::class, 'restoreTour'])->name('admin.restoreTour');
     Route::delete('/tours/delete-tour', [TourController::class, 'deleteTour'])->name('admin.deleteTour');
 
     // galleries

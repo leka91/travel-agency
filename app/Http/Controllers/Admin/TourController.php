@@ -21,8 +21,10 @@ class TourController extends Controller
             'requirements',
             'category'
         ])->sortable()->paginate(10);
+
+        $removedToursCount = Tour::onlyTrashed()->count();
         
-        return view('auth.tours.tours', compact('tours'));
+        return view('auth.tours.tours', compact('tours', 'removedToursCount'));
     }
 
     public function newTourForm()
@@ -145,10 +147,51 @@ class TourController extends Controller
         return back()->with('status', 'You have updated tour successfully');
     }
 
+    public function removeTour(DeleteTourRequest $request)
+    {
+        $tourId = $request->tour_id;
+        $tour   = Tour::find($tourId);
+
+        if (!$tour) {
+            return back()->with('error', 'Tour not found');
+        }
+
+        $tour->delete();
+
+        return redirect()
+            ->route('admin.getAlltours')
+            ->with('status', 'You have removed tour successfully');
+    }
+
+    public function getAllRemovedTours()
+    {
+        $tours = Tour::with('category')
+            ->onlyTrashed()
+            ->sortable()
+            ->paginate(10);
+
+        return view('auth.tours.removed-tours', compact('tours'));
+    }
+
+    public function restoreTour($id)
+    {
+        $tour = Tour::onlyTrashed()->find($id);
+
+        if (!$tour) {
+            return back()->with('error', 'Tour not found');
+        }
+
+        $tour->restore();
+
+        return redirect()
+            ->route('admin.getAlltours')
+            ->with('status', 'You have restored tour successfully');
+    }
+
     public function deleteTour(DeleteTourRequest $request)
     {
         $tourId = $request->tour_id;
-        $tour   = Tour::with(['galleries'])->find($tourId);
+        $tour   = Tour::with(['galleries'])->onlyTrashed()->find($tourId);
 
         if (!$tour) {
             return back()->with('error', 'Tour not found');
@@ -171,8 +214,10 @@ class TourController extends Controller
             }
         }
         
-        $tour->delete();
+        $tour->forceDelete();
 
-        return back()->with('status', 'You have deleted tour successfully');
+        return redirect()
+            ->route('admin.getAlltours')
+            ->with('status', 'You have deleted tour successfully');
     }
 }

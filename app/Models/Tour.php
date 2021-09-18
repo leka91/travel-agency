@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
 class Tour extends Model
 {
-    use Sortable;
+    use SoftDeletes, Sortable;
 
     protected $guarded = [];
     public $sortable = [
@@ -15,7 +16,8 @@ class Tour extends Model
         'title', 
         'subtitle', 
         'price', 
-        'created_at'
+        'created_at',
+        'deleted_at'
     ];
 
     public function user()

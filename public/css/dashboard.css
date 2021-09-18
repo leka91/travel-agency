@@ -105,6 +105,14 @@ body {
     margin-top: 10px;
 }
 
+.mr {
+    margin-right: 10px;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
 .locations .lat,
 .locations .lng {
     margin-bottom: 10px;

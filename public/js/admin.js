@@ -10,6 +10,15 @@ jQuery(document).ready(function ($) {
         modal.find(".modal-body #tour_id").val(tourId);
     });
 
+    // Remove tour
+    $("#removeModal").on("show.bs.modal", function (e) {
+        let modal = $(this);
+        let button = $(e.relatedTarget);
+        let tourId = button.data("tourid");
+
+        modal.find(".modal-body #tour_id").val(tourId);
+    });
+
     // Remove gallery image
     $(".gallery-image-btn").on("click", function (e) {
         e.preventDefault();
