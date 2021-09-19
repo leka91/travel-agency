@@ -18,9 +18,4 @@ jQuery(document).ready(function ($) {
         $(".menu-responsive").slideToggle();
         return false;
     });
-
-    $("#contactform").on("click", function (e) {
-        e.preventDefault();
-        console.log("TEST");
-    });
 });

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\SendContactMessageRequest;
+use App\Jobs\SendEmail;
+use App\Mail\ContactFormMessage;
 
 class PageController extends Controller
 {
@@ -29,5 +31,19 @@ class PageController extends Controller
     public function contact()
     {
         return view('pages.contact');
+    }
+
+    public function sendContactMessage(SendContactMessageRequest $request)
+    {
+        $data = [
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message
+        ];
+
+        SendEmail::dispatch('admin@admin.com', new ContactFormMessage($data));
+
+        return back()->with('status', 'You have successfully sent the message');
     }
 }

@@ -28,10 +28,21 @@
             </div>
             <div class="col-md-5 col-sm-6">
                 <h3 class="widget-title">Contact Us</h3>
+
+                @component('auth.components.status.success')
+                @endcomponent
+
                 <div class="contact-form">
-                    <form name="contactform" id="contactform" action="#" method="post">
-                        <p>
+                    <form name="contactform" id="contactform" action="{{ route('pages.sendContactMessage') }}" method="POST">
+                        @csrf
+                        <p class="@error('name') has-error @enderror">
                             <input name="name" type="text" id="name" placeholder="Your Name">
+
+                            @error('name')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                            @enderror
                         </p>
                         <p>
                             <input name="email" type="text" id="email" placeholder="Your Email"> 

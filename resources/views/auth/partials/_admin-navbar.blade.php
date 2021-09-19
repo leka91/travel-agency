@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('pages.home') }}">
+            <a class="navbar-brand" href="{{ route('pages.home') }}" target="_blank">
                 Project name
             </a>
         </div>
