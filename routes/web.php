@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BelgradeQuoteController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -40,6 +41,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tours/removed-tours', [TourController::class, 'getAllRemovedTours'])->name('admin.getAllRemovedTours');
     Route::put('/tours/restore/{tour}', [TourController::class, 'restoreTour'])->name('admin.restoreTour');
     Route::delete('/tours/delete-tour', [TourController::class, 'deleteTour'])->name('admin.deleteTour');
+
+    // belgrade
+    Route::get('/belgrade', [BelgradeQuoteController::class, 'getBelgradeInfo'])->name('admin.getBelgradeInfo');
+    Route::post('/belgrade', [BelgradeQuoteController::class, 'addBelgradeInfo'])->name('admin.addBelgradeInfo');
+    Route::put('/belgrade/{belgrade}', [BelgradeQuoteController::class, 'editBelgradeInfo'])->name('admin.editBelgradeInfo');
+
 
     // galleries
     Route::post('/galleries/remove-gallery-image', [GalleryController::class, 'removeGalleryImage']);

@@ -46,12 +46,30 @@
                         </p>
                         <p>
                             <input name="email" type="text" id="email" placeholder="Your Email"> 
+
+                            @error('email')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                            @enderror
                         </p>
                         <p>
                             <input name="subject" type="text" id="subject" placeholder="Subject"> 
+
+                            @error('subject')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                            @enderror
                         </p>
                         <p>
-                            <textarea name="message" id="message" placeholder="Message"></textarea>    
+                            <textarea name="message" id="message" placeholder="Message"></textarea>
+
+                            @error('message')
+                            <span class="text-danger">
+                                {{ $message }}
+                            </span>
+                            @enderror
                         </p>
                         <input type="submit" class="mainBtn" id="submit" value="Send Message">
                     </form>
