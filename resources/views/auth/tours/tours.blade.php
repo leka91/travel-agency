@@ -58,6 +58,7 @@
                 <th>@sortablelink('created_at', 'Created at')</th>
                 <th>Category</th>
                 <th>Requirements</th>
+                <th>Tags</th>
                 <th class="text-right"></th>
             </tr>
         </thead>
@@ -70,10 +71,17 @@
                 <td>{{ $tour->price ? $tour->price . ' €' : '' }}</td>
                 <td>{{ $tour->created_at->format('d M Y') }}</td>
                 <td>{{ $tour->category->name }}</td>
-                <td>
+                <td class="badge-size">
                     @foreach ($tour->requirements as $requirement)
                     <span class="badge">
                         {{ $requirement->name }}
+                    </span>
+                    @endforeach
+                </td>
+                <td class="badge-size">
+                    @foreach ($tour->tags as $tag)
+                    <span class="badge primary-badge">
+                        {{ $tag->name }}
                     </span>
                     @endforeach
                 </td>

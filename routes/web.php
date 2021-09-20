@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\RequirementController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/requirements', [RequirementController::class, 'addNewRequirement'])->name('admin.addNewRequirement');
     Route::get('/requirements/edit-requirement/{requirement}', [RequirementController::class, 'editRequirementForm'])->name('admin.editRequirementForm');
     Route::put('/requirements/{requirement}', [RequirementController::class, 'editRequirement'])->name('admin.editRequirement');
+
+    // tags
+    Route::get('/tags', [TagController::class, 'getAllTags'])->name('admin.tags');
+    Route::get('/tags/add-new-tag', [TagController::class, 'newTagForm'])->name('admin.newTagForm');
+    Route::post('/tags', [TagController::class, 'addNewTag'])->name('admin.addNewTag');
+    Route::get('/tags/edit-tag/{tag}', [TagController::class, 'editTagForm'])->name('admin.editTagForm');
+    Route::put('/tags/{tag}', [TagController::class, 'editTag'])->name('admin.editTag');
 
     // temoporary upload
     Route::post('/upload', [UploadController::class, 'store']);

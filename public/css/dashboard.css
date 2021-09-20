@@ -143,3 +143,11 @@ body {
 .modal {
     overflow-y: hidden;
 }
+
+.primary-badge {
+    background-color: royalblue;
+}
+
+.badge-size {
+    width: 200px;
+}

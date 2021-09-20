@@ -1,21 +1,22 @@
 @extends('auth.admin-index')
 
-@section('title', 'Add new requirement')
+@section('title', 'Edit tag')
 
 @section('content')
 
-<h2>Add new requirement</h2>
+<h2>Edit tag</h2>
 
 <div class="page-header"></div>
 
 @component('auth.components.status.success')
 @endcomponent
 
-<form method="POST" action="{{ route('admin.addNewRequirement') }}">
+<form method="POST" action="{{ route('admin.editTag', $tag->id) }}">
     @csrf
+    @method('PUT')
     <div class="form-group @error('name') has-error @enderror">
         <label for="name">Name</label>
-        <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" value="{{ old('name') }}>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" value="{{ $tag->name ?? old('name') }}">
 
         @error('name')
         <span class="text-danger">
@@ -25,7 +26,7 @@
     </div>
     
     <button type="submit" class="btn btn-primary mt">Save</button>
-    <a href="{{ route('admin.requirements') }}" class="btn btn-default mt">
+    <a href="{{ route('admin.tags') }}" class="btn btn-default mt">
         Back
     </a>
 </form>

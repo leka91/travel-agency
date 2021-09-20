@@ -2,12 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Requirement;
 use App\Models\TemporaryFile;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class TourService
 {
@@ -124,27 +122,5 @@ class TourService
         }
 
         return $images;
-    }
-
-    public static function checkForExistingRows($records) 
-    {   
-        $recordsArr = [];
-
-        foreach ($records as $record) {
-            $existingRecord = Requirement::find($record);
-
-            if (is_null($existingRecord)) {
-                $newRecord = Requirement::create([
-                    'name' => $record,
-                    'slug' => Str::slug($record)
-                ]);
-                $recordsArr[] = (string) $newRecord->id; 
-                continue;
-            }
-
-            $recordsArr[] = $record;
-        }
-
-        return $recordsArr;
     }
 }

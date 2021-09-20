@@ -8,8 +8,10 @@ use App\Http\Requests\DeleteTourRequest;
 use App\Http\Requests\EditTourRequest;
 use App\Models\Category;
 use App\Models\Requirement;
+use App\Models\Tag;
 use App\Models\Tour;
 use App\Services\TourService;
+use App\Services\UtilityService;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -19,6 +21,7 @@ class TourController extends Controller
     {
         $tours = Tour::with([
             'requirements',
+            'tags',
             'category'
         ])->sortable()->paginate(10);
 
@@ -31,8 +34,13 @@ class TourController extends Controller
     {
         $categories   = Category::all();
         $requirements = Requirement::all();
+        $tags         = Tag::all();
         
-        return view('auth.tours.add-new-tour', compact('categories', 'requirements'));
+        return view('auth.tours.add-new-tour', compact(
+            'categories',
+            'requirements',
+            'tags'
+        ));
     }
 
     public function addNewTour(AddTourRequest $request)
@@ -59,10 +67,19 @@ class TourController extends Controller
         }
 
         if ($request->requirements) {
-            $requirements = TourService::checkForExistingRows(
-                $request->requirements
+            $requirements = UtilityService::checkForExistingRows(
+                $request->requirements,
+                Requirement::class
             );
             $tour->requirements()->sync($requirements);
+        }
+
+        if ($request->tags) {
+            $tags = UtilityService::checkForExistingRows(
+                $request->tags,
+                Tag::class
+            );
+            $tour->tags()->sync($tags);
         }
 
         if ($request->gallery) {
@@ -78,23 +95,25 @@ class TourController extends Controller
 
     public function editTourForm(Tour $tour)
     {
-        $tour->load('requirements', 'galleries', 'locations');
+        $tour->load('requirements', 'tags', 'galleries', 'locations');
         
         $categories   = Category::all();
         $requirements = Requirement::all();
         $locations    = TourService::getUpdatedLocations($tour->locations);
+        $tags         = Tag::all();
 
         return view('auth.tours.edit-tour', compact(
             'tour', 
             'categories', 
             'requirements',
-            'locations'
+            'locations',
+            'tags'
         ));
     }
 
     public function editTour(EditTourRequest $request, Tour $tour)
     {
-        $tour->load('requirements', 'locations');
+        $tour->load('requirements', 'tags', 'locations');
         
         $data = [
             'category_id'      => $request->category_id,
@@ -126,13 +145,26 @@ class TourController extends Controller
         }
 
         if ($request->requirements) {
-            $requirements = TourService::checkForExistingRows(
-                $request->requirements
+            $requirements = UtilityService::checkForExistingRows(
+                $request->requirements,
+                Requirement::class
             );
             $tour->requirements()->sync($requirements);
         } else {
             if ($tour->requirements) {
                 $tour->requirements()->detach();
+            }
+        }
+
+        if ($request->tags) {
+            $tags = UtilityService::checkForExistingRows(
+                $request->tags,
+                Tag::class
+            );
+            $tour->tags()->sync($tags);
+        } else {
+            if ($tour->tags) {
+                $tour->tags()->detach();
             }
         }
 

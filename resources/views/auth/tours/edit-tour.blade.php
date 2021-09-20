@@ -135,6 +135,23 @@
     </div>
 
     <div class="form-group">
+        <label for="tags">Tour tags</label>
+        <select class="form-control" name="tags[]" multiple="multiple" id="tags">
+            @foreach ($tags as $tag)
+            <option value="{{ $tag->id }}" {{ $tour->tags->contains($tag->id) ? 'selected' : '' }}>
+                {{ $tag->name }}
+            </option>
+            @endforeach
+        </select>
+
+        @error('tags')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+    </div>
+
+    <div class="form-group">
         <label for="heroimage">Hero image</label>
         <input type="file" id="heroimage" name="heroimage" class="filepond" data-max-file-size="1MB">
         <p class="help-block">Upload hero image</p>

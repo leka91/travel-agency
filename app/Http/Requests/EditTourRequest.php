@@ -37,6 +37,7 @@ class EditTourRequest extends FormRequest
             'meta_description' => 'nullable|string|max:255',
             'description'      => 'nullable|string',
             'requirements'     => 'nullable|array',
+            'tags'             => 'nullable|array',
             'heroimage'        => 'nullable',
             'gallery'          => 'nullable',
             'price'            => 'nullable|integer',

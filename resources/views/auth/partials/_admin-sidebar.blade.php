@@ -20,6 +20,11 @@
                 Requirements
             </a>
         </li>
+        <li class="{{ Request::is('tags') ? 'active' : '' }}">
+            <a href="{{ route('admin.tags') }}">
+                Tags
+            </a>
+        </li>
         <li class="{{ Request::is('belgrade') ? 'active' : '' }}">
             <a href="{{ route('admin.getBelgradeInfo') }}">
                 Belgrade Info

@@ -45,6 +45,11 @@ class Tour extends Model
         return $this->belongsToMany(Requirement::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function heroImage()
     {
         return asset("/storage/uploads/heroimage/{$this->hero_image}");
