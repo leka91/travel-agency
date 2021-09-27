@@ -24,20 +24,22 @@ class AddTourRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id'      => 'required|integer',
-            'title'            => 'required|string|max:255|unique:tours',
-            'subtitle'         => 'required|string|max:255',
-            'meta_keywords'    => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:255',
-            'description'      => 'nullable|string',
-            'requirements'     => 'nullable|array',
-            'tags'             => 'nullable|array',
-            'heroimage'        => 'nullable',
-            'gallery'          => 'nullable',
-            'price'            => 'nullable|integer',
-            'locations'        => 'nullable|array|max:10',
-            'locations.*.lat'  => 'nullable|required_with:locations.*.lng|numeric|between:-90,90',
-            'locations.*.lng'  => 'nullable|required_with:locations.*.lat|numeric|between:-180,180'
+            'category_id'         => 'required|integer',
+            'title'               => 'required|string|max:255|unique:tours',
+            'subtitle'            => 'required|string|max:255',
+            'meta_keywords'       => 'nullable|string|max:255',
+            'meta_description'    => 'nullable|string|max:255',
+            'description'         => 'nullable|string',
+            'requirements'        => 'nullable|array',
+            'tags'                => 'nullable|array',
+            'heroimage'           => 'nullable',
+            'gallery'             => 'nullable',
+            'videos'              => 'nullable|array',
+            'videos.*.video_link' => 'nullable|url|string|max:255',
+            'price'               => 'nullable|integer',
+            'locations'           => 'nullable|array|max:10',
+            'locations.*.lat'     => 'nullable|required_with:locations.*.lng|numeric|between:-90,90',
+            'locations.*.lng'     => 'nullable|required_with:locations.*.lat|numeric|between:-180,180'
         ];
     }
 
@@ -50,7 +52,8 @@ class AddTourRequest extends FormRequest
             'locations.*.lat.required_with' => 'Latitude is required when longitude is present',
             'locations.*.lng.required_with' => 'Longitude is required when latitude is present',
             'locations.*.lat.between'       => 'Latitude must be in range between -90 and 90',
-            'locations.*.lng.between'       => 'Longitude must be in range between -180 and 180'
+            'locations.*.lng.between'       => 'Longitude must be in range between -180 and 180',
+            'videos.*.video_link.url'       => 'Video link format is invalid'
         ];
     }
 }

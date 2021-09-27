@@ -169,6 +169,32 @@
     </div>
 
     <div class="form-group">
+        <label>
+            <strong>Videos</strong>
+            <small>
+                <em>
+                    (Youtube links)
+                </em>
+            </small>
+        </label>
+        <select class="form-control" name="videos[][video_link]" multiple="multiple" id="videos">
+            
+        </select>
+        
+        @error('videos')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+
+        @error('videos.*.video_link')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+    </div>
+
+    <div class="form-group">
         <label for="price">Price</label>
         <input type="number" name="price" class="form-control" id="price" placeholder="Enter price" value="{{ old('price') }}">
 

@@ -19,7 +19,14 @@ class TourController extends Controller
 {
     public function getAlltours()
     {
-        $tours = Tour::with([
+        $tours = Tour::select(
+            'id',
+            'category_id',
+            'title',
+            'subtitle',
+            'price',
+            'created_at',
+        )->with([
             'requirements',
             'tags',
             'category'
@@ -90,12 +97,22 @@ class TourController extends Controller
             $tour->galleries()->createMany($images);
         }
 
+        if ($request->videos) {
+            $tour->videos()->createMany($request->videos);
+        }
+
         return back()->with('status', 'You have added tour successfully');
     }
 
     public function editTourForm(Tour $tour)
     {
-        $tour->load('requirements', 'tags', 'galleries', 'locations');
+        $tour->load(
+            'requirements',
+            'tags',
+            'galleries',
+            'videos',
+            'locations'
+        );
         
         $categories   = Category::all();
         $requirements = Requirement::all();
@@ -113,7 +130,7 @@ class TourController extends Controller
 
     public function editTour(EditTourRequest $request, Tour $tour)
     {
-        $tour->load('requirements', 'tags', 'locations');
+        $tour->load('requirements', 'tags', 'videos', 'locations');
         
         $data = [
             'category_id'      => $request->category_id,
@@ -176,6 +193,17 @@ class TourController extends Controller
             $tour->galleries()->createMany($images);
         }
 
+        if ($request->videos) {
+            if ($tour->videos) {
+                $tour->videos()->delete();
+            }
+            $tour->videos()->createMany($request->videos);
+        } else {
+            if ($tour->videos) {
+                $tour->videos()->delete();
+            }
+        }
+
         return back()->with('status', 'You have updated tour successfully');
     }
 
@@ -197,7 +225,14 @@ class TourController extends Controller
 
     public function getAllRemovedTours()
     {
-        $tours = Tour::with('category')
+        $tours = Tour::select(
+            'id',
+            'category_id',
+            'title',
+            'subtitle',
+            'price',
+            'deleted_at',
+        )->with('category')
             ->onlyTrashed()
             ->sortable()
             ->paginate(10);

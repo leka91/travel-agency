@@ -175,6 +175,36 @@
         <p class="help-block">Upload images for gallery</p>
     </div>
 
+    <div class="form-group">
+        <label>
+            <strong>Videos</strong>
+            <small>
+                <em>
+                    (Youtube links)
+                </em>
+            </small>
+        </label>
+        <select class="form-control" name="videos[][video_link]" multiple="multiple" id="videos">
+            @foreach ($tour->videos as $video)
+            <option value="{{ $video->video_link }}" selected>
+                {{ $video->video_link }}
+            </option>
+            @endforeach
+        </select>
+        
+        @error('videos')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+
+        @error('videos.*.video_link')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+    </div>
+
     @if ($tour->galleries)
     <div class="form-group">
         <div id="gallery-info-box"></div>

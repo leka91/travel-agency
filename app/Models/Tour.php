@@ -35,6 +35,11 @@ class Tour extends Model
         return $this->hasMany(Gallery::class);
     }
 
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
+
     public function locations()
     {
         return $this->hasMany(Location::class);

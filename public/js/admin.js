@@ -101,6 +101,13 @@ jQuery(document).ready(function ($) {
         // minimumInputLength: 2,
     });
 
+    $("#videos").select2({
+        allowClear: true,
+        placeholder: "Select tour videos",
+        tags: true,
+        // minimumInputLength: 2,
+    });
+
     // Filepond for gallery
     const gallery = document.querySelector('input[id="gallery"]');
     const galleryOptions = {
