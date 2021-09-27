@@ -15,7 +15,7 @@
     @csrf
     <div class="form-group @error('name') has-error @enderror">
         <label for="name">Name</label>
-        <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" value="{{ old('name') }}>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" value="{{ old('name') }}">
 
         @error('name')
         <span class="text-danger">

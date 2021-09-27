@@ -175,6 +175,22 @@
         <p class="help-block">Upload images for gallery</p>
     </div>
 
+    @if ($tour->galleries)
+    <div class="form-group">
+        <div id="gallery-info-box"></div>
+        @foreach ($tour->galleries as $gallery)
+        <div class="gallery-image">
+            <img width="320" src="{{ $tour->galleryImage($gallery->image) }}" alt="{{ $tour->title }}" class="img-thumbnail">
+            <button type="button" class="btn btn-danger btn-sm gallery-image-btn" data-galleryId="{{ $gallery->id }}">
+                <strong>
+                    X
+                </strong>
+            </button>
+        </div>
+        @endforeach
+    </div>
+    @endif
+
     <div class="form-group">
         <label>
             <strong>Videos</strong>
@@ -204,22 +220,6 @@
             </span>
         @enderror
     </div>
-
-    @if ($tour->galleries)
-    <div class="form-group">
-        <div id="gallery-info-box"></div>
-        @foreach ($tour->galleries as $gallery)
-        <div class="gallery-image">
-            <img width="320" src="{{ $tour->galleryImage($gallery->image) }}" alt="{{ $tour->title }}" class="img-thumbnail">
-            <button type="button" class="btn btn-danger btn-sm gallery-image-btn" data-galleryId="{{ $gallery->id }}">
-                <strong>
-                    X
-                </strong>
-            </button>
-        </div>
-        @endforeach
-    </div>
-    @endif
 
     <div class="form-group">
         <label for="price">Price</label>
