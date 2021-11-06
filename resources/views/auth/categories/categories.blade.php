@@ -14,8 +14,8 @@
 
 <div class="page-header"></div>
 
+@if ($categories->count())
 <div class="table-responsive">
-
     @if ($categories->isNotEmpty())
     <p>
         {{ $categories->firstItem() }} -
@@ -57,5 +57,6 @@
 
     {{ $categories->appends(request()->except('page'))->links() }}
 </div>
+@endif
 
 @endsection

@@ -14,8 +14,8 @@
 
 <div class="page-header"></div>
 
+@if ($requirements->count())
 <div class="table-responsive">
-
     @if ($requirements->isNotEmpty())
     <p>
         {{ $requirements->firstItem() }} -
@@ -51,5 +51,6 @@
 
     {{ $requirements->appends(request()->except('page'))->links() }}
 </div>
+@endif
 
 @endsection

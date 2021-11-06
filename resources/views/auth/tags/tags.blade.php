@@ -14,8 +14,8 @@
 
 <div class="page-header"></div>
 
+@if ($tags->count())
 <div class="table-responsive">
-
     @if ($tags->isNotEmpty())
     <p>
         {{ $tags->firstItem() }} -
@@ -51,5 +51,6 @@
 
     {{ $tags->appends(request()->except('page'))->links() }}
 </div>
+@endif
 
 @endsection

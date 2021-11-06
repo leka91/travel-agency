@@ -38,8 +38,8 @@
 </div>
 @enderror
 
+@if ($tours->count())
 <div class="table-responsive">
-
     @if ($tours->isNotEmpty())
     <p>
         {{ $tours->firstItem() }} -
@@ -100,9 +100,7 @@
 
     {{ $tours->appends(request()->except('page'))->links() }}
 </div>
-
-{{-- @component('auth.components.modals.delete')
-@endcomponent --}}
+@endif
 
 @component('auth.components.modals.remove')
 @endcomponent
