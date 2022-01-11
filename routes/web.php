@@ -75,5 +75,6 @@ Route::middleware(['auth'])->group(function () {
 
     // temoporary upload
     Route::post('/upload', [UploadController::class, 'store']);
+    Route::post('/upload-heroimage', [UploadController::class, 'storeHeroImage']);
     Route::delete('/upload-remove', [UploadController::class, 'destroy']);
 });

@@ -2,21 +2,16 @@
 
 @section('title', 'Add new Tour')
 
+@section('links')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+@endsection
+
 @section('content')
 
 <h2>Add new Tour</h2>
 
 <div class="page-header"></div>
-
-{{-- @if ($errors->all())
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        @foreach ($errors->all() as $message)
-            <p>
-                {{ $message }}
-            </p>
-        @endforeach
-    </div>
-@endif --}}
 
 @component('auth.components.status.success')
 @endcomponent
@@ -276,4 +271,14 @@
     </a>
 </form>
 
+@endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+<script src="{{ asset('js/select2.js') }}"></script>
+<script src="{{ asset('js/ckeditor5.js') }}"></script>
+<script src="{{ asset('js/filepond.js') }}"></script>
 @endsection
