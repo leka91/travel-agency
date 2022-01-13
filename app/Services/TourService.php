@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Models\TemporaryFile;
 use Illuminate\Http\File;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File as FileFacade;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class TourService
 {
@@ -17,6 +19,10 @@ class TourService
             if ($tourHeroImage) {
                 Storage::disk('public')->delete(
                     "uploads/heroimage/{$tourHeroImage}"
+                );
+
+                Storage::disk('public')->delete(
+                    "uploads/thumbnail/{$tourHeroImage}"
                 );
             }
             $heroImage = self::getHeroImage($requestHeroImage);
@@ -74,11 +80,24 @@ class TourService
 
             $folderPath = storage_path("app/public/uploads/tmp/{$folder}");
 
-            $file = Storage::putFile(
-                'public/uploads/heroimage', new File($filenamePath)
-            );
+            $file = new UploadedFile($filenamePath, $filename);
 
-            $image = explode('/', $file)[3];
+            $imagePath     = $file->store('uploads/heroimage', 'public');
+            $thumbnailPath = $file->store('uploads/thumbnail', 'public');
+
+            $image     = explode('/', $imagePath)[2];
+            $thumbnail = explode('/', $thumbnailPath)[2];
+
+            $publicImagePath     = "/storage/uploads/heroimage/{$image}";
+            $publicThumbnailPath = "/storage/uploads/thumbnail/{$thumbnail}";
+
+            Image::make(public_path($publicImagePath))
+                ->resize(950, 500)
+                ->save();
+
+            Image::make(public_path($publicThumbnailPath))
+                ->resize(360, 220)
+                ->save();
 
             FileFacade::deleteDirectory($folderPath);
 

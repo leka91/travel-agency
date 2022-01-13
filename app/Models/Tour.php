@@ -60,6 +60,11 @@ class Tour extends Model
         return asset("/storage/uploads/heroimage/{$this->hero_image}");
     }
 
+    public function thumbnail()
+    {
+        return asset("/storage/uploads/thumbnail/{$this->hero_image}");
+    }
+
     public function galleryImage($image)
     {
         return asset("/storage/uploads/gallery/{$this->id}/{$image}");
