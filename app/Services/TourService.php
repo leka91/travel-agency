@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\TemporaryFile;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class TourService
@@ -16,13 +15,21 @@ class TourService
         
         if ($requestHeroImage) {
             if ($tourHeroImage) {
-                Storage::disk('public')->delete(
-                    "uploads/heroimage/{$tourHeroImage}"
+                $file      = storage_path(
+                    "app/public/uploads/heroimage/{$tourHeroImage}"
                 );
 
-                Storage::disk('public')->delete(
-                    "uploads/thumbnail/{$tourHeroImage}"
+                $thumbnail = storage_path(
+                    "app/public/uploads/thumbnail/{$tourHeroImage}"
                 );
+
+                if (File::exists($file)) {
+                    File::delete($file);
+                }
+
+                if (File::exists($thumbnail)) {
+                    File::delete($thumbnail);
+                }
             }
             $heroImage = self::getHeroImage($requestHeroImage);
         } elseif ($tourHeroImage) {
