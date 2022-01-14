@@ -3,9 +3,8 @@
 namespace App\Services;
 
 use App\Models\TemporaryFile;
-use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File as FileFacade;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -85,21 +84,17 @@ class TourService
             $imagePath     = $file->store('uploads/heroimage', 'public');
             $thumbnailPath = $file->store('uploads/thumbnail', 'public');
 
-            $image     = explode('/', $imagePath)[2];
-            $thumbnail = explode('/', $thumbnailPath)[2];
+            $image = explode('/', $imagePath)[2];
 
-            $publicImagePath     = "/storage/uploads/heroimage/{$image}";
-            $publicThumbnailPath = "/storage/uploads/thumbnail/{$thumbnail}";
-
-            Image::make(public_path($publicImagePath))
+            Image::make(public_path("/storage/{$imagePath}"))
                 ->resize(950, 500)
                 ->save();
 
-            Image::make(public_path($publicThumbnailPath))
+            Image::make(public_path("/storage/{$thumbnailPath}"))
                 ->resize(360, 220)
                 ->save();
 
-            FileFacade::deleteDirectory($folderPath);
+            File::deleteDirectory($folderPath);
 
             $temporaryFile->delete();
 
@@ -125,16 +120,18 @@ class TourService
 
                 $folderPath = storage_path("app/public/uploads/tmp/{$folder}");
 
-                $file = Storage::putFile(
-                    "public/uploads/gallery/{$tourId}", new File($filenamePath)
+                $file = new UploadedFile($filenamePath, $filename);
+
+                $imagePath = $file->store(
+                    "uploads/gallery/{$tourId}", 'public'
                 );
 
-                $image = explode('/', $file)[4];
+                $image = explode('/', $imagePath)[3];
                 $images[] = [
                     'image' => $image
                 ];
 
-                FileFacade::deleteDirectory($folderPath);
+                File::deleteDirectory($folderPath);
 
                 $temporaryFile->delete();
             }

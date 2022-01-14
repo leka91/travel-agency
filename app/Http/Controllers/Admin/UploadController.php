@@ -22,12 +22,22 @@ class UploadController extends Controller
     
             if ($file->getSize() > 1e+6) {
                 return response()->json(
-                    'Image Size is exceeding 1 Mb', 422
+                    'Image size is exceeding 1 Mb', 422
+                );
+            }
+
+            $image  = getimagesize($file);
+            $width  = $image[0];
+            $height = $image[1];
+
+            if ($width < 950 && $height < 500) {
+                return response()->json(
+                    'The image should be at least 950px in length and 500px in height', 422
                 );
             }
 
             $fileName = $file->getClientOriginalName();
-            $folder = uniqid();
+            $folder   = uniqid();
             $file->storeAs('uploads/tmp/' . $folder, $fileName, 'public');
     
             TemporaryFile::create([

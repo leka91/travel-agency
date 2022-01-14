@@ -266,10 +266,16 @@ class TourController extends Controller
 
         if ($tour->hero_image) {
             $image = $tour->hero_image;
-            $file  = storage_path("app/public/uploads/heroimage/{$image}");
+
+            $file      = storage_path("app/public/uploads/heroimage/{$image}");
+            $thumbnail = storage_path("app/public/uploads/thumbnail/{$image}");
 
             if (File::exists($file)) {
                 File::delete($file);
+            }
+
+            if (File::exists($thumbnail)) {
+                File::delete($thumbnail);
             }
         }
 
