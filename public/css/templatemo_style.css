@@ -999,11 +999,35 @@ textarea {
     margin-bottom: 20px;
 }
 
+/* Contact form */
+
 div.contact-form input,
 div.contact-form textarea {
     width: 100%;
     min-width: 100%;
     max-width: 100%;
+    color: #000;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 2px solid lightgray;
+    transition: ease 0.3s;
+    margin-bottom: 5px;
+}
+
+div.contact-form input.has-error,
+div.contact-form textarea.has-error {
+    border-bottom: 2px solid #cc0000;
+}
+
+div.contact-form .text-danger {
+    color: #cc0000;
+    font-weight: 500;
+}
+
+div.contact-form input:focus,
+div.contact-form textarea:focus {
+    border-bottom: 2px solid #000;
 }
 
 div.contact-form textarea {
@@ -1015,7 +1039,13 @@ div.contact-form input.mainBtn {
     background: #9ed034;
     color: #fff;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: bold;
+}
+
+div.contact-form input.mainBtn:hover {
+    /* filter: brightness(0.9); */
+    background: #749923;
+    /* color: #fff; */
 }
 
 .site-footer {

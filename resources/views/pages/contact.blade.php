@@ -35,42 +35,43 @@
                 <div class="contact-form">
                     <form name="contactform" id="contactform" action="{{ route('pages.sendContactMessage') }}" method="POST">
                         @csrf
-                        <p class="@error('name') has-error @enderror">
-                            <input name="name" type="text" id="name" placeholder="Your Name">
 
+                        <div class="form-group">
+                            <input type="text" name="name" class="@error('name') has-error @enderror" id="name" placeholder="Your Name" value="{{ old('name') }}">
+                    
                             @error('name')
                             <span class="text-danger">
                                 {{ $message }}
                             </span>
                             @enderror
-                        </p>
-                        <p>
-                            <input name="email" type="text" id="email" placeholder="Your Email"> 
+                        </div>
+                        <div class="form-group">
+                            <input name="email" class="@error('email') has-error @enderror" type="text" id="email" placeholder="Your Email" value="{{ old('email') }}"> 
 
                             @error('email')
                             <span class="text-danger">
                                 {{ $message }}
                             </span>
                             @enderror
-                        </p>
-                        <p>
-                            <input name="subject" type="text" id="subject" placeholder="Subject"> 
+                        </div>
+                        <div class="form-group">
+                            <input name="subject" class="@error('subject') has-error @enderror" type="text" id="subject" placeholder="Subject" value="{{ old('subject') }}"> 
 
                             @error('subject')
                             <span class="text-danger">
                                 {{ $message }}
                             </span>
                             @enderror
-                        </p>
-                        <p>
-                            <textarea name="message" id="message" placeholder="Message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" class="@error('message') has-error @enderror" id="message" placeholder="Message">{{ old('message') }}</textarea>
 
                             @error('message')
                             <span class="text-danger">
                                 {{ $message }}
                             </span>
                             @enderror
-                        </p>
+                        </div>
                         <input type="submit" class="mainBtn" id="submit" value="Send Message">
                     </form>
                 </div> <!-- /.contact-form -->
