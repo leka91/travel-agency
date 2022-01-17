@@ -22,9 +22,9 @@
                                     Services
                                 </a>
                             </li>
-                            <li class="{{ Request::is('events') ? 'active' : '' }}">
-                                <a href="{{ route('pages.events') }}">
-                                    Events
+                            <li class="{{ Request::is('tours') ? 'active' : '' }}">
+                                <a href="{{ route('pages.tours') }}">
+                                    Tours
                                 </a>
                             </li>
                             <li class="{{ Request::is('about') ? 'active' : '' }}">

@@ -24,12 +24,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'home'])->name('pages.home');
 Route::get('/services', [PageController::class, 'services'])->name('pages.services');
-Route::get('/events', [PageController::class, 'events'])->name('pages.events');
+Route::get('/tours', [PageController::class, 'tours'])->name('pages.tours');
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
 Route::post('/contact', [PageController::class, 'sendContactMessage'])->name('pages.sendContactMessage');
 
-Route::middleware(['auth'])->group(function () {
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // tours

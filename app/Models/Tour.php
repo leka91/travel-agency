@@ -69,4 +69,14 @@ class Tour extends Model
     {
         return asset("/storage/uploads/gallery/{$this->id}/{$image}");
     }
+
+    public function timeToRead() {
+        $wordsPerMinute = 200;
+        $numOfWords     = str_word_count(strip_tags($this->description));
+        $minutes        = $numOfWords / $wordsPerMinute;
+        $readTime       = ceil($minutes);
+
+        return $readTime . ' min read';
+        
+    }
 }

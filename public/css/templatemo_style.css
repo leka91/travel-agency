@@ -246,7 +246,6 @@ a {
 }
 
 a:hover {
-    color: #e54747;
     text-decoration: none;
 }
 
@@ -512,10 +511,10 @@ a.flex-next {
 }
 
 h3.widget-title {
-    font-size: 28px;
+    font-size: 18px;
     text-transform: uppercase;
     display: inline-block;
-    margin-bottom: 40px;
+    margin: 10px;
 }
 
 .sample-thumb {
@@ -706,9 +705,66 @@ h3.widget-title {
     margin-bottom: 40px;
 }
 
+/* widgets */
+
 .widget-item {
     margin-bottom: 30px;
     overflow: hidden;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.widget-item .widget-body {
+    padding: 0 10px 10px 10px;
+}
+
+.widget-item p {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.widget-item a.read-more {
+    display: inline-block;
+    background: #9ed034;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
+.widget-item a.read-more:hover {
+    background: #749923;
+}
+
+.widget-item .widget-tags {
+    margin-top: 20px;
+}
+
+.widget-item .widget-tags span {
+    background: #06c;
+    margin-bottom: 5px;
+}
+
+.widget-item .date {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    background: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px #ccc;
+    margin-top: 20px;
+}
+
+.widget-item p.widget-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.widget-item p.widget-title a:hover {
+    color: #9ed034;
+    text-decoration: none;
 }
 
 .service-item {
@@ -744,9 +800,9 @@ h3.widget-title {
 
 h4.consult-title {
     font-size: 18px;
-    color: #9ed034;
-    font-weight: 300;
-    margin: 20px 0 20px 0;
+    color: #000;
+    font-weight: 500;
+    margin: 15px 0 10px 0;
 }
 
 .post-small {
@@ -1043,9 +1099,7 @@ div.contact-form input.mainBtn {
 }
 
 div.contact-form input.mainBtn:hover {
-    /* filter: brightness(0.9); */
     background: #749923;
-    /* color: #fff; */
 }
 
 .site-footer {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SendContactMessageRequest;
 use App\Jobs\SendEmail;
 use App\Mail\ContactFormMessage;
+use App\Models\Tour;
 
 class PageController extends Controller
 {
@@ -18,9 +19,23 @@ class PageController extends Controller
         return view('pages.services');
     }
 
-    public function events()
+    public function tours()
     {
-        return view('pages.events');
+        $tours = Tour::select(
+            'category_id',
+            'title',
+            'hero_image',
+            'description',
+            'created_at'
+        )->with('category', 'tags')
+        ->latest()
+        ->get();
+
+        
+        
+        // dd($tours->toArray());
+        
+        return view('pages.tours', compact('tours'));
     }
 
     public function about()

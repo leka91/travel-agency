@@ -10,7 +10,7 @@
                 Tours
             </a>
         </li>
-        <li class="{{ Request::is('categories') ? 'active' : '' }}">
+        <li class="{{ Request::is('admin/categories') ? 'active' : '' }}">
             <a href="{{ route('admin.categories') }}">
                 Categories
             </a>
