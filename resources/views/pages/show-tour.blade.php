@@ -1,24 +1,21 @@
 @extends('index')
 
-@section('title', '| Tours')
+@section('title', '| Tour ' . $tour->title)
 
 @section('content')
 
-<div class="page-top" id="templatemo_events">
+<div class="page-top" id="templatemo_services">
 </div> <!-- /.page-header -->
 
 <div class="middle-content">
     <div class="container">
         <div class="row">
-
-            @foreach ($tours as $tour)
-            <div class="col-lg-4 col-md-4">
+            <div class="col-md-8">
                 <div class="widget-item">
                     <div class="sample-thumb">
-                        <a href="#">
-                            <img src="{{ $tour->thumbnail() }}" alt="{{ $tour->title }}">
-                        </a>
+                        <img src="{{ $tour->heroImage() }}" alt="{{ $tour->title }}">
                     </div>
+
                     <div class="widget-body">
                         <div class="date">
                             {{ $tour->created_at->format('d M Y') }} &nbsp;&middot;&nbsp; {{ $tour->timeToRead() }}
@@ -40,9 +37,7 @@
                             @endif
                         </div>
                         <h4 class="consult-title">
-                            <a href="#">
-                                {{ $tour->title }}
-                            </a>
+                            {{ $tour->title }}
                         </h4>
                         <p class="consult-subtitle">
                             {{ $tour->subtitle }}
@@ -68,21 +63,36 @@
                         </div>
                         @endif
                         
-                        <div>
-                            <a href="{{ route('pages.tour', $tour->slug) }}" class="read-more" target="_blank">
-                                Read More
-                            </a>
+                        <div class="description">
+                            {!! $tour->description !!}
                         </div>
                     </div>
-                </div>                 
+                </div>
             </div>
-            @endforeach
-        </div>
 
-        <div class="custom-pagination">
-            {{ $tours->links() }}
+            <div class="col-md-4">
+                <div class="widget-item">
+                    <div class="widget-body">
+                        <h3 class="service-title">Tour Categories</h3>
+                        @foreach ($filteredCategories as $category)
+                        <div class="service-item">
+                            <div class="service-icon">
+                                {{ $category->tours_count }}
+                            </div>
+                            <div class="service-content">
+                                <h4>
+                                    <a href="#">
+                                        {{ $category->name }}
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div> 
+</div>
 
 @endsection

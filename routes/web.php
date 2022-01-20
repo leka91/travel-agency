@@ -25,11 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class, 'home'])->name('pages.home');
 Route::get('/services', [PageController::class, 'services'])->name('pages.services');
 Route::get('/tours', [PageController::class, 'tours'])->name('pages.tours');
+Route::get('/tour/{tour:slug}', [PageController::class, 'showTour'])->name('pages.tour');
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
 Route::post('/contact', [PageController::class, 'sendContactMessage'])->name('pages.sendContactMessage');
-
-
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

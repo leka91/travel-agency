@@ -4,7 +4,7 @@
             <div class="col-md-4 col-sm-4">
                 <div class="footer-logo">
                     <a href="{{ route('pages.home') }}">
-                        <img src="images/logo.png" alt="">
+                        <img src="/images/logo.png" alt="">
                     </a>
                 </div>
             </div> <!-- /.col-md-4 -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SendContactMessageRequest;
 use App\Jobs\SendEmail;
 use App\Mail\ContactFormMessage;
+use App\Models\Category;
 use App\Models\Tour;
 
 class PageController extends Controller
@@ -22,20 +23,35 @@ class PageController extends Controller
     public function tours()
     {
         $tours = Tour::select(
+            'id',
             'category_id',
+            'subtitle',
             'title',
+            'slug',
+            'price',
             'hero_image',
             'description',
             'created_at'
-        )->with('category', 'tags')
-        ->latest()
-        ->get();
-
-        
-        
-        // dd($tours->toArray());
+        )->with([
+            'category',
+            'tags',
+            'requirements'
+        ])->latest()->simplePaginate(9);
         
         return view('pages.tours', compact('tours'));
+    }
+
+    public function showTour(Tour $tour)
+    {
+        $tour->load('category', 'tags', 'requirements');
+
+        $categories = Category::withCount('tours')->get();
+
+        $filteredCategories = $categories->filter(function ($category) {
+            return $category->tours_count != 0;
+        });
+
+        return view('pages.show-tour', compact('tour', 'filteredCategories'));
     }
 
     public function about()

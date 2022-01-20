@@ -3,16 +3,32 @@
         <ul class="pagination">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <li class="disabled" aria-disabled="true"><span>@lang('pagination.previous')</span></li>
+                <li class="disabled prev-link" aria-disabled="true">
+                    <span>
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </span>
+                </li>
             @else
-                <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a></li>
+                <li class="prev-link active-link">
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </a>
+                </li>
             @endif
 
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">@lang('pagination.next')</a></li>
+                <li class="next-link active-link">
+                    <a href="{{ $paginator->nextPageUrl() }}" rel="next">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                </li>
             @else
-                <li class="disabled" aria-disabled="true"><span>@lang('pagination.next')</span></li>
+                <li class="disabled next-link" aria-disabled="true">
+                    <span>
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </span>
+                </li>
             @endif
         </ul>
     </nav>
