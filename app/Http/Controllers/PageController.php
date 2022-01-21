@@ -35,7 +35,8 @@ class PageController extends Controller
         )->with([
             'category',
             'tags',
-            'requirements'
+            'requirements',
+            'galleries'
         ])->latest()->simplePaginate(9);
         
         return view('pages.tours', compact('tours'));

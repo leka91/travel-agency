@@ -2,6 +2,12 @@
 
 @section('title', '| Tour ' . $tour->title)
 
+@section('links')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+@endsection
+
 @section('content')
 
 <div class="page-top" id="templatemo_services">
@@ -18,10 +24,13 @@
 
                     <div class="widget-body">
                         <div class="date">
-                            {{ $tour->created_at->format('d M Y') }} &nbsp;&middot;&nbsp; {{ $tour->timeToRead() }}
+                            {{ $tour->timeToRead() }}
                         </div>
                         <div class="card-body">
                             <p class="card-price">
+                                <span>
+                                    From
+                                </span>
                                 {{ $tour->price }} €
                             </p>
                         </div>
@@ -66,11 +75,52 @@
                         <div class="description">
                             {!! $tour->description !!}
                         </div>
+
+                        @if ($tour->galleries)
+                        <div class="gallery">
+                            <div class="fotorama" data-allowfullscreen="true" data-width="100%">
+                                @foreach ($tour->galleries as $gallery)
+                                <img src="{{ $tour->galleryImage($gallery->image) }}" alt="{{ $tour->title }}">
+                                @endforeach
+                                {{-- <a href="https://www.youtube.com/watch?v=vhd5HPoGV58">Hulk</a> --}}
+                              </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
+                <div class="widget-item">
+                    <div class="widget-body">
+                        <h3 class="service-title">Book this Tour</h3>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>1-3 persons</td>
+                                    <td>339€</td>
+                                </tr>
+                                <tr>
+                                    <td>4-6 persons</td>
+                                    <td>399€</td>
+                                </tr>
+                                <tr>
+                                    <td>7-8 persons</td>
+                                    <td>459€</td>
+                                </tr>
+                                <tr>
+                                    <td>9-19 persons</td>
+                                    <td>799€</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="{{ route('pages.contact') }}" class="book-now" target="_blank">
+                            Book now!
+                        </a>
+                    </div>
+                </div>
+
                 <div class="widget-item">
                     <div class="widget-body">
                         <h3 class="service-title">Tour Categories</h3>

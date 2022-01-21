@@ -21,10 +21,13 @@
                     </div>
                     <div class="widget-body">
                         <div class="date">
-                            {{ $tour->created_at->format('d M Y') }} &nbsp;&middot;&nbsp; {{ $tour->timeToRead() }}
+                            {{ $tour->timeToRead() }}
                         </div>
                         <div class="card-body">
                             <p class="card-price">
+                                <span>
+                                    From
+                                </span>
                                 {{ $tour->price }} €
                             </p>
                         </div>

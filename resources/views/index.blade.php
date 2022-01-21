@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
         <link rel="stylesheet" href="{{ asset('css/templatemo_misc.css') }}">
         <link rel="stylesheet" href="{{ asset('css/templatemo_style.css') }}">
-
+        @yield('links')
     </head>
     <body>
         
@@ -32,5 +32,6 @@
         <script src="{{ asset('js/bootstrap.js') }}"></script>
         <script src="{{ asset('js/plugins.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+        @yield('scripts')
     </body>
 </html>

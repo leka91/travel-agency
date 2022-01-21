@@ -9,11 +9,11 @@ $(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
             process: {
-                url: "/upload",
+                url: "/admin/upload",
                 onerror: (response) => response,
             },
             revert: {
-                url: "/upload-remove",
+                url: "/admin/upload-remove",
             },
         },
         multiple: true,
@@ -35,11 +35,11 @@ $(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
             process: {
-                url: "/upload-heroimage",
+                url: "/admin/upload-heroimage",
                 onerror: (response) => response,
             },
             revert: {
-                url: "/upload-remove",
+                url: "/admin/upload-remove",
             },
         },
         labelFileProcessingError: (error) => {

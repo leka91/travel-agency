@@ -43,7 +43,7 @@ center,
 dl,
 dt,
 dd,
-ol,
+/* ol, */
 /* ul, */
 li,
 fieldset,
@@ -97,6 +97,11 @@ ul {
 blockquote,
 q {
     quotes: none;
+}
+
+blockquote {
+    font-style: italic;
+    border-left: 5px solid #ccc;
 }
 
 blockquote:before,
@@ -712,6 +717,30 @@ h3.widget-title {
     position: relative;
 }
 
+.widget-item .widget-body table,
+.widget-item .widget-body table td {
+    border: 1px solid #ddd;
+}
+
+.widget-item .widget-body .book-now {
+    display: block;
+    text-decoration: none;
+    width: 150px;
+    text-align: center;
+    margin: 10px auto;
+    background: #f60;
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px #ccc;
+    transition: ease 0.3s;
+}
+
+.widget-item .widget-body .book-now:hover {
+    background: #c04f04;
+}
+
 .widget-item .widget-body .description {
     color: #666;
 }
@@ -742,10 +771,14 @@ h3.widget-title {
     margin-left: 19px;
     position: relative;
     color: white;
-    font-weight: 300;
+    font-weight: 500;
     font-size: 22px;
     line-height: 38px;
     padding: 0 10px 0 10px;
+}
+
+.widget-item .widget-body .card-price span {
+    font-size: 20px;
 }
 
 .widget-item .widget-body .card-price:before {
