@@ -40,6 +40,11 @@ class Tour extends Model
         return $this->hasMany(Video::class);
     }
 
+    public function prices()
+    {
+        return $this->hasMany(Price::class);
+    }
+
     public function locations()
     {
         return $this->hasMany(Location::class);
@@ -70,13 +75,13 @@ class Tour extends Model
         return asset("/storage/uploads/gallery/{$this->id}/{$image}");
     }
 
-    public function timeToRead() {
+    public function timeToRead() 
+    {
         $wordsPerMinute = 200;
         $numOfWords     = str_word_count(strip_tags($this->description));
         $minutes        = $numOfWords / $wordsPerMinute;
         $readTime       = ceil($minutes);
 
-        return $readTime . ' min read';
-        
+        return "{$readTime} min read";
     }
 }

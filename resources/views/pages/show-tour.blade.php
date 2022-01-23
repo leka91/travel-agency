@@ -124,7 +124,7 @@
                 <div class="widget-item">
                     <div class="widget-body">
                         <h3 class="service-title">Tour Categories</h3>
-                        @foreach ($filteredCategories as $category)
+                        @foreach ($categories as $category)
                         <div class="service-item">
                             <div class="service-icon">
                                 {{ $category->tours_count }}

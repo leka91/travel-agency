@@ -54,6 +54,9 @@ class TourController extends Controller
     {
         $user = auth()->user();
 
+        // prices (name, amount)
+        // dd();
+
         $data = [
             'category_id'      => $request->category_id,
             'title'            => $request->title,

@@ -190,19 +190,43 @@
     </div>
 
     <div class="form-group">
-        <label for="price">Price</label>
-        <input type="number" name="price" class="form-control" id="price" placeholder="Enter price" value="{{ old('price') }}">
+        <label>Prices</label>
 
-        @error('price')
-            <span class="text-danger">
-                {{ $message }}
-            </span>
-        @enderror
+        @for ($i = 0; $i < 3; $i++)
+        <div class="prices">
+            <div class="price-name">
+                <small>
+                    People
+                </small>
+
+                <input type="text" name="prices[{{ $i }}][name]" class="form-control" value="{{ old("prices.{$i}.name") }}">
+
+                @error("prices.{$i}.name")
+                <span class="text-danger">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
+            <div class="price-amount">
+                <small>
+                    Amount
+                </small>
+
+                <input type="number" name="prices[{{ $i }}][amount]" class="form-control" value="{{ old("prices.{$i}.amount") }}">
+
+                @error("prices.{$i}.amount")
+                <span class="text-danger">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
+        </div>
+        @endfor
     </div>
 
     <div class="form-group">
         <label>
-            <strong>Locations</strong>
+            Locations
             <small>
                 <em>
                     (For google map)

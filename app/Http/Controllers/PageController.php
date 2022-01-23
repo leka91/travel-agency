@@ -46,13 +46,11 @@ class PageController extends Controller
     {
         $tour->load('category', 'tags', 'requirements');
 
-        $categories = Category::withCount('tours')->get();
+        $categories = Category::withCount('tours')
+            ->having('tours_count', '>', 0)
+            ->get();
 
-        $filteredCategories = $categories->filter(function ($category) {
-            return $category->tours_count != 0;
-        });
-
-        return view('pages.show-tour', compact('tour', 'filteredCategories'));
+        return view('pages.show-tour', compact('tour', 'categories'));
     }
 
     public function about()
