@@ -15,7 +15,7 @@
             <div class="col-lg-4 col-md-4">
                 <div class="widget-item">
                     <div class="sample-thumb">
-                        <a href="#">
+                        <a href="{{ route('pages.tour', $tour->slug) }}" target="_blank">
                             <img src="{{ $tour->thumbnail() }}" alt="{{ $tour->title }}">
                         </a>
                     </div>
@@ -28,7 +28,7 @@
                                 <span>
                                     From
                                 </span>
-                                {{ $tour->price }} €
+                                {{ $tour->firstPrice() }}
                             </p>
                         </div>
                         <div class="widget-tags">
@@ -43,7 +43,7 @@
                             @endif
                         </div>
                         <h4 class="consult-title">
-                            <a href="#">
+                            <a href="{{ route('pages.tour', $tour->slug) }}" target="_blank">
                                 {{ $tour->title }}
                             </a>
                         </h4>
@@ -51,7 +51,7 @@
                             {{ $tour->subtitle }}
                         </p>
                         <p class="widget-title">
-                            <a href="#">
+                            <a href="{{ route('pages.categoryRelatedTours', $tour->category->slug) }}" target="_blank">
                                 {{ $tour->category->name }}
                             </a>
                         </p>

@@ -36,7 +36,11 @@ class AddTourRequest extends FormRequest
             'gallery'             => 'nullable',
             'videos'              => 'nullable|array',
             'videos.*.video_link' => 'nullable|url|string|max:255',
-            'price'               => 'nullable|integer',
+            'prices'              => 'array|max:3',
+            'prices.0.name'       => 'required',
+            'prices.0.amount'     => 'required',
+            'prices.*.name'       => 'nullable|required_with:prices.*.amount|string',
+            'prices.*.amount'     => 'nullable|required_with:prices.*.name|numeric',
             'locations'           => 'nullable|array|max:10',
             'locations.*.lat'     => 'nullable|required_with:locations.*.lng|numeric|between:-90,90',
             'locations.*.lng'     => 'nullable|required_with:locations.*.lat|numeric|between:-180,180'
@@ -47,10 +51,16 @@ class AddTourRequest extends FormRequest
     {
         return [
             'heroimage.required'            => 'Please select Hero image',
+            'prices.0.name.required'        => 'People field is required',
+            'prices.0.amount.required'      => 'Amount field is required',
+            'prices.*.name.string'          => 'People must be string',
+            'prices.*.amount.numeric'       => 'Amount must be numeric',
+            'prices.*.name.required_with'   => 'People field is required',
+            'prices.*.amount.required_with' => 'Amount field is required',
             'locations.*.lat.numeric'       => 'Latitude must be numeric',
             'locations.*.lng.numeric'       => 'Longitude must be numeric',
-            'locations.*.lat.required_with' => 'Latitude is required when longitude is present',
-            'locations.*.lng.required_with' => 'Longitude is required when latitude is present',
+            'locations.*.lat.required_with' => 'Latitude field is required',
+            'locations.*.lng.required_with' => 'Longitude field is required',
             'locations.*.lat.between'       => 'Latitude must be in range between -90 and 90',
             'locations.*.lng.between'       => 'Longitude must be in range between -180 and 180',
             'videos.*.video_link.url'       => 'Video link format is invalid'

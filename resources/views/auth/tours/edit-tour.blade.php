@@ -26,6 +26,10 @@
 @component('auth.components.status.success')
 @endcomponent
 
+<a href="{{ route('pages.tour', $tour->slug) }}" class="btn btn-success mb-2" target="_blank">
+    Preview tour
+</a>
+
 <form method="POST" action="{{ route('admin.editTour', $tour->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -227,19 +231,52 @@
     </div>
 
     <div class="form-group">
-        <label for="price">Price</label>
-        <input type="number" name="price" class="form-control" id="price" placeholder="Enter price" value="{{ $tour->price ?? old('price') }}">
+        <label>
+            Prices
+        </label>
 
-        @error('price')
-            <span class="text-danger">
-                {{ $message }}
-            </span>
+        @foreach ($prices as $key => $price)
+        <div class="prices">
+            <div class="price-name">
+                <small>
+                    People
+                </small>
+
+                <input type="text" name="prices[{{ $key }}][name]" class="form-control" value="{{ $price['name'] ?? old("prices.{$key}.name") }}">
+
+                @error("prices.{$key}.name")
+                <span class="text-danger">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
+
+            <div class="price-amount">
+                <small>
+                    Amount
+                </small>
+
+                <input type="text" name="prices[{{ $key }}][amount]" class="form-control" value="{{ $price['amount'] ?? old("prices.{$key}.amount") }}">
+
+                @error("prices.{$key}.amount")
+                <span class="text-danger">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
+        </div>
+        @endforeach
+
+        @error('prices')
+        <span class="text-danger">
+            {{ $message }}
+        </span>
         @enderror
     </div>
 
     <div class="form-group">
         <label>
-            <strong>Locations</strong>
+            Locations
             <small>
                 <em>
                     (For google map)

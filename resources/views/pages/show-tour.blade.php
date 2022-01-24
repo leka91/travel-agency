@@ -26,14 +26,6 @@
                         <div class="date">
                             {{ $tour->timeToRead() }}
                         </div>
-                        <div class="card-body">
-                            <p class="card-price">
-                                <span>
-                                    From
-                                </span>
-                                {{ $tour->price }} €
-                            </p>
-                        </div>
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
                                 @foreach ($tour->tags as $tag)
@@ -52,7 +44,7 @@
                             {{ $tour->subtitle }}
                         </p>
                         <p class="widget-title">
-                            <a href="#">
+                            <a href="{{ route('pages.categoryRelatedTours', $tour->category->slug) }}" target="_blank">
                                 {{ $tour->category->name }}
                             </a>
                         </p>
@@ -96,22 +88,12 @@
                         <h3 class="service-title">Book this Tour</h3>
                         <table class="table table-striped">
                             <tbody>
+                                @foreach ($tour->prices as $price)
                                 <tr>
-                                    <td>1-3 persons</td>
-                                    <td>339€</td>
+                                    <td>{{ $price->name }} persons</td>
+                                    <td>{{ $price->amount }}€</td>
                                 </tr>
-                                <tr>
-                                    <td>4-6 persons</td>
-                                    <td>399€</td>
-                                </tr>
-                                <tr>
-                                    <td>7-8 persons</td>
-                                    <td>459€</td>
-                                </tr>
-                                <tr>
-                                    <td>9-19 persons</td>
-                                    <td>799€</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
@@ -131,7 +113,7 @@
                             </div>
                             <div class="service-content">
                                 <h4>
-                                    <a href="#">
+                                    <a href="{{ route('pages.categoryRelatedTours', $category->slug) }}" target="_blank">
                                         {{ $category->name }}
                                     </a>
                                 </h4>

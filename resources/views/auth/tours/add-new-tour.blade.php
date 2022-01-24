@@ -207,6 +207,7 @@
                 </span>
                 @enderror
             </div>
+            
             <div class="price-amount">
                 <small>
                     Amount
@@ -222,6 +223,12 @@
             </div>
         </div>
         @endfor
+
+        @error('prices')
+        <span class="text-danger">
+            {{ $message }}
+        </span>
+        @enderror
     </div>
 
     <div class="form-group">

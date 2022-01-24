@@ -9,6 +9,37 @@ use Intervention\Image\Facades\Image;
 
 class TourService
 {
+    public static function getUpdatedPrices($prices)
+    {
+        $mappedPrices = collect($prices)->map(function($item) {
+            return [
+                'name'   => $item['name'],
+                'amount' => $item['amount']
+            ];
+        });
+
+        if ($mappedPrices->count() < 3) {
+            $currentNumberOfPrices   = $mappedPrices->count();
+            $remainingNumberOfPrices = 3 - $currentNumberOfPrices;
+
+            for ($i = $remainingNumberOfPrices; $i > 0; $i--) {
+                $mappedPrices->push([
+                    'name'   => '',
+                    'amount' => ''
+                ]);
+            }
+        }
+
+        return $mappedPrices;
+    }
+    
+    public static function getPrices($prices)
+    {
+        return collect($prices)->filter(function ($value) {
+            return $value['name'] != null && $value['amount'] != null;
+        })->values()->toArray();
+    }
+    
     public static function getUpdatedHeroImage($requestHeroImage, $tourHeroImage)
     {
         $heroImage = null;

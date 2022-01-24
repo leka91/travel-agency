@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AddCategoryRequest;
 use App\Http\Requests\EditCategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -24,8 +25,10 @@ class CategoryController extends Controller
     public function addNewCategory(AddCategoryRequest $request)
     {
         $data = [
-            'name' => $request->name
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
         ];
+        
 
         Category::create($data);
 
@@ -40,7 +43,8 @@ class CategoryController extends Controller
     public function editCategory(EditCategoryRequest $request, Category $category)
     {
         $data = [
-            'name' => $request->name
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
         ];
 
         $category->update($data);

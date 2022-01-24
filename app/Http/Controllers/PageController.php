@@ -20,6 +20,28 @@ class PageController extends Controller
         return view('pages.services');
     }
 
+    public function categoryRelatedTours(Category $category)
+    { 
+        $tours = Tour::select(
+            'id',
+            'category_id',
+            'subtitle',
+            'title',
+            'slug',
+            'hero_image',
+            'description',
+            'created_at'
+        )->with([
+            'category',
+            'tags',
+            'requirements'
+        ])->where('category_id', $category->id)
+        ->latest()
+        ->simplePaginate(9);
+        
+        return view('pages.tours', compact('tours'));
+    }
+
     public function tours()
     {
         $tours = Tour::select(
@@ -28,15 +50,13 @@ class PageController extends Controller
             'subtitle',
             'title',
             'slug',
-            'price',
             'hero_image',
             'description',
             'created_at'
         )->with([
             'category',
             'tags',
-            'requirements',
-            'galleries'
+            'requirements'
         ])->latest()->simplePaginate(9);
         
         return view('pages.tours', compact('tours'));
@@ -44,7 +64,13 @@ class PageController extends Controller
 
     public function showTour(Tour $tour)
     {
-        $tour->load('category', 'tags', 'requirements');
+        $tour->load(
+            'category',
+            'tags',
+            'requirements',
+            'galleries',
+            'prices'
+        );
 
         $categories = Category::withCount('tours')
             ->having('tours_count', '>', 0)

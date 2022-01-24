@@ -42,7 +42,14 @@ class Tour extends Model
 
     public function prices()
     {
-        return $this->hasMany(Price::class);
+        return $this->hasMany(Price::class)->orderBy('amount');
+    }
+
+    public function firstPrice()
+    {
+        $price = $this->prices()->first();
+
+        return "{$price->amount} €";
     }
 
     public function locations()

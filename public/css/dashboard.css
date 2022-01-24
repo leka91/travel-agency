@@ -109,6 +109,14 @@ body {
     margin-right: 10px;
 }
 
+.mb {
+    margin-bottom: 10px;
+}
+
+.mb-2 {
+    margin-bottom: 20px;
+}
+
 .d-inline-block {
     display: inline-block;
 }

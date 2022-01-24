@@ -54,9 +54,6 @@ class TourController extends Controller
     {
         $user = auth()->user();
 
-        // prices (name, amount)
-        // dd();
-
         $data = [
             'category_id'      => $request->category_id,
             'title'            => $request->title,
@@ -65,11 +62,13 @@ class TourController extends Controller
             'meta_keywords'    => $request->meta_keywords,
             'meta_description' => $request->meta_description,
             'description'      => clean($request->description),
-            'price'            => $request->price,
             'hero_image'       => TourService::getHeroImage($request->heroimage)
         ];
 
         $tour = $user->tours()->create($data);
+
+        $prices = TourService::getPrices($request->prices);
+        $tour->prices()->createMany($prices);
 
         if ($request->locations) {
             $locations = TourService::getLocations($request->locations);
@@ -114,26 +113,35 @@ class TourController extends Controller
             'tags',
             'galleries',
             'videos',
-            'locations'
+            'locations',
+            'prices'
         );
         
         $categories   = Category::all();
         $requirements = Requirement::all();
-        $locations    = TourService::getUpdatedLocations($tour->locations);
         $tags         = Tag::all();
+        $locations    = TourService::getUpdatedLocations($tour->locations);
+        $prices       = TourService::getUpdatedPrices($tour->prices);
 
         return view('auth.tours.edit-tour', compact(
             'tour', 
             'categories', 
             'requirements',
+            'tags',
             'locations',
-            'tags'
+            'prices'
         ));
     }
 
     public function editTour(EditTourRequest $request, Tour $tour)
     {
-        $tour->load('requirements', 'tags', 'videos', 'locations');
+        $tour->load(
+            'requirements',
+            'tags',
+            'videos',
+            'locations',
+            'prices'
+        );
         
         $data = [
             'category_id'      => $request->category_id,
@@ -143,7 +151,6 @@ class TourController extends Controller
             'meta_keywords'    => $request->meta_keywords,
             'meta_description' => $request->meta_description,
             'description'      => clean($request->description),
-            'price'            => $request->price,
             'hero_image'       => TourService::getUpdatedHeroImage(
                 $request->heroimage,
                 $tour->hero_image
@@ -151,6 +158,13 @@ class TourController extends Controller
         ];
 
         $tour->update($data);
+
+        if ($tour->prices) {
+            $tour->prices()->delete();
+        }
+
+        $prices = TourService::getPrices($request->prices);
+        $tour->prices()->createMany($prices);
 
         if ($request->locations) {
             if ($tour->locations) {

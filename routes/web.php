@@ -26,6 +26,7 @@ Route::get('/', [PageController::class, 'home'])->name('pages.home');
 Route::get('/services', [PageController::class, 'services'])->name('pages.services');
 Route::get('/tours', [PageController::class, 'tours'])->name('pages.tours');
 Route::get('/tour/{tour:slug}', [PageController::class, 'showTour'])->name('pages.tour');
+Route::get('/tour/category/{category:slug}', [PageController::class, 'categoryRelatedTours'])->name('pages.categoryRelatedTours');
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
 Route::post('/contact', [PageController::class, 'sendContactMessage'])->name('pages.sendContactMessage');
