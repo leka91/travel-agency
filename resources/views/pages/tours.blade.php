@@ -34,7 +34,7 @@
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
                                 @foreach ($tour->tags as $tag)
-                                <a href="#">
+                                <a href="{{ route('pages.tagRelatedTours', $tag->slug) }}" target="_blank">
                                     <span class="badge">
                                         {{ $tag->name }}
                                     </span>

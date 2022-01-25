@@ -24,8 +24,7 @@ class TourController extends Controller
             'category_id',
             'title',
             'subtitle',
-            'price',
-            'created_at',
+            'created_at'
         )->with([
             'requirements',
             'tags',
@@ -247,7 +246,6 @@ class TourController extends Controller
             'category_id',
             'title',
             'subtitle',
-            'price',
             'deleted_at',
         )->with('category')
             ->onlyTrashed()

@@ -10,9 +10,23 @@ use App\Models\Tour;
 
 class PageController extends Controller
 {
+    protected $perPage = 9;
+    
     public function home()
     {
-        return view('pages.home');
+        $latestsThree = Tour::select(
+            'id',
+            'category_id',
+            'subtitle',
+            'title',
+            'slug',
+            'hero_image'
+        )
+        ->latest()
+        ->limit(3)
+        ->get();
+        
+        return view('pages.home', compact('latestsThree'));
     }
 
     public function services()
@@ -20,8 +34,8 @@ class PageController extends Controller
         return view('pages.services');
     }
 
-    public function categoryRelatedTours(Category $category)
-    { 
+    public function tagRelatedTours($tagSlug)
+    {
         $tours = Tour::select(
             'id',
             'category_id',
@@ -29,15 +43,39 @@ class PageController extends Controller
             'title',
             'slug',
             'hero_image',
-            'description',
-            'created_at'
+            'description'
+        )->with([
+            'category',
+            'tags',
+            'requirements'
+        ])->tagRelatedPosts($tagSlug)
+        ->latest()
+        ->simplePaginate($this->perPage);
+
+        return view('pages.tours', compact('tours'));
+    }
+
+    public function categoryRelatedTours($categorySlug)
+    { 
+        $category = Category::select('id')
+            ->where('slug', $categorySlug)
+            ->firstOrFail();
+        
+        $tours = Tour::select(
+            'id',
+            'category_id',
+            'subtitle',
+            'title',
+            'slug',
+            'hero_image',
+            'description'
         )->with([
             'category',
             'tags',
             'requirements'
         ])->where('category_id', $category->id)
         ->latest()
-        ->simplePaginate(9);
+        ->simplePaginate($this->perPage);
         
         return view('pages.tours', compact('tours'));
     }
@@ -51,27 +89,28 @@ class PageController extends Controller
             'title',
             'slug',
             'hero_image',
-            'description',
-            'created_at'
+            'description'
         )->with([
             'category',
             'tags',
             'requirements'
-        ])->latest()->simplePaginate(9);
+        ])->latest()
+        ->simplePaginate($this->perPage);
         
         return view('pages.tours', compact('tours'));
     }
 
-    public function showTour(Tour $tour)
+    public function showTour($tourSlug)
     {
-        $tour->load(
+        $tour = Tour::with([
             'category',
             'tags',
             'requirements',
             'galleries',
+            'videos',
             'prices'
-        );
-
+        ])->where('slug', $tourSlug)->firstOrFail();
+        
         $categories = Category::withCount('tours')
             ->having('tours_count', '>', 0)
             ->get();

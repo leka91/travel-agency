@@ -41,7 +41,6 @@
                 <th>@sortablelink('id', 'ID')</th>
                 <th>@sortablelink('title', 'Title')</th>
                 <th>@sortablelink('subtitle', 'Subtitle')</th>
-                <th>@sortablelink('price', 'Price')</th>
                 <th>@sortablelink('deleted_at', 'Deleted at')</th>
                 <th>Category</th>
                 <th class="text-right"></th>
@@ -53,7 +52,6 @@
                 <td>{{ $tour->id }}</td>
                 <td>{{ $tour->title }}</td>
                 <td>{{ $tour->subtitle }}</td>
-                <td>{{ $tour->price ? $tour->price . ' €' : '' }}</td>
                 <td>{{ $tour->deleted_at->format('d M Y') }}</td>
                 <td>{{ $tour->category->name }}</td>
                 <td class="text-right">

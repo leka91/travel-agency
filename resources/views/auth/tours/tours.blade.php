@@ -54,7 +54,6 @@
                 <th>@sortablelink('id', 'ID')</th>
                 <th>@sortablelink('title', 'Title')</th>
                 <th>@sortablelink('subtitle', 'Subtitle')</th>
-                <th>@sortablelink('price', 'Price')</th>
                 <th>@sortablelink('created_at', 'Created at')</th>
                 <th>Category</th>
                 <th>Requirements</th>
@@ -68,7 +67,6 @@
                 <td>{{ $tour->id }}</td>
                 <td>{{ $tour->title }}</td>
                 <td>{{ $tour->subtitle }}</td>
-                <td>{{ $tour->price ? $tour->price . ' €' : '' }}</td>
                 <td>{{ $tour->created_at->format('d M Y') }}</td>
                 <td>{{ $tour->category->name }}</td>
                 <td class="badge-size">

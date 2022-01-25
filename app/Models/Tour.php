@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
@@ -15,10 +16,16 @@ class Tour extends Model
         'id', 
         'title', 
         'subtitle', 
-        'price', 
         'created_at',
         'deleted_at'
     ];
+
+    public function scopeTagRelatedPosts($query, $tagSlug)
+    {
+        return $query->whereHas('tags', function (Builder $query) use ($tagSlug) {
+            $query->where('tags.slug', $tagSlug);
+        });
+    }
 
     public function user()
     {

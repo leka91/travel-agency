@@ -1,5 +1,13 @@
 @extends('index')
 
+@section('meta-tags')
+    <meta name="description" content="{{ $tour->meta_description }}"/>
+    <meta name="keywords" content="{{ $tour->meta_keywords }}">
+    <meta property="og:title" content="{{ $tour->title }}">
+    <meta property="og:description" content="{{ $tour->meta_description }}">
+    <meta property="og:image" content="{{ $tour->heroImage() }}">
+@endsection
+
 @section('title', '| Tour ' . $tour->title)
 
 @section('links')
@@ -29,7 +37,7 @@
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
                                 @foreach ($tour->tags as $tag)
-                                <a href="#">
+                                <a href="#" target="_blank">
                                     <span class="badge">
                                         {{ $tag->name }}
                                     </span>
@@ -68,14 +76,19 @@
                             {!! $tour->description !!}
                         </div>
 
-                        @if ($tour->galleries)
+                        @if ($tour->galleries->isNotEmpty())
                         <div class="gallery">
                             <div class="fotorama" data-allowfullscreen="true" data-width="100%">
                                 @foreach ($tour->galleries as $gallery)
                                 <img src="{{ $tour->galleryImage($gallery->image) }}" alt="{{ $tour->title }}">
                                 @endforeach
-                                {{-- <a href="https://www.youtube.com/watch?v=vhd5HPoGV58">Hulk</a> --}}
-                              </div>
+
+                                @if ($tour->videos->isNotEmpty())
+                                    @foreach ($tour->videos as $video)
+                                    <a href="{{ $video->video_link }}"></a>
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
                         @endif
                     </div>
