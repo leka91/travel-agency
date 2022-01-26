@@ -54,7 +54,7 @@ class Tour extends Model
 
     public function firstPrice()
     {
-        $price = $this->prices()->first();
+        $price = $this->prices->first();
 
         return "{$price->amount} €";
     }

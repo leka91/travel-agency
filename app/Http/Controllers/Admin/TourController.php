@@ -105,16 +105,16 @@ class TourController extends Controller
         return back()->with('status', 'You have added tour successfully');
     }
 
-    public function editTourForm(Tour $tour)
+    public function editTourForm($tourId)
     {
-        $tour->load(
+        $tour = Tour::with([
             'requirements',
             'tags',
             'galleries',
             'videos',
             'locations',
             'prices'
-        );
+        ])->findOrFail($tourId);
         
         $categories   = Category::all();
         $requirements = Requirement::all();

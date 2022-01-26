@@ -53,7 +53,8 @@ class PageController extends Controller
         )->with([
             'category',
             'tags',
-            'requirements'
+            'requirements',
+            'prices'
         ])
         ->tagRelatedPosts($tagSlug)
         ->latest()
@@ -78,7 +79,8 @@ class PageController extends Controller
         )->with([
             'category',
             'tags',
-            'requirements'
+            'requirements',
+            'prices'
         ])
         ->where('category_id', $category->id)
         ->latest()
@@ -99,7 +101,8 @@ class PageController extends Controller
         )->with([
             'category',
             'tags',
-            'requirements'
+            'requirements',
+            'prices'
         ])
         ->latest()
         ->simplePaginate($this->simplePerPage);
