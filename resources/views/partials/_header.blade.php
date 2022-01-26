@@ -17,11 +17,6 @@
                                     Home
                                 </a>
                             </li>
-                            <li class="{{ Request::is('services') ? 'active' : '' }}">
-                                <a href="{{ route('pages.services') }}">
-                                    Services
-                                </a>
-                            </li>
                             <li class="{{ Request::is('tours') ? 'active' : '' }}">
                                 <a href="{{ route('pages.tours') }}">
                                     Tours

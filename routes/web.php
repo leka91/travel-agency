@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'home'])->name('pages.home');
-Route::get('/services', [PageController::class, 'services'])->name('pages.services');
 Route::get('/tours', [PageController::class, 'tours'])->name('pages.tours');
 Route::get('/tour/{tourSlug}', [PageController::class, 'showTour'])->name('pages.tour');
 Route::get('/tours/category/{categorySlug}', [PageController::class, 'categoryRelatedTours'])->name('pages.categoryRelatedTours');

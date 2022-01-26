@@ -14,6 +14,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css">
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-classic.css">
+
 @endsection
 
 @section('content')
@@ -32,12 +36,12 @@
 
                     <div class="widget-body">
                         <div class="date">
-                            {{ $tour->timeToRead() }}
+                            <div id="share"></div>
                         </div>
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
                                 @foreach ($tour->tags as $tag)
-                                <a href="#" target="_blank">
+                                <a href="{{ route('pages.tagRelatedTours', $tag->slug) }}" target="_blank">
                                     <span class="badge">
                                         {{ $tag->name }}
                                     </span>
@@ -140,4 +144,9 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
+<script src="{{ asset('js/jssocials.js') }}"></script>
 @endsection

@@ -427,22 +427,21 @@ a.toggle-menu {
 
 .flex-caption {
     position: absolute;
-    wdith: 100%;
+    width: 100%;
     margin-left: 15px;
     left: 0;
     bottom: 100px;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     padding: 30px;
     z-index: 10;
     text-align: center;
 }
 
-.flex-caption span.price {
+.flex-caption .price {
     background: #e54747;
     color: #fff;
-    text-transform: uppercase;
     font-weight: 700;
-    font-size: 28px;
+    font-size: 26px;
     padding: 15px 20px;
     display: inline-block;
 }
@@ -597,7 +596,7 @@ h3.widget-title {
 .list-item .list-thumb .title {
     background-color: #9ed034;
     text-transform: uppercase;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     height: 50px;
     text-align: center;
@@ -610,6 +609,10 @@ h3.widget-title {
 
 .list-item .list-thumb img {
     width: 100%;
+}
+
+.list-item .list-content {
+    text-align: center;
 }
 
 .list-item .list-content h5 {
@@ -635,7 +638,7 @@ h3.widget-title {
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;
-    margin-top: 15px;
+    /* margin-top: 15px; */
 }
 
 .list-item .list-content a.price-btn:hover {
@@ -713,8 +716,7 @@ h3.widget-title {
 }
 
 .widget-item .widget-body {
-    padding: 0 10px 10px 10px;
-    position: relative;
+    padding: 0 15px 15px 15px;
 }
 
 .widget-item .widget-body table,
@@ -754,9 +756,7 @@ h3.widget-title {
 }
 
 .widget-item .widget-body .card-body {
-    position: absolute;
-    top: 20px;
-    right: 10px;
+    margin-top: 15px;
 }
 
 .widget-item .widget-body .card-price {
@@ -839,7 +839,7 @@ h3.widget-title {
     font-size: 14px;
     text-align: center;
     background: #fff;
-    padding: 10px 20px;
+    padding: 5px 10px;
     box-shadow: 0 0 10px #ccc;
     margin-top: 20px;
 }

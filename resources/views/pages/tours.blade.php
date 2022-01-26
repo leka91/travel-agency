@@ -20,16 +20,13 @@
                         </a>
                     </div>
                     <div class="widget-body">
-                        <div class="date">
-                            {{ $tour->timeToRead() }}
-                        </div>
                         <div class="card-body">
-                            <p class="card-price">
+                            <div class="card-price">
                                 <span>
                                     From
                                 </span>
                                 {{ $tour->firstPrice() }}
-                            </p>
+                            </div>
                         </div>
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
