@@ -141,6 +141,9 @@ class TourController extends Controller
             'locations',
             'prices'
         );
+
+        $requestPrices = collect($request->prices);
+        $price = $requestPrices->min('amount');
         
         $data = [
             'category_id'      => $request->category_id,
@@ -150,6 +153,7 @@ class TourController extends Controller
             'meta_keywords'    => $request->meta_keywords,
             'meta_description' => $request->meta_description,
             'description'      => clean($request->description),
+            'price'            => $price,
             'hero_image'       => TourService::getUpdatedHeroImage(
                 $request->heroimage,
                 $tour->hero_image
@@ -162,7 +166,7 @@ class TourController extends Controller
             $tour->prices()->delete();
         }
 
-        $prices = TourService::getPrices($request->prices);
+        $prices = TourService::getPrices($requestPrices);
         $tour->prices()->createMany($prices);
 
         if ($request->locations) {

@@ -11,7 +11,7 @@ class TourService
 {
     public static function getUpdatedPrices($prices)
     {
-        $mappedPrices = collect($prices)->map(function($item) {
+        $mappedPrices = $prices->map(function($item) {
             return [
                 'name'   => $item['name'],
                 'amount' => $item['amount']

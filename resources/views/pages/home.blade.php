@@ -16,7 +16,7 @@
                         <div class="flex-caption visible-lg">
                             <span class="price">
                                 <span>From</span> 
-                                {{ $tour->firstPrice() }}
+                                {{ $tour->price }}
                             </span>
                             <h3 class="title">
                                 {{ $tour->title }}
@@ -44,7 +44,7 @@
                 <div class="list-thumb">
                     <div class="title">
                         <h4>
-                            {{ $tour->category->name }}
+                            {{ $tour->category_name }}
                         </h4>
                     </div>
                     <img src="{{ $tour->thumbnail() }}" alt="{{ $tour->title }}">

@@ -4,8 +4,7 @@
 
 @section('content')
 
-<div class="page-top" id="templatemo_events">
-</div> <!-- /.page-header -->
+<div class="page-top" id="templatemo_events"></div>
 
 <div class="middle-content">
     <div class="container">
@@ -20,14 +19,14 @@
                         </a>
                     </div>
                     <div class="widget-body">
-                        <div class="card-body">
-                            <div class="card-price">
-                                <span>
-                                    From
-                                </span>
-                                {{ $tour->firstPrice() }}
-                            </div>
-                        </div>
+                        <h4 class="consult-title">
+                            <a href="{{ route('pages.tour', $tour->slug) }}" target="_blank">
+                                {{ $tour->title }}
+                            </a>
+                        </h4>
+                        <p class="consult-subtitle">
+                            {{ $tour->subtitle }}
+                        </p>
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
                                 @foreach ($tour->tags as $tag)
@@ -39,34 +38,20 @@
                                 @endforeach
                             @endif
                         </div>
-                        <h4 class="consult-title">
-                            <a href="{{ route('pages.tour', $tour->slug) }}" target="_blank">
-                                {{ $tour->title }}
-                            </a>
-                        </h4>
-                        <p class="consult-subtitle">
-                            {{ $tour->subtitle }}
-                        </p>
-                        <p class="widget-title">
-                            <a href="{{ route('pages.categoryRelatedTours', $tour->category->slug) }}" target="_blank">
-                                {{ $tour->category->name }}
-                            </a>
-                        </p>
-
-                        @if ($tour->requirements->isNotEmpty())
-                        <div class="requirements">
-                            <p class="requirements-paragraph">
-                                Requirements:
-                            </p>
-                            <p class="requirement-items">
-                                @foreach ($tour->requirements as $requirement)
-                                    <span class="badge">
-                                        {{ $requirement->name }}
-                                    </span>
-                                @endforeach
-                            </p>
+                        <div class="card-body">
+                            <div class="card-price">
+                                <span>
+                                    From
+                                </span>
+                                {{ $tour->price }}
+                            </div>
                         </div>
-                        @endif
+                        
+                        <p class="widget-title">
+                            <a href="{{ route('pages.categoryRelatedTours', $tour->category_slug) }}" target="_blank">
+                                {{ $tour->category_name }}
+                            </a>
+                        </p>
                         
                         <div>
                             <a href="{{ route('pages.tour', $tour->slug) }}" class="read-more" target="_blank">

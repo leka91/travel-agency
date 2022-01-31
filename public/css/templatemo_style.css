@@ -772,13 +772,9 @@ h3.widget-title {
     position: relative;
     color: white;
     font-weight: 500;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 38px;
     padding: 0 10px 0 10px;
-}
-
-.widget-item .widget-body .card-price span {
-    font-size: 20px;
 }
 
 .widget-item .widget-body .card-price:before {
@@ -848,6 +844,8 @@ h3.widget-title {
     font-size: 14px;
     text-transform: uppercase;
     display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .widget-item p.widget-title a:hover {
@@ -949,7 +947,7 @@ h3.widget-title {
 }
 
 h4.consult-title {
-    font-size: 18px;
+    font-size: 22px;
     color: #000;
     font-weight: 500;
     margin: 15px 0 10px 0;
@@ -960,7 +958,7 @@ p.consult-subtitle {
 }
 
 h4.consult-title a {
-    font-size: 18px;
+    font-size: 22px;
     color: #000;
     font-weight: 500;
 }

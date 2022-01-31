@@ -14,29 +14,23 @@ class PageController extends Controller
     
     public function home()
     {
-        $latestThree = Tour::select(
-            'id',
-            'subtitle',
-            'title',
-            'slug',
-            'hero_image'
-        )
-        ->with('prices')
-        ->latest()
-        ->limit(3)
+        $topNineTours = Tour::select(
+            'tours.id',
+            'tours.category_id',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->latest('tours.created_at')
+        ->limit(9)
         ->get();
-
-        $latestSix = Tour::select(
-            'id',
-            'category_id',
-            'title',
-            'slug',
-            'hero_image'
-        )
-        ->with('category')
-        ->latest()
-        ->limit(6)
-        ->get();
+        
+        $latestThree = $topNineTours->slice(0,3)->values();
+        $latestSix   = $topNineTours->slice(3)->values();
 
         return view('pages.home', compact('latestThree', 'latestSix'));
     }
@@ -44,46 +38,40 @@ class PageController extends Controller
     public function tagRelatedTours($tagSlug)
     {
         $tours = Tour::select(
-            'id',
-            'category_id',
-            'subtitle',
-            'title',
-            'slug',
-            'hero_image'
-        )->with([
-            'category',
-            'tags',
-            'requirements',
-            'prices'
-        ])
+            'tours.id',
+            'tours.category_id',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )->with('tags')
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
         ->tagRelatedPosts($tagSlug)
-        ->latest()
+        ->latest('tours.created_at')
         ->simplePaginate($this->simplePerPage);
 
         return view('pages.tours', compact('tours'));
     }
 
     public function categoryRelatedTours($categorySlug)
-    { 
-        $category = Category::select('id')
-            ->where('slug', $categorySlug)
-            ->firstOrFail();
-        
+    {
         $tours = Tour::select(
-            'id',
-            'category_id',
-            'subtitle',
-            'title',
-            'slug',
-            'hero_image'
-        )->with([
-            'category',
-            'tags',
-            'requirements',
-            'prices'
-        ])
-        ->where('category_id', $category->id)
-        ->latest()
+            'tours.id',
+            'tours.category_id',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )->with('tags')
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->where('categories.slug', $categorySlug)
+        ->latest('tours.created_at')
         ->simplePaginate($this->simplePerPage);
         
         return view('pages.tours', compact('tours'));
@@ -92,21 +80,21 @@ class PageController extends Controller
     public function tours()
     {
         $tours = Tour::select(
-            'id',
-            'category_id',
-            'subtitle',
-            'title',
-            'slug',
-            'hero_image'
-        )->with([
-            'category',
-            'tags',
-            'requirements',
-            'prices'
-        ])
-        ->latest()
+            'tours.id',
+            'tours.category_id',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )
+        ->with('tags')
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->latest('tours.created_at')
         ->simplePaginate($this->simplePerPage);
-        
+
         return view('pages.tours', compact('tours'));
     }
 
