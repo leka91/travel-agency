@@ -47,7 +47,12 @@ class PageController extends Controller
             'tours.hero_image',
             'categories.name AS category_name',
             'categories.slug AS category_slug'
-        )->with('tags')
+        )
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
         ->join('categories', 'tours.category_id', '=', 'categories.id')
         ->tagRelatedPosts($tagSlug)
         ->latest('tours.created_at')
@@ -68,7 +73,12 @@ class PageController extends Controller
             'tours.hero_image',
             'categories.name AS category_name',
             'categories.slug AS category_slug'
-        )->with('tags')
+        )
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
         ->join('categories', 'tours.category_id', '=', 'categories.id')
         ->where('categories.slug', $categorySlug)
         ->latest('tours.created_at')
@@ -90,7 +100,11 @@ class PageController extends Controller
             'categories.name AS category_name',
             'categories.slug AS category_slug'
         )
-        ->with('tags')
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
         ->join('categories', 'tours.category_id', '=', 'categories.id')
         ->latest('tours.created_at')
         ->simplePaginate($this->simplePerPage);
@@ -101,17 +115,41 @@ class PageController extends Controller
     public function showTour($tourSlug)
     {
         $tour = Tour::with([
-            'category',
-            'tags',
-            'requirements',
-            'galleries',
-            'videos',
-            'prices'
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            },
+            'requirements' => function ($query) {
+                $query->select('requirements.name');
+            },
+            'galleries' => function ($query) {
+                $query->select('galleries.image', 'galleries.tour_id');
+            },
+            'videos' => function ($query) {
+                $query->select('videos.video_link', 'videos.tour_id');
+            },
+            'prices' => function ($query) {
+                $query->select('prices.name', 'prices.amount', 'prices.tour_id');
+            }
         ])
-        ->where('slug', $tourSlug)
-        ->firstOrFail();
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->where('tours.slug', $tourSlug)
+        ->firstOrFail([
+            'tours.id',
+            'tours.user_id',
+            'tours.category_id',
+            'tours.title',
+            'tours.subtitle',
+            'tours.description',
+            'tours.hero_image',
+            'tours.slug',
+            'tours.meta_description',
+            'tours.meta_keywords',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        ]);
         
-        $categories = Category::withCount('tours')
+        $categories = Category::select('id', 'name', 'slug')
+            ->withCount('tours')
             ->having('tours_count', '>', 0)
             ->get();
 

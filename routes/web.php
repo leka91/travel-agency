@@ -64,12 +64,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // requirements
     Route::get('/requirements', [RequirementController::class, 'getAllRequirements'])->name('admin.requirements');
     Route::get('/requirements/add-new-requirement', [RequirementController::class, 'newRequirementForm'])->name('admin.newRequirementForm');
+    Route::get('/requirements-search', [RequirementController::class, 'searchRequirement']);
     Route::post('/requirements', [RequirementController::class, 'addNewRequirement'])->name('admin.addNewRequirement');
     Route::get('/requirements/edit-requirement/{requirement}', [RequirementController::class, 'editRequirementForm'])->name('admin.editRequirementForm');
     Route::put('/requirements/{requirement}', [RequirementController::class, 'editRequirement'])->name('admin.editRequirement');
 
     // tags
     Route::get('/tags', [TagController::class, 'getAllTags'])->name('admin.tags');
+    Route::get('/tags-search', [TagController::class, 'searchTag']);
     Route::get('/tags/add-new-tag', [TagController::class, 'newTagForm'])->name('admin.newTagForm');
     Route::post('/tags', [TagController::class, 'addNewTag'])->name('admin.addNewTag');
     Route::get('/tags/edit-tag/{tag}', [TagController::class, 'editTagForm'])->name('admin.editTagForm');

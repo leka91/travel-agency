@@ -56,8 +56,8 @@
                             {{ $tour->subtitle }}
                         </p>
                         <p class="widget-title">
-                            <a href="{{ route('pages.categoryRelatedTours', $tour->category->slug) }}" target="_blank">
-                                {{ $tour->category->name }}
+                            <a href="{{ route('pages.categoryRelatedTours', $tour->category_slug) }}" target="_blank">
+                                {{ $tour->category_name }}
                             </a>
                         </p>
 

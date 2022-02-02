@@ -6,10 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AddRequirementRequest;
 use App\Http\Requests\EditRequirementRequest;
 use App\Models\Requirement;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class RequirementController extends Controller
 {
+    public function searchRequirement(Request $request)
+    {
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            
+            $data = Requirement::select('id', 'name')
+                ->where('name', 'LIKE', "%{$search}%")
+                ->get();
+        }
+        
+        return response()->json($data);
+    }
+    
     public function getAllRequirements()
     {
         $requirements = Requirement::sortable()->paginate(10);

@@ -113,13 +113,7 @@
 
     <div class="form-group">
         <label for="requirements">Tour requirements</label>
-        <select class="form-control" name="requirements[]" multiple="multiple" id="requirements">
-            @foreach ($requirements as $requirement)
-            <option value="{{ $requirement->id }}">
-                {{ $requirement->name }}
-            </option>
-            @endforeach
-        </select>
+        <select class="form-control" name="requirements[]" multiple="multiple" id="requirements"></select>
 
         @error('requirements')
             <span class="text-danger">
@@ -130,13 +124,7 @@
 
     <div class="form-group">
         <label for="tags">Tour tags</label>
-        <select class="form-control" name="tags[]" multiple="multiple" id="tags">
-            @foreach ($tags as $tag)
-            <option value="{{ $tag->id }}">
-                {{ $tag->name }}
-            </option>
-            @endforeach
-        </select>
+        <select class="form-control" name="tags[]" multiple="multiple" id="tags"></select>
 
         @error('tags')
             <span class="text-danger">

@@ -129,8 +129,8 @@
     <div class="form-group">
         <label for="requirements">Tour requirements</label>
         <select class="form-control" name="requirements[]" multiple="multiple" id="requirements">
-            @foreach ($requirements as $requirement)
-            <option value="{{ $requirement->id }}" {{ $tour->requirements->contains($requirement->id) ? 'selected' : '' }}>
+            @foreach ($tour->requirements as $requirement)
+            <option value="{{ $requirement->id }}" selected>
                 {{ $requirement->name }}
             </option>
             @endforeach
@@ -146,8 +146,8 @@
     <div class="form-group">
         <label for="tags">Tour tags</label>
         <select class="form-control" name="tags[]" multiple="multiple" id="tags">
-            @foreach ($tags as $tag)
-            <option value="{{ $tag->id }}" {{ $tour->tags->contains($tag->id) ? 'selected' : '' }}>
+            @foreach ($tour->tags as $tag)
+            <option value="{{ $tag->id }}" selected>
                 {{ $tag->name }}
             </option>
             @endforeach

@@ -20,33 +20,34 @@ class TourController extends Controller
     public function getAlltours()
     {
         $tours = Tour::select(
-            'id',
-            'category_id',
-            'title',
-            'subtitle',
-            'created_at'
+            'tours.id',
+            'tours.category_id',
+            'tours.title',
+            'tours.subtitle',
+            'tours.created_at',
+            'categories.name AS category_name'
         )->with([
-            'requirements',
-            'tags',
-            'category'
-        ])->sortable()->paginate(10);
+            'requirements' => function ($query) {
+                $query->select('requirements.name');
+            },
+            'tags' => function ($query) {
+                $query->select('tags.name');
+            }
+        ])
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->sortable()
+        ->paginate(10);
 
-        $removedToursCount = Tour::onlyTrashed()->count();
+        $removedToursCount = Tour::onlyTrashed()->count('id');
         
         return view('auth.tours.tours', compact('tours', 'removedToursCount'));
     }
 
     public function newTourForm()
     {
-        $categories   = Category::all();
-        $requirements = Requirement::all();
-        $tags         = Tag::all();
+        $categories = Category::all(['id', 'name']);
         
-        return view('auth.tours.add-new-tour', compact(
-            'categories',
-            'requirements',
-            'tags'
-        ));
+        return view('auth.tours.add-new-tour', compact('categories'));
     }
 
     public function addNewTour(AddTourRequest $request)
@@ -108,25 +109,44 @@ class TourController extends Controller
     public function editTourForm($tourId)
     {
         $tour = Tour::with([
-            'requirements',
-            'tags',
-            'galleries',
-            'videos',
-            'locations',
-            'prices'
-        ])->findOrFail($tourId);
+            'requirements' => function ($query) {
+                $query->select('requirements.id', 'requirements.name');
+            },
+            'tags' => function ($query) {
+                $query->select('tags.id', 'tags.name');
+            },
+            'galleries' => function ($query) {
+                $query->select('galleries.id', 'galleries.image', 'galleries.tour_id');
+            },
+            'videos' => function ($query) {
+                $query->select('videos.video_link', 'videos.tour_id');
+            },
+            'locations' => function ($query) {
+                $query->select('lat', 'lng', 'locations.tour_id');
+            },
+            'prices' => function ($query) {
+                $query->select('prices.name', 'prices.amount', 'prices.tour_id');
+            },
+        ])->findOrFail($tourId, [
+            'id',
+            'user_id',
+            'category_id',
+            'title',
+            'subtitle',
+            'description',
+            'hero_image',
+            'slug',
+            'meta_description',
+            'meta_keywords'
+        ]);
         
-        $categories   = Category::all();
-        $requirements = Requirement::all();
-        $tags         = Tag::all();
-        $locations    = TourService::getUpdatedLocations($tour->locations);
-        $prices       = TourService::getUpdatedPrices($tour->prices);
+        $categories = Category::all(['id', 'name']);
+        $locations  = TourService::getUpdatedLocations($tour->locations);
+        $prices     = TourService::getUpdatedPrices($tour->prices);
 
         return view('auth.tours.edit-tour', compact(
             'tour', 
-            'categories', 
-            'requirements',
-            'tags',
+            'categories',
             'locations',
             'prices'
         ));
@@ -246,15 +266,17 @@ class TourController extends Controller
     public function getAllRemovedTours()
     {
         $tours = Tour::select(
-            'id',
-            'category_id',
-            'title',
-            'subtitle',
-            'deleted_at',
-        )->with('category')
-            ->onlyTrashed()
-            ->sortable()
-            ->paginate(10);
+            'tours.id',
+            'tours.category_id',
+            'tours.title',
+            'tours.subtitle',
+            'tours.deleted_at',
+            'categories.name AS category_name'
+        )
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->onlyTrashed()
+        ->sortable()
+        ->paginate(10);
 
         return view('auth.tours.removed-tours', compact('tours'));
     }

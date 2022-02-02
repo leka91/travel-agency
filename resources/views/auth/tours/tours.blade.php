@@ -68,7 +68,7 @@
                 <td>{{ $tour->title }}</td>
                 <td>{{ $tour->subtitle }}</td>
                 <td>{{ $tour->created_at->format('d M Y') }}</td>
-                <td>{{ $tour->category->name }}</td>
+                <td>{{ $tour->category_name }}</td>
                 <td class="badge-size">
                     @foreach ($tour->requirements as $requirement)
                     <span class="badge">

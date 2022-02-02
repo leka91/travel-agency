@@ -6,10 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AddTagRequest;
 use App\Http\Requests\EditTagRequest;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
+    public function searchTag(Request $request)
+    {
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            
+            $data = Tag::select('id', 'name')
+                ->where('name', 'LIKE', "%{$search}%")
+                ->get();
+        }
+        
+        return response()->json($data);
+    }
+    
     public function getAllTags()
     {
         $tags = Tag::sortable()->paginate(10);

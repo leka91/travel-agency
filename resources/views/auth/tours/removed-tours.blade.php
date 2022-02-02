@@ -53,7 +53,7 @@
                 <td>{{ $tour->title }}</td>
                 <td>{{ $tour->subtitle }}</td>
                 <td>{{ $tour->deleted_at->format('d M Y') }}</td>
-                <td>{{ $tour->category->name }}</td>
+                <td>{{ $tour->category_name }}</td>
                 <td class="text-right">
                     <form action="{{ route('admin.restoreTour', $tour->id) }}" method="POST" class="d-inline-block">
                         @csrf

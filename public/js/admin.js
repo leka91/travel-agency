@@ -28,7 +28,7 @@ $(function () {
 
         $.ajax({
             method: "POST",
-            url: "/galleries/remove-gallery-image",
+            url: "/admin/galleries/remove-gallery-image",
             data: {
                 galleryId: galleryId,
                 _token: $('meta[name="csrf-token"]').attr("content"),
