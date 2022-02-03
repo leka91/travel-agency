@@ -7,11 +7,11 @@
 <div class="page-top" id="templatemo_events"></div>
 
 <div class="middle-content">
-    <div class="container">
-        <div class="row">
+    <div class="container tours-container">
+        <div class="row tours-row">
 
             @foreach ($tours as $tour)
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-4 col-md-6 tours-col">
                 <div class="widget-item">
                     <div class="sample-thumb">
                         <a href="{{ route('pages.tour', $tour->slug) }}" target="_blank">
@@ -59,7 +59,7 @@
                             </a>
                         </div>
                     </div>
-                </div>                 
+                </div>
             </div>
             @endforeach
         </div>

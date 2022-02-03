@@ -1088,6 +1088,11 @@ h4.consult-title a {
     color: #fff;
 }
 
+.row.tours-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 @media screen and (min-width: 240px) {
     .act-btn {
         margin-top: 30px;
@@ -1095,6 +1100,16 @@ h4.consult-title a {
 
     .act-btn .title {
         display: none;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+    .container.tours-container {
+        max-width: 440px;
+    }
+
+    .tours-col {
+        width: 100%;
     }
 }
 
@@ -1110,11 +1125,21 @@ h4.consult-title a {
     .act-btn .title span {
         font-size: 16px;
     }
+
+    .col-md-6.tours-col {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
 }
 
 @media screen and (min-width: 992px) {
     .act-btn {
         margin-top: 0;
+    }
+
+    .col-lg-4.tours-col {
+        flex: 0 0 33.33333%;
+        max-width: 33.33333%;
     }
 }
 
