@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Tour;
+use App\Services\CacheService;
 
 class TourObserver
 {
@@ -14,7 +15,9 @@ class TourObserver
      */
     public function created(Tour $tour)
     {
-        //
+        CacheService::clearCachedKeys([
+            'popular_tours'
+        ]);
     }
 
     /**
@@ -25,7 +28,9 @@ class TourObserver
      */
     public function updated(Tour $tour)
     {
-        //
+        CacheService::clearCachedKeys([
+            'popular_tours'
+        ]);
     }
 
     /**
@@ -36,7 +41,9 @@ class TourObserver
      */
     public function deleted(Tour $tour)
     {
-        //
+        CacheService::clearCachedKeys([
+            'popular_tours'
+        ]);
     }
 
     /**
@@ -47,7 +54,9 @@ class TourObserver
      */
     public function restored(Tour $tour)
     {
-        //
+        CacheService::clearCachedKeys([
+            'popular_tours'
+        ]);
     }
 
     /**
@@ -58,6 +67,8 @@ class TourObserver
      */
     public function forceDeleted(Tour $tour)
     {
-        //
+        CacheService::clearCachedKeys([
+            'popular_tours'
+        ]);
     }
 }

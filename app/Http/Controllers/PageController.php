@@ -7,6 +7,7 @@ use App\Jobs\SendEmail;
 use App\Mail\ContactFormMessage;
 use App\Models\Category;
 use App\Models\Tour;
+use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
@@ -14,20 +15,22 @@ class PageController extends Controller
     
     public function home()
     {
-        $topNineTours = Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->latest('tours.created_at')
-        ->limit(9)
-        ->get();
+        $topNineTours = Cache::rememberForever('popular_tours', function () {
+            return Tour::select(
+                'tours.id',
+                'tours.category_id',
+                'tours.subtitle',
+                'tours.title',
+                'tours.slug',
+                'tours.price',
+                'tours.hero_image',
+                'categories.name AS category_name',
+                'categories.slug AS category_slug'
+            )->join('categories', 'tours.category_id', '=', 'categories.id')
+            ->latest('tours.created_at')
+            ->limit(9)
+            ->get();
+        });
         
         $latestThree = $topNineTours->slice(0,3)->values();
         $latestSix   = $topNineTours->slice(3)->values();
@@ -37,26 +40,30 @@ class PageController extends Controller
 
     public function tagRelatedTours($tagSlug)
     {
-        $tours = Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->tagRelatedPosts($tagSlug)
-        ->latest('tours.created_at')
-        ->simplePaginate($this->simplePerPage);
+        $page = request('page', 1);
+        
+        $tours = Cache::rememberForever("tag_tours_{$page}", function () use ($tagSlug) {
+            return Tour::select(
+                'tours.id',
+                'tours.category_id',
+                'tours.subtitle',
+                'tours.title',
+                'tours.slug',
+                'tours.price',
+                'tours.hero_image',
+                'categories.name AS category_name',
+                'categories.slug AS category_slug'
+            )
+            ->with([
+                'tags' => function ($query) {
+                    $query->select('tags.name', 'tags.slug');
+                }
+            ])
+            ->join('categories', 'tours.category_id', '=', 'categories.id')
+            ->tagRelatedPosts($tagSlug)
+            ->latest('tours.created_at')
+            ->simplePaginate(9);
+        });
 
         return view('pages.tours', compact('tours'));
     }
@@ -163,6 +170,16 @@ class PageController extends Controller
 
     public function contact()
     {
+        $count = Tour::count('id');
+
+        $totalPages = (int) ceil($count / 9);
+
+        for ($i = 1; $i <= $totalPages; $i++) { 
+            dump($i);
+        }
+
+        dump($totalPages);
+        
         return view('pages.contact');
     }
 

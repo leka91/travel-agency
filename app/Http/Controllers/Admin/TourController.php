@@ -177,7 +177,8 @@ class TourController extends Controller
             'hero_image'       => TourService::getUpdatedHeroImage(
                 $request->heroimage,
                 $tour->hero_image
-            )
+            ),
+            'updated_at'       => now()
         ];
 
         $tour->update($data);
