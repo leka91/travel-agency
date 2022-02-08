@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Tag;
 use App\Models\Tour;
 use App\Services\CacheService;
 
@@ -29,8 +30,25 @@ class TourObserver
     public function updated(Tour $tour)
     {
         CacheService::clearCachedKeys([
-            'popular_tours'
+            'popular_tours',
+            "tour_{$tour->slug}"
         ]);
+
+        // category_tours_
+
+        $prefixes = [
+            'tours_'
+        ];
+
+        $tags = Tag::pluck('slug');
+
+        if ($tags->count()) {
+            foreach ($tags as $tagSlug) {
+                $prefixes[] = "tag_tours_{$tagSlug}_";
+            }
+        }
+
+        CacheService::clearPaginateCachedKeys($prefixes);
     }
 
     /**

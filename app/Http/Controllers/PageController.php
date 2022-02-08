@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
-    protected $simplePerPage = 9;
-    
     public function home()
     {
         $topNineTours = Cache::rememberForever('popular_tours', function () {
@@ -41,8 +39,10 @@ class PageController extends Controller
     public function tagRelatedTours($tagSlug)
     {
         $page = request('page', 1);
+
+        $key = "tag_tours_{$tagSlug}_{$page}";
         
-        $tours = Cache::rememberForever("tag_tours_{$page}", function () use ($tagSlug) {
+        $tours = Cache::rememberForever($key, function () use ($tagSlug) {
             return Tour::select(
                 'tours.id',
                 'tours.category_id',
@@ -89,71 +89,81 @@ class PageController extends Controller
         ->join('categories', 'tours.category_id', '=', 'categories.id')
         ->where('categories.slug', $categorySlug)
         ->latest('tours.created_at')
-        ->simplePaginate($this->simplePerPage);
+        ->simplePaginate(9);
         
         return view('pages.tours', compact('tours'));
     }
 
     public function tours()
     {
-        $tours = Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->latest('tours.created_at')
-        ->simplePaginate($this->simplePerPage);
+        $page = request('page', 1);
+
+        $key = "tours_{$page}";
+        
+        $tours = Cache::rememberForever($key, function () {
+            return Tour::select(
+                'tours.id',
+                'tours.category_id',
+                'tours.subtitle',
+                'tours.title',
+                'tours.slug',
+                'tours.price',
+                'tours.hero_image',
+                'categories.name AS category_name',
+                'categories.slug AS category_slug'
+            )
+            ->with([
+                'tags' => function ($query) {
+                    $query->select('tags.name', 'tags.slug');
+                }
+            ])
+            ->join('categories', 'tours.category_id', '=', 'categories.id')
+            ->latest('tours.created_at')
+            ->simplePaginate(9);
+        });
 
         return view('pages.tours', compact('tours'));
     }
 
     public function showTour($tourSlug)
     {
-        $tour = Tour::with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            },
-            'requirements' => function ($query) {
-                $query->select('requirements.name');
-            },
-            'galleries' => function ($query) {
-                $query->select('galleries.image', 'galleries.tour_id');
-            },
-            'videos' => function ($query) {
-                $query->select('videos.video_link', 'videos.tour_id');
-            },
-            'prices' => function ($query) {
-                $query->select('prices.name', 'prices.amount', 'prices.tour_id');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->where('tours.slug', $tourSlug)
-        ->firstOrFail([
-            'tours.id',
-            'tours.user_id',
-            'tours.category_id',
-            'tours.title',
-            'tours.subtitle',
-            'tours.description',
-            'tours.hero_image',
-            'tours.slug',
-            'tours.meta_description',
-            'tours.meta_keywords',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        ]);
+        $key = "tour_{$tourSlug}";
+        
+        $tour = Cache::rememberForever($key, function () use ($tourSlug) {
+            return Tour::with([
+                'tags' => function ($query) {
+                    $query->select('tags.name', 'tags.slug');
+                },
+                'requirements' => function ($query) {
+                    $query->select('requirements.name');
+                },
+                'galleries' => function ($query) {
+                    $query->select('galleries.image', 'galleries.tour_id');
+                },
+                'videos' => function ($query) {
+                    $query->select('videos.video_link', 'videos.tour_id');
+                },
+                'prices' => function ($query) {
+                    $query->select('prices.name', 'prices.amount', 'prices.tour_id');
+                }
+            ])
+            ->join('categories', 'tours.category_id', '=', 'categories.id')
+            ->where('tours.slug', $tourSlug)
+            ->firstOrFail([
+                'tours.id',
+                'tours.user_id',
+                'tours.category_id',
+                'tours.title',
+                'tours.subtitle',
+                'tours.description',
+                'tours.hero_image',
+                'tours.slug',
+                'tours.meta_description',
+                'tours.meta_keywords',
+                'categories.name AS category_name',
+                'categories.slug AS category_slug'
+            ]);
+        });
         
         $categories = Category::select('id', 'name', 'slug')
             ->withCount('tours')
@@ -170,16 +180,6 @@ class PageController extends Controller
 
     public function contact()
     {
-        $count = Tour::count('id');
-
-        $totalPages = (int) ceil($count / 9);
-
-        for ($i = 1; $i <= $totalPages; $i++) { 
-            dump($i);
-        }
-
-        dump($totalPages);
-        
         return view('pages.contact');
     }
 
