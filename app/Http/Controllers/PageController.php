@@ -24,7 +24,9 @@ class PageController extends Controller
                 'tours.hero_image',
                 'categories.name AS category_name',
                 'categories.slug AS category_slug'
-            )->join('categories', 'tours.category_id', '=', 'categories.id')
+            )
+            ->join('categories', 'tours.category_id', '=', 'categories.id')
+            ->where('tours.is_popular', 1)
             ->latest('tours.created_at')
             ->limit(9)
             ->get();
@@ -38,32 +40,26 @@ class PageController extends Controller
 
     public function tagRelatedTours($tagSlug)
     {
-        $page = request('page', 1);
-
-        $key = "tag_tours_{$tagSlug}_{$page}";
-        
-        $tours = Cache::rememberForever($key, function () use ($tagSlug) {
-            return Tour::select(
-                'tours.id',
-                'tours.category_id',
-                'tours.subtitle',
-                'tours.title',
-                'tours.slug',
-                'tours.price',
-                'tours.hero_image',
-                'categories.name AS category_name',
-                'categories.slug AS category_slug'
-            )
-            ->with([
-                'tags' => function ($query) {
-                    $query->select('tags.name', 'tags.slug');
-                }
-            ])
-            ->join('categories', 'tours.category_id', '=', 'categories.id')
-            ->tagRelatedPosts($tagSlug)
-            ->latest('tours.created_at')
-            ->simplePaginate(9);
-        });
+        $tours = Tour::select(
+            'tours.id',
+            'tours.category_id',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->tagRelatedPosts($tagSlug)
+        ->latest('tours.created_at')
+        ->simplePaginate(9);
 
         return view('pages.tours', compact('tours'));
     }
@@ -96,31 +92,25 @@ class PageController extends Controller
 
     public function tours()
     {
-        $page = request('page', 1);
-
-        $key = "tours_{$page}";
-        
-        $tours = Cache::rememberForever($key, function () {
-            return Tour::select(
-                'tours.id',
-                'tours.category_id',
-                'tours.subtitle',
-                'tours.title',
-                'tours.slug',
-                'tours.price',
-                'tours.hero_image',
-                'categories.name AS category_name',
-                'categories.slug AS category_slug'
-            )
-            ->with([
-                'tags' => function ($query) {
-                    $query->select('tags.name', 'tags.slug');
-                }
-            ])
-            ->join('categories', 'tours.category_id', '=', 'categories.id')
-            ->latest('tours.created_at')
-            ->simplePaginate(9);
-        });
+        $tours = Tour::select(
+            'tours.id',
+            'tours.category_id',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->latest('tours.created_at')
+        ->simplePaginate(9);
 
         return view('pages.tours', compact('tours'));
     }
@@ -165,10 +155,12 @@ class PageController extends Controller
             ]);
         });
         
-        $categories = Category::select('id', 'name', 'slug')
-            ->withCount('tours')
-            ->having('tours_count', '>', 0)
-            ->get();
+        $categories = Cache::rememberForever('categories', function () {
+            return Category::select('id', 'name', 'slug')
+                ->withCount('tours')
+                ->having('tours_count', '>', 0)
+                ->get();
+        });
 
         return view('pages.show-tour', compact('tour', 'categories'));
     }

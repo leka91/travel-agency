@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Models\Tag;
 use App\Models\Tour;
 use App\Services\CacheService;
 
@@ -17,7 +16,8 @@ class TourObserver
     public function created(Tour $tour)
     {
         CacheService::clearCachedKeys([
-            'popular_tours'
+            'popular_tours',
+            'categories'
         ]);
     }
 
@@ -31,24 +31,9 @@ class TourObserver
     {
         CacheService::clearCachedKeys([
             'popular_tours',
-            "tour_{$tour->slug}"
+            "tour_{$tour->slug}",
+            'categories'
         ]);
-
-        // category_tours_
-
-        $prefixes = [
-            'tours_'
-        ];
-
-        $tags = Tag::pluck('slug');
-
-        if ($tags->count()) {
-            foreach ($tags as $tagSlug) {
-                $prefixes[] = "tag_tours_{$tagSlug}_";
-            }
-        }
-
-        CacheService::clearPaginateCachedKeys($prefixes);
     }
 
     /**
@@ -60,7 +45,9 @@ class TourObserver
     public function deleted(Tour $tour)
     {
         CacheService::clearCachedKeys([
-            'popular_tours'
+            'popular_tours',
+            "tour_{$tour->slug}",
+            'categories'
         ]);
     }
 
@@ -73,7 +60,9 @@ class TourObserver
     public function restored(Tour $tour)
     {
         CacheService::clearCachedKeys([
-            'popular_tours'
+            'popular_tours',
+            "tour_{$tour->slug}",
+            'categories'
         ]);
     }
 
@@ -86,7 +75,9 @@ class TourObserver
     public function forceDeleted(Tour $tour)
     {
         CacheService::clearCachedKeys([
-            'popular_tours'
+            'popular_tours',
+            "tour_{$tour->slug}",
+            'categories'
         ]);
     }
 }

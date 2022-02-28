@@ -33,6 +33,23 @@
 <form method="POST" action="{{ route('admin.editTour', $tour->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
+
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+              <input type="checkbox" name="is_popular" value="{{ $tour->is_popular ?? 0 }}" {{ $tour->is_popular ? 'checked' : '' }}> Is tour popular
+            </label>
+        </div>
+
+        @error('is_popular')
+            <span class="text-danger">
+                {{ $message }}
+            </span>
+        @enderror
+    </div>
+
+    <hr>
+
     <div class="form-group">
         <label for="category">Choose tour category</label>
         <select class="form-control" name="category_id" id="category">
@@ -323,7 +340,7 @@
         @enderror
     </div>
 
-    <div class="form-group">
+    {{-- <div class="form-group">
         <label>Payment method</label>
         <div class="radio">
             <label for="cash">
@@ -337,7 +354,7 @@
                 Credit card
             </label>
         </div>
-    </div>
+    </div> --}}
     
     <button type="submit" class="btn btn-primary mt">Save</button>
     <a href="{{ route('admin.getAlltours') }}" class="btn btn-default mt">

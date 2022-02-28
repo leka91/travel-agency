@@ -43,7 +43,7 @@
                                 <span>
                                     From
                                 </span>
-                                {{ $tour->price }}
+                                {{ $tour->price }} €
                             </div>
                         </div>
                         

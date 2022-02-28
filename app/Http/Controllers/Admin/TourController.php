@@ -54,8 +54,11 @@ class TourController extends Controller
     {
         $user = auth()->user();
 
+        $isPopular = isset($request->is_popular) ? true : false;
+
         $data = [
             'category_id'      => $request->category_id,
+            'is_popular'       => $isPopular,
             'title'            => $request->title,
             'slug'             => Str::slug($request->title),
             'subtitle'         => $request->subtitle,
@@ -131,6 +134,7 @@ class TourController extends Controller
             'id',
             'user_id',
             'category_id',
+            'is_popular',
             'title',
             'subtitle',
             'description',
@@ -162,11 +166,17 @@ class TourController extends Controller
             'prices'
         );
 
+        $isPopular = isset($request->is_popular) ? true : false;
+
+        // dump($isPopular);
+        // dd('***');
+
         $requestPrices = collect($request->prices);
         $price = $requestPrices->min('amount');
         
         $data = [
             'category_id'      => $request->category_id,
+            'is_popular'       => $isPopular,
             'title'            => $request->title,
             'slug'             => Str::slug($request->title),
             'subtitle'         => $request->subtitle,

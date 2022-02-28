@@ -26,6 +26,7 @@ class EditTourRequest extends FormRequest
     {
         return [
             'category_id'         => 'required|integer',
+            'is_popular'          => 'boolean',
             'title'               => [
                 'required',
                 'string',

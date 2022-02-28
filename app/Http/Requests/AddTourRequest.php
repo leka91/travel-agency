@@ -25,6 +25,7 @@ class AddTourRequest extends FormRequest
     {
         return [
             'category_id'         => 'required|integer',
+            'is_popular'          => 'boolean',
             'title'               => 'required|string|max:255|unique:tours',
             'subtitle'            => 'required|string|max:255',
             'meta_keywords'       => 'nullable|string|max:255',

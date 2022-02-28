@@ -6,6 +6,7 @@
 
 <div class="flexslider">
     <ul class="slides">
+        @if ($latestThree->count())
         @foreach ($latestThree as $tour)
         <li>
             <div class="overlay"></div>
@@ -16,7 +17,7 @@
                         <div class="flex-caption visible-lg">
                             <span class="price">
                                 <span>From</span> 
-                                {{ $tour->price }}
+                                {{ $tour->price }} €
                             </span>
                             <h3 class="title">
                                 {{ $tour->title }}
@@ -33,9 +34,16 @@
             </div>
         </li>
         @endforeach
+        @else
+        <li>
+            <div class="overlay"></div>
+            <img src="{{ asset('/images/default_main_slider.jpg') }}" alt="travel">
+        </li>
+        @endif
     </ul>
 </div>
 
+@if ($latestSix->count())
 <div class="container">
     <div class="row">
         <div class="our-listing owl-carousel">
@@ -59,6 +67,7 @@
         </div>
     </div>
 </div>
+@endif
 
 <div class="middle-content"></div>
 
