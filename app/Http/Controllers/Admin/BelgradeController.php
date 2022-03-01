@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BelgradeInfoRequest;
-use App\Models\BelgradeQuote;
+use App\Models\Belgrade;
 
-class BelgradeQuoteController extends Controller
+class BelgradeController extends Controller
 {
     public function getBelgradeInfo()
     {
-        $belgrade = BelgradeQuote::first();
+        $belgrade = Belgrade::first();
         
         return view('auth.belgrade.info', compact('belgrade'));
     }
@@ -23,14 +23,14 @@ class BelgradeQuoteController extends Controller
             'description'      => clean($request->description)
         ];
 
-        BelgradeQuote::create($data);
+        Belgrade::create($data);
 
         return back()->with(
             'status', 'You have added Belgrade info successfully'
         );
     }
 
-    public function editBelgradeInfo(BelgradeInfoRequest $request, BelgradeQuote $belgrade)
+    public function editBelgradeInfo(BelgradeInfoRequest $request, Belgrade $belgrade)
     {
         $data = [
             'meta_keywords'    => $request->meta_keywords,

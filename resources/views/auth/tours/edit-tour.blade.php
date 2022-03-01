@@ -13,15 +13,8 @@
 
 <div class="page-header"></div>
 
-{{-- @if ($errors->all())
-    <div class="alert alert-danger alert-dismissible" role="alert">
-        @foreach ($errors->all() as $message)
-            <p>
-                {{ $message }}
-            </p>
-        @endforeach
-    </div>
-@endif --}}
+@component('auth.components.status.all-errors')
+@endcomponent
 
 @component('auth.components.status.success')
 @endcomponent
@@ -34,7 +27,7 @@
     @csrf
     @method('PUT')
 
-    <div class="form-group">
+    <div class="form-group @error('is_popular') has-error @enderror">
         <div class="checkbox">
             <label>
               <input type="checkbox" name="is_popular" value="{{ $tour->is_popular ?? 0 }}" {{ $tour->is_popular ? 'checked' : '' }}> Is tour popular
@@ -43,14 +36,16 @@
 
         @error('is_popular')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
     <hr>
 
-    <div class="form-group">
+    <div class="form-group @error('category_id') has-error @enderror">
         <label for="category">Choose tour category</label>
         <select class="form-control" name="category_id" id="category">
             @foreach ($categories as $category)
@@ -62,34 +57,40 @@
 
         @error('category_id')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('title') has-error @enderror">
         <label for="title">Title</label>
         <input type="text" name="title" class="form-control" id="title" placeholder="Enter title" value="{{ $tour->title ?? old('title') }}">
 
         @error('title')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('subtitle') has-error @enderror">
         <label for="subtitle">Subtitle</label>
         <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Enter subtitle" value="{{ $tour->subtitle ?? old('subtitle') }}">
 
         @error('subtitle')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('meta_keywords') has-error @enderror">
         <label for="meta_keywords">
             <strong>SEO keywords</strong>
             <small>
@@ -102,12 +103,14 @@
 
         @error('meta_keywords')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('meta_description') has-error @enderror">
         <label for="meta_description">
             <strong>SEO description</strong>
             <small>
@@ -120,7 +123,9 @@
 
         @error('meta_description')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -138,7 +143,9 @@
 
         @error('description')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -155,7 +162,9 @@
 
         @error('requirements')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -172,7 +181,9 @@
 
         @error('tags')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -184,7 +195,9 @@
 
         @error('heroimage')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -236,13 +249,17 @@
         
         @error('videos')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
 
         @error('videos.*.video_link')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -254,7 +271,7 @@
 
         @foreach ($prices as $key => $price)
         <div class="prices">
-            <div class="price-name">
+            <div class="price-name @error("prices.{$key}.name") has-error @enderror">
                 <small>
                     People
                 </small>
@@ -263,12 +280,14 @@
 
                 @error("prices.{$key}.name")
                 <span class="text-danger">
-                    {{ $message }}
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
                 @enderror
             </div>
 
-            <div class="price-amount">
+            <div class="price-amount @error("prices.{$key}.amount") has-error @enderror">
                 <small>
                     Amount
                 </small>
@@ -277,7 +296,9 @@
 
                 @error("prices.{$key}.amount")
                 <span class="text-danger">
-                    {{ $message }}
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
                 @enderror
             </div>
@@ -286,7 +307,9 @@
 
         @error('prices')
         <span class="text-danger">
-            {{ $message }}
+            <strong>
+                {{ $message }}
+            </strong>
         </span>
         @enderror
     </div>
@@ -303,7 +326,7 @@
 
         @foreach ($locations as $key => $location)
         <div class="locations">
-            <div class="lat">
+            <div class="lat @error("locations.{$key}.lat") has-error @enderror">
                 <small>
                     Latitude
                 </small>
@@ -312,12 +335,14 @@
 
                 @error("locations.{$key}.lat")
                 <span class="text-danger">
-                    {{ $message }}
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
                 @enderror
             </div>
 
-            <div class="lng">
+            <div class="lng @error("locations.{$key}.lng") has-error @enderror">
                 <small>
                     Longitude
                 </small>
@@ -326,7 +351,9 @@
 
                 @error("locations.{$key}.lng")
                 <span class="text-danger">
-                    {{ $message }}
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
                 @enderror
             </div>
@@ -335,7 +362,9 @@
 
         @error('locations')
         <span class="text-danger">
-            {{ $message }}
+            <strong>
+                {{ $message }}
+            </strong>
         </span>
         @enderror
     </div>

@@ -19,6 +19,12 @@
                         </a>
                     </div>
                     <div class="widget-body">
+                        @if ($tour->is_popular)
+                        <div class="popular">
+                            Popular
+                        </div>
+                        @endif
+
                         <h4 class="consult-title">
                             <a href="{{ route('pages.tour', $tour->slug) }}" target="_blank">
                                 {{ $tour->title }}

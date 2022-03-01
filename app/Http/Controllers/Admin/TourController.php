@@ -168,9 +168,6 @@ class TourController extends Controller
 
         $isPopular = isset($request->is_popular) ? true : false;
 
-        // dump($isPopular);
-        // dd('***');
-
         $requestPrices = collect($request->prices);
         $price = $requestPrices->min('amount');
         

@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BelgradeQuote extends Model
+class Belgrade extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+    protected $table = 'belgrade_quotes';
 }

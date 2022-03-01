@@ -20,7 +20,9 @@
 
         @error('name')
         <span class="text-danger">
-            {{ $message }}
+            <strong>
+                {{ $message }}
+            </strong>
         </span>
         @enderror
     </div>

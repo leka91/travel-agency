@@ -13,13 +13,16 @@
 
 <div class="page-header"></div>
 
+@component('auth.components.status.all-errors')
+@endcomponent
+
 @component('auth.components.status.success')
 @endcomponent
 
 <form method="POST" action="{{ route('admin.addNewTour') }}" enctype="multipart/form-data">
     @csrf
 
-    <div class="form-group">
+    <div class="form-group @error('is_popular') has-error @enderror">
         <div class="checkbox">
             <label>
               <input type="checkbox" name="is_popular" value="{{ old('is_popular', 0) }}"> Is tour popular
@@ -28,14 +31,16 @@
 
         @error('is_popular')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
     
     <hr>
 
-    <div class="form-group">
+    <div class="form-group @error('category_id') has-error @enderror">
         <label for="category">Choose tour category</label>
         <select class="form-control" name="category_id" id="category">
             @foreach ($categories as $category)
@@ -47,34 +52,40 @@
 
         @error('category_id')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('title') has-error @enderror">
         <label for="title">Title</label>
         <input type="text" name="title" class="form-control" id="title" placeholder="Enter title" value="{{ old('title') }}">
 
         @error('title')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('subtitle') has-error @enderror">
         <label for="subtitle">Subtitle</label>
         <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle') }}">
 
         @error('subtitle')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('meta_keywords') has-error @enderror">
         <label for="meta_keywords">
             <strong>SEO keywords</strong>
             <small>
@@ -87,12 +98,14 @@
 
         @error('meta_keywords')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('meta_description') has-error @enderror">
         <label for="meta_description">
             <strong>SEO description</strong>
             <small>
@@ -105,7 +118,9 @@
 
         @error('meta_description')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -123,7 +138,9 @@
 
         @error('description')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -134,7 +151,9 @@
 
         @error('requirements')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -145,7 +164,9 @@
 
         @error('tags')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -157,7 +178,9 @@
 
         @error('heroimage')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -183,13 +206,17 @@
         
         @error('videos')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
 
         @error('videos.*.video_link')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
@@ -199,7 +226,7 @@
 
         @for ($i = 0; $i < 3; $i++)
         <div class="prices">
-            <div class="price-name">
+            <div class="price-name @error("prices.{$i}.name") has-error @enderror">
                 <small>
                     People
                 </small>
@@ -208,12 +235,14 @@
 
                 @error("prices.{$i}.name")
                 <span class="text-danger">
-                    {{ $message }}
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
                 @enderror
             </div>
             
-            <div class="price-amount">
+            <div class="price-amount @error("prices.{$i}.amount") has-error @enderror">
                 <small>
                     Amount
                 </small>
@@ -222,7 +251,9 @@
 
                 @error("prices.{$i}.amount")
                 <span class="text-danger">
-                    {{ $message }}
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
                 @enderror
             </div>
@@ -231,7 +262,9 @@
 
         @error('prices')
         <span class="text-danger">
-            {{ $message }}
+            <strong>
+                {{ $message }}
+            </strong>
         </span>
         @enderror
     </div>
@@ -248,7 +281,7 @@
 
         @for ($i = 0; $i < 10; $i++)
         <div class="locations">
-            <div class="lat">
+            <div class="lat @error("locations.{$i}.lat") has-error @enderror">
                 <small>
                     Latitude
                 </small>
@@ -257,12 +290,14 @@
 
                 @error("locations.{$i}.lat")
                 <span class="text-danger">
-                    {{ $message }}
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
                 @enderror
             </div>
 
-            <div class="lng">
+            <div class="lng @error("locations.{$i}.lng") has-error @enderror">
                 <small>
                     Longitude
                 </small>
@@ -271,7 +306,9 @@
 
                 @error("locations.{$i}.lng")
                 <span class="text-danger">
-                    {{ $message }}
+                    <strong>
+                        {{ $message }}
+                    </strong>
                 </span>
                 @enderror
             </div>
@@ -280,7 +317,9 @@
 
         @error('locations')
         <span class="text-danger">
-            {{ $message }}
+            <strong>
+                {{ $message }}
+            </strong>
         </span>
         @enderror
     </div>

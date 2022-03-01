@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SendContactMessageRequest;
 use App\Jobs\SendEmail;
 use App\Mail\ContactFormMessage;
+use App\Models\Belgrade;
 use App\Models\Category;
 use App\Models\Tour;
 use Illuminate\Support\Facades\Cache;
@@ -43,6 +44,7 @@ class PageController extends Controller
         $tours = Tour::select(
             'tours.id',
             'tours.category_id',
+            'tours.is_popular',
             'tours.subtitle',
             'tours.title',
             'tours.slug',
@@ -69,6 +71,7 @@ class PageController extends Controller
         $tours = Tour::select(
             'tours.id',
             'tours.category_id',
+            'tours.is_popular',
             'tours.subtitle',
             'tours.title',
             'tours.slug',
@@ -95,6 +98,7 @@ class PageController extends Controller
         $tours = Tour::select(
             'tours.id',
             'tours.category_id',
+            'tours.is_popular',
             'tours.subtitle',
             'tours.title',
             'tours.slug',
@@ -173,6 +177,22 @@ class PageController extends Controller
     public function contact()
     {
         return view('pages.contact');
+    }
+
+    public function belgrade()
+    {
+        $belgrade = Belgrade::first();
+
+        // dd($belgrade);
+        
+        $categories = Cache::rememberForever('categories', function () {
+            return Category::select('id', 'name', 'slug')
+                ->withCount('tours')
+                ->having('tours_count', '>', 0)
+                ->get();
+        });
+        
+        return view('pages.belgrade', compact('belgrade', 'categories'));
     }
 
     public function sendContactMessage(SendContactMessageRequest $request)

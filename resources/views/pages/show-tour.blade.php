@@ -17,7 +17,6 @@
 
 <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css">
 <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-classic.css">
-
 @endsection
 
 @section('content')
@@ -35,9 +34,23 @@
                     </div>
 
                     <div class="widget-body">
+                        @if ($tour->category_id == 1)
+                        <div class="belgrade">
+                            <a href="{{ route('pages.belgrade') }}" class="btn btn-default" target="_blank">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                Check Belgrade
+                            </a>
+                        </div>
+                        @endif
                         <div class="date">
                             <div id="share"></div>
                         </div>
+                        <h4 class="consult-title">
+                            {{ $tour->title }}
+                        </h4>
+                        <p class="consult-subtitle">
+                            {{ $tour->subtitle }}
+                        </p>
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
                                 @foreach ($tour->tags as $tag)
@@ -49,12 +62,6 @@
                                 @endforeach
                             @endif
                         </div>
-                        <h4 class="consult-title">
-                            {{ $tour->title }}
-                        </h4>
-                        <p class="consult-subtitle">
-                            {{ $tour->subtitle }}
-                        </p>
                         <p class="widget-title">
                             <a href="{{ route('pages.categoryRelatedTours', $tour->category_slug) }}" target="_blank">
                                 {{ $tour->category_name }}

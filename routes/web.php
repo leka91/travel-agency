@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\BelgradeQuoteController;
+use App\Http\Controllers\Admin\BelgradeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -30,8 +30,10 @@ Route::get('/tours/tag/{tagSlug}', [PageController::class, 'tagRelatedTours'])->
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
 Route::post('/contact', [PageController::class, 'sendContactMessage'])->name('pages.sendContactMessage');
+Route::get('/belgrade', [PageController::class, 'belgrade'])->name('pages.belgrade');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    // dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // tours
@@ -46,10 +48,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::delete('/tours/delete-tour', [TourController::class, 'deleteTour'])->name('admin.deleteTour');
 
     // belgrade
-    Route::get('/belgrade', [BelgradeQuoteController::class, 'getBelgradeInfo'])->name('admin.getBelgradeInfo');
-    Route::post('/belgrade', [BelgradeQuoteController::class, 'addBelgradeInfo'])->name('admin.addBelgradeInfo');
-    Route::put('/belgrade/{belgrade}', [BelgradeQuoteController::class, 'editBelgradeInfo'])->name('admin.editBelgradeInfo');
-
+    Route::get('/belgrade', [BelgradeController::class, 'getBelgradeInfo'])->name('admin.getBelgradeInfo');
+    Route::post('/belgrade', [BelgradeController::class, 'addBelgradeInfo'])->name('admin.addBelgradeInfo');
+    Route::put('/belgrade/{belgrade}', [BelgradeController::class, 'editBelgradeInfo'])->name('admin.editBelgradeInfo');
 
     // galleries
     Route::post('/galleries/remove-gallery-image', [GalleryController::class, 'removeGalleryImage']);
