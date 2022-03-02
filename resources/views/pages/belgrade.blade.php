@@ -6,7 +6,7 @@
     <meta name="keywords" content="{{ $belgrade->meta_keywords }}">
     <meta property="og:title" content="Belgrade">
     <meta property="og:description" content="{{ $belgrade->meta_description }}">
-    {{-- <meta property="og:image" content="{{ $belgrade->heroImage() }}"> --}}
+    <meta property="og:image" content="{{ $belgrade->belgradeImage() }}">
     @endif
 @endsection
 
@@ -24,7 +24,7 @@
                 @if ($belgrade)
                 <div class="widget-item">
                     <div class="sample-thumb">
-                        <img src="{{ asset('/images/default_main_slider.jpg') }}" alt="Belgrade">
+                        <img src="{{ $belgrade->belgradeImage() }}" alt="Belgrade">
                     </div>
 
                     <div class="widget-body">

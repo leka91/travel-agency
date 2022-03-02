@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Belgrade;
+use App\Services\CacheService;
 
 class BelgradeObserver
 {
@@ -14,7 +15,9 @@ class BelgradeObserver
      */
     public function created(Belgrade $belgrade)
     {
-        //
+        CacheService::clearCachedKeys([
+            'belgrade'
+        ]);
     }
 
     /**
@@ -25,7 +28,9 @@ class BelgradeObserver
      */
     public function updated(Belgrade $belgrade)
     {
-        //
+        CacheService::clearCachedKeys([
+            'belgrade'
+        ]);
     }
 
     /**

@@ -9,43 +9,23 @@ use Illuminate\Support\Facades\File;
 
 class UploadController extends Controller
 {
+    public function storeBelgradeImage(Request $request)
+    {
+        if ($request->hasFile('belgradeimage')) {
+            $file = $request->file('belgradeimage');
+
+            return $this->uploadImage($file);
+        }
+
+        return '';
+    }
+    
     public function storeHeroImage(Request $request)
     {
         if ($request->hasFile('heroimage')) {
             $file = $request->file('heroimage');
 
-            if (!in_array($file->extension(), ['jpeg','png','jpg'])) {
-                return response()->json(
-                    'Invalid image format', 422
-                );
-            }
-    
-            if ($file->getSize() > 1e+6) {
-                return response()->json(
-                    'Image size is exceeding 1 Mb', 422
-                );
-            }
-
-            $image  = getimagesize($file);
-            $width  = $image[0];
-            $height = $image[1];
-
-            if ($width < 950 && $height < 500) {
-                return response()->json(
-                    'The image should be at least 950px in length and 500px in height', 422
-                );
-            }
-
-            $fileName = $file->getClientOriginalName();
-            $folder   = uniqid();
-            $file->storeAs('uploads/tmp/' . $folder, $fileName, 'public');
-    
-            TemporaryFile::create([
-                'folder'    => $folder,
-                'filename'  => $fileName
-            ]);
-    
-            return $folder;
+            return $this->uploadImage($file);
         }
 
         return '';
@@ -100,5 +80,41 @@ class UploadController extends Controller
         }
 
         return '';
+    }
+
+    private function uploadImage($file)
+    {
+        if (!in_array($file->extension(), ['jpeg','png','jpg'])) {
+            return response()->json(
+                'Invalid image format', 422
+            );
+        }
+
+        if ($file->getSize() > 1e+6) {
+            return response()->json(
+                'Image size is exceeding 1 Mb', 422
+            );
+        }
+
+        $image  = getimagesize($file);
+        $width  = $image[0];
+        $height = $image[1];
+
+        if ($width < 950 && $height < 500) {
+            return response()->json(
+                'The image should be at least 950px in length and 500px in height', 422
+            );
+        }
+
+        $fileName = $file->getClientOriginalName();
+        $folder   = uniqid();
+        $file->storeAs('uploads/tmp/' . $folder, $fileName, 'public');
+
+        TemporaryFile::create([
+            'folder'    => $folder,
+            'filename'  => $fileName
+        ]);
+
+        return $folder;
     }
 }

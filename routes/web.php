@@ -81,5 +81,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // temoporary upload
     Route::post('/upload', [UploadController::class, 'store']);
     Route::post('/upload-heroimage', [UploadController::class, 'storeHeroImage']);
+    Route::post('/upload-belgradeimage', [UploadController::class, 'storeBelgradeImage']);
     Route::delete('/upload-remove', [UploadController::class, 'destroy']);
 });

@@ -2,6 +2,10 @@
 
 @section('title', 'Belgrade Information')
 
+@section('links')
+<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+@endsection
+
 @section('content')
 
 <h2>Belgrade Information</h2>
@@ -18,7 +22,7 @@
     @method('PUT')
     @endif
 
-    <div class="form-group">
+    <div class="form-group @error('meta_keywords') has-error @enderror">
         <label for="meta_keywords">
             <strong>SEO keywords</strong>
             <small>
@@ -31,12 +35,14 @@
 
         @error('meta_keywords')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="form-group @error('meta_description') has-error @enderror">
         <label for="meta_description">
             <strong>SEO description</strong>
             <small>
@@ -48,11 +54,33 @@
         <input type="text" class="form-control" id="meta_description" name="meta_description" value="{{ $belgrade->meta_description ?? old('meta_description') }}">
 
         @error('meta_description')
+            <strong>
+                <span class="text-danger">
+                    {{ $message }}
+                </span>
+            </strong>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label for="belgradeimage">Belgrade image</label>
+        <input type="file" id="belgradeimage" name="belgradeimage" class="filepond" data-max-file-size="1MB">
+        <p class="help-block">Upload Belgrade image</p>
+
+        @error('belgradeimage')
             <span class="text-danger">
-                {{ $message }}
+                <strong>
+                    {{ $message }}
+                </strong>
             </span>
         @enderror
     </div>
+
+    @if ($belgrade)
+    <div class="form-group">
+        <img width="700" src="{{ $belgrade->belgradeImage() }}" alt="Belgrade" class="img-thumbnail">
+    </div>
+    @endif
 
     <div class="form-group">
         <label for="description">
@@ -84,6 +112,8 @@
 
 @section('scripts')
 <script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
 <script src="{{ asset('js/ckeditor5.js') }}"></script>
+<script src="{{ asset('js/filepond.js') }}"></script>
 @endsection

@@ -5,33 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SendContactMessageRequest;
 use App\Jobs\SendEmail;
 use App\Mail\ContactFormMessage;
-use App\Models\Belgrade;
-use App\Models\Category;
-use App\Models\Tour;
-use Illuminate\Support\Facades\Cache;
+use App\Services\CacheService;
+use App\Services\TourService;
 
 class PageController extends Controller
 {
     public function home()
     {
-        $topNineTours = Cache::rememberForever('popular_tours', function () {
-            return Tour::select(
-                'tours.id',
-                'tours.category_id',
-                'tours.subtitle',
-                'tours.title',
-                'tours.slug',
-                'tours.price',
-                'tours.hero_image',
-                'categories.name AS category_name',
-                'categories.slug AS category_slug'
-            )
-            ->join('categories', 'tours.category_id', '=', 'categories.id')
-            ->where('tours.is_popular', 1)
-            ->latest('tours.created_at')
-            ->limit(9)
-            ->get();
-        });
+        $topNineTours = CacheService::getCachedPopularTours();
         
         $latestThree = $topNineTours->slice(0,3)->values();
         $latestSix   = $topNineTours->slice(3)->values();
@@ -41,130 +22,29 @@ class PageController extends Controller
 
     public function tagRelatedTours($tagSlug)
     {
-        $tours = Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.is_popular',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->tagRelatedPosts($tagSlug)
-        ->latest('tours.created_at')
-        ->simplePaginate(9);
+        $tours = TourService::getTagRelatedTours($tagSlug);
 
         return view('pages.tours', compact('tours'));
     }
 
     public function categoryRelatedTours($categorySlug)
     {
-        $tours = Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.is_popular',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->where('categories.slug', $categorySlug)
-        ->latest('tours.created_at')
-        ->simplePaginate(9);
+        $tours = TourService::getCategoryRelatedTours($categorySlug);
         
         return view('pages.tours', compact('tours'));
     }
 
     public function tours()
     {
-        $tours = Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.is_popular',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->latest('tours.created_at')
-        ->simplePaginate(9);
+        $tours = TourService::getAllTours();
 
         return view('pages.tours', compact('tours'));
     }
 
     public function showTour($tourSlug)
     {
-        $key = "tour_{$tourSlug}";
-        
-        $tour = Cache::rememberForever($key, function () use ($tourSlug) {
-            return Tour::with([
-                'tags' => function ($query) {
-                    $query->select('tags.name', 'tags.slug');
-                },
-                'requirements' => function ($query) {
-                    $query->select('requirements.name');
-                },
-                'galleries' => function ($query) {
-                    $query->select('galleries.image', 'galleries.tour_id');
-                },
-                'videos' => function ($query) {
-                    $query->select('videos.video_link', 'videos.tour_id');
-                },
-                'prices' => function ($query) {
-                    $query->select('prices.name', 'prices.amount', 'prices.tour_id');
-                }
-            ])
-            ->join('categories', 'tours.category_id', '=', 'categories.id')
-            ->where('tours.slug', $tourSlug)
-            ->firstOrFail([
-                'tours.id',
-                'tours.user_id',
-                'tours.category_id',
-                'tours.title',
-                'tours.subtitle',
-                'tours.description',
-                'tours.hero_image',
-                'tours.slug',
-                'tours.meta_description',
-                'tours.meta_keywords',
-                'categories.name AS category_name',
-                'categories.slug AS category_slug'
-            ]);
-        });
-        
-        $categories = Cache::rememberForever('categories', function () {
-            return Category::select('id', 'name', 'slug')
-                ->withCount('tours')
-                ->having('tours_count', '>', 0)
-                ->get();
-        });
+        $tour       = CacheService::getCachedTour($tourSlug);   
+        $categories = CacheService::getCachedCategories();
 
         return view('pages.show-tour', compact('tour', 'categories'));
     }
@@ -181,16 +61,8 @@ class PageController extends Controller
 
     public function belgrade()
     {
-        $belgrade = Belgrade::first();
-
-        // dd($belgrade);
-        
-        $categories = Cache::rememberForever('categories', function () {
-            return Category::select('id', 'name', 'slug')
-                ->withCount('tours')
-                ->having('tours_count', '>', 0)
-                ->get();
-        });
+        $belgrade   = CacheService::getCachedBelgrade();
+        $categories = CacheService::getCachedCategories();
         
         return view('pages.belgrade', compact('belgrade', 'categories'));
     }

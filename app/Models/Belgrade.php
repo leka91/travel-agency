@@ -11,4 +11,9 @@ class Belgrade extends Model
 
     protected $guarded = [];
     protected $table = 'belgrade_quotes';
+
+    public function belgradeImage()
+    {
+        return asset("/storage/uploads/belgradeimage/{$this->belgrade_image}");
+    }
 }

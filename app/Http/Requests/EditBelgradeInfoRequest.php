@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BelgradeInfoRequest extends FormRequest
+class EditBelgradeInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,15 +26,8 @@ class BelgradeInfoRequest extends FormRequest
         return [
             'meta_keywords'    => 'required|string|max:255',
             'meta_description' => 'required|string|max:255',
-            'belgradeimage'    => 'required',
+            'belgradeimage'    => 'nullable',
             'description'      => 'required|string'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'belgradeimage.required' => 'Please select Belgrade image'
         ];
     }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BelgradeInfoRequest;
+use App\Http\Requests\EditBelgradeInfoRequest;
 use App\Models\Belgrade;
+use App\Services\BelgradeService;
 
 class BelgradeController extends Controller
 {
@@ -20,6 +22,9 @@ class BelgradeController extends Controller
         $data = [
             'meta_keywords'    => $request->meta_keywords,
             'meta_description' => $request->meta_description,
+            'belgrade_image'   => BelgradeService::getBelgradeImage(
+                $request->belgradeimage
+            ),
             'description'      => clean($request->description)
         ];
 
@@ -30,11 +35,15 @@ class BelgradeController extends Controller
         );
     }
 
-    public function editBelgradeInfo(BelgradeInfoRequest $request, Belgrade $belgrade)
+    public function editBelgradeInfo(EditBelgradeInfoRequest $request, Belgrade $belgrade)
     {
         $data = [
             'meta_keywords'    => $request->meta_keywords,
             'meta_description' => $request->meta_description,
+            'belgrade_image'   => BelgradeService::getUpdatedBelgradeImage(
+                $request->belgradeimage,
+                $belgrade->belgrade_image
+            ),
             'description'      => clean($request->description)
         ];
 

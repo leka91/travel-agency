@@ -44,11 +44,26 @@
             <div class="col-md-12 visible-sm visible-xs">
                 <div class="menu-responsive">
                     <ul>
-                        <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="events.html">Events</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li class="{{ Request::is('/') ? 'active' : '' }}">
+                            <a href="{{ route('pages.home') }}">
+                                Home
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('tours') ? 'active' : '' }}">
+                            <a href="{{ route('pages.tours') }}">
+                                Tours
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('about') ? 'active' : '' }}">
+                            <a href="{{ route('pages.about') }}">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('contact') ? 'active' : '' }}">
+                            <a href="{{ route('pages.contact') }}">
+                                Contact
+                            </a>
+                        </li>
                     </ul>
                 </div> <!-- /.menu-responsive -->
             </div> <!-- /.col-md-12 -->

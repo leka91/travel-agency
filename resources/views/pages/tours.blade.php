@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="page-top" id="templatemo_events"></div>
+<div class="page-top" id="events" style="background: url({{ asset('/images/header_2.jpg') }});background-repeat: no-repeat;-webkit-background-size: cover;background-size: cover;background-position: center"></div>
 
 <div class="middle-content">
     <div class="container tours-container">
@@ -21,6 +21,7 @@
                     <div class="widget-body">
                         @if ($tour->is_popular)
                         <div class="popular">
+                            <i class="fa fa-star" aria-hidden="true"></i>
                             Popular
                         </div>
                         @endif

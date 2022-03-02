@@ -37,7 +37,7 @@
                         @if ($tour->category_id == 1)
                         <div class="belgrade">
                             <a href="{{ route('pages.belgrade') }}" class="btn btn-default" target="_blank">
-                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-check" aria-hidden="true"></i>
                                 Check Belgrade
                             </a>
                         </div>

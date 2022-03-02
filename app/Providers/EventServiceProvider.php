@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Belgrade;
 use App\Models\Category;
 use App\Models\Tour;
+use App\Observers\BelgradeObserver;
 use App\Observers\CategoryObserver;
 use App\Observers\TourObserver;
 use Illuminate\Auth\Events\Registered;
@@ -33,5 +35,6 @@ class EventServiceProvider extends ServiceProvider
     {
         Tour::observe(TourObserver::class);
         Category::observe(CategoryObserver::class);
+        Belgrade::observe(BelgradeObserver::class);
     }
 }

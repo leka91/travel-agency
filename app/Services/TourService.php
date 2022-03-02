@@ -3,12 +3,87 @@
 namespace App\Services;
 
 use App\Models\TemporaryFile;
+use App\Models\Tour;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 class TourService
 {
+    public static function getTagRelatedTours($tagSlug)
+    {
+        return Tour::select(
+            'tours.id',
+            'tours.category_id',
+            'tours.is_popular',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->tagRelatedPosts($tagSlug)
+        ->latest('tours.created_at')
+        ->simplePaginate(9);
+    }
+    
+    public static function getCategoryRelatedTours($categorySlug)
+    {
+        return Tour::select(
+            'tours.id',
+            'tours.category_id',
+            'tours.is_popular',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->where('categories.slug', $categorySlug)
+        ->latest('tours.created_at')
+        ->simplePaginate(9);
+    }
+    
+    public static function getAllTours()
+    {
+        return Tour::select(
+            'tours.id',
+            'tours.category_id',
+            'tours.is_popular',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->latest('tours.created_at')
+        ->simplePaginate(9);
+    }
+    
     public static function getUpdatedPrices($prices)
     {
         $mappedPrices = $prices->map(function($item) {

@@ -101,7 +101,7 @@ q {
 
 blockquote {
     font-style: italic;
-    border-left: 5px solid #ccc;
+    border-left: 5px solid #9ed034;
 }
 
 blockquote:before,
@@ -308,8 +308,7 @@ hr {
     display: block;
     height: 1px;
     border: 0;
-    border-top: 1px solid #fbfbfb;
-    margin: 40px 0;
+    border-top: 1px solid #f2f2f2;
 }
 
 .site-header {
@@ -540,29 +539,29 @@ h3.widget-title {
     background-position: center;
 }
 
-#templatemo_events {
+/* #events {
     background: url(../images/templatemo_header_2.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center;
-}
+} */
 
-#templatemo_about {
+/* #about {
     background: url(../images/templatemo_header_3.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center;
-}
+} */
 
-#templatemo_contact {
+/* #contact {
     background: url(../images/templatemo_header_4.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center;
-}
+} */
 
 .our-listing {
     position: relative;
@@ -743,6 +742,7 @@ h3.widget-title {
 .widget-item .widget-body table,
 .widget-item .widget-body table td {
     border: 1px solid #ddd;
+    font-size: 14px;
 }
 
 .widget-item .widget-body .book-now {
