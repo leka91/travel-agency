@@ -21,7 +21,7 @@
 
 @section('content')
 
-<div class="page-top" id="templatemo_services">
+<div class="page-top" id="services">
 </div> <!-- /.page-header -->
 
 <div class="middle-content">

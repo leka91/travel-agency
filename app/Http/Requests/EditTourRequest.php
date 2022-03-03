@@ -34,9 +34,9 @@ class EditTourRequest extends FormRequest
                 Rule::unique('tours', 'title')->ignore($this->tour)
             ],
             'subtitle'            => 'required|string|max:255',
-            'meta_keywords'       => 'nullable|string|max:255',
-            'meta_description'    => 'nullable|string|max:255',
-            'description'         => 'nullable|string',
+            'meta_keywords'       => 'required|string|max:255',
+            'meta_description'    => 'required|string|max:255',
+            'description'         => 'required|string',
             'requirements'        => 'nullable|array',
             'tags'                => 'nullable|array',
             'heroimage'           => 'nullable',
