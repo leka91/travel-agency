@@ -319,9 +319,21 @@ hr {
     z-index: 99;
 }
 
-@media screen and (min-width: 240px) {
+/* @media screen and (min-width: 240px) {
     .site-header {
         top: 0;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+    .site-header {
+        top: 60px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .site-header {
+        top: 60px;
     }
 }
 
@@ -329,12 +341,13 @@ hr {
     .site-header {
         top: 60px;
     }
-}
+} */
 
 .main-header {
     background: #fff;
     min-height: 100px;
     height: 100px;
+    /* box-shadow: 0 0 10px #ccc; */
 }
 
 .logo {
@@ -531,37 +544,41 @@ h3.widget-title {
     left: 0;
 }
 
-#services {
-    background: url(../images/templatemo_header_1.jpg);
+#tours {
+    background: #ff660024;
+    /* background: url(../images/header_2.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
-    background-position: center;
+    background-position: center; */
 }
 
-/* #events {
-    background: url(../images/templatemo_header_2.jpg);
+#about {
+    background: #00f7ff26;
+    /* background: url(../images/header_3.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
-    background-position: center;
-} */
+    background-position: center; */
+}
 
-/* #about {
-    background: url(../images/templatemo_header_3.jpg);
+#contact {
+    background: #00ff0f1c;
+    /* background: url(../images/header_4.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
-    background-position: center;
-} */
+    background-position: center; */
+}
 
-/* #contact {
-    background: url(../images/templatemo_header_4.jpg);
+#belgrade {
+    background: #ea090914;
+    /* background: url(../images/header_1.jpg);
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
-    background-position: center;
-} */
+    background-position: center; */
+}
 
 .our-listing {
     position: relative;
@@ -719,7 +736,7 @@ h3.widget-title {
     position: relative;
 }
 
-.widget-item .widget-body .popular {
+.widget-item .widget-body .popular a {
     position: absolute;
     bottom: 15px;
     right: 15px;
@@ -731,6 +748,10 @@ h3.widget-title {
     color: #000;
     padding: 10px 20px;
     box-shadow: 0 0 10px #ccc;
+}
+
+.widget-item .widget-body .popular a:hover {
+    background: #d98100;
 }
 
 .widget-item .widget-body .belgrade {
@@ -1327,7 +1348,11 @@ div.contact-form input.mainBtn:hover {
 }
 
 .site-footer {
-    margin-bottom: 80px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background: #ededed63;
+    padding: 80px 0;
 }
 
 .copyright {

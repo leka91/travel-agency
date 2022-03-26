@@ -41,6 +41,13 @@ class PageController extends Controller
         return view('pages.tours', compact('tours'));
     }
 
+    public function popularTours()
+    {
+        $tours = TourService::getPopularTours();
+
+        return view('pages.tours', compact('tours'));
+    }
+
     public function showTour($tourSlug)
     {
         $tour       = CacheService::getCachedTour($tourSlug);   

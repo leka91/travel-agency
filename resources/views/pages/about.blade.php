@@ -4,8 +4,7 @@
 
 @section('content')
 
-<div class="page-top" id="about" style="background: url({{ asset('/images/header_3.jpg') }});background-repeat: no-repeat;-webkit-background-size: cover;background-size: cover;background-position: center">
-</div>
+<div class="page-top" id="about"></div>
 
 <div class="middle-content">
     <div class="container">

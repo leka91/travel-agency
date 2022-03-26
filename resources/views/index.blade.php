@@ -27,12 +27,9 @@
         @yield('links')
     </head>
     <body>
-        
         @include('partials._header')
 
         @yield('content')
-
-		@include('partials._partnerlist')
 
         @include('partials._footer')
 

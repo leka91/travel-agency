@@ -14,8 +14,7 @@
 
 @section('content')
 
-<div class="page-top" id="services">
-</div> <!-- /.page-header -->
+<div class="page-top" id="belgrade"></div>
 
 <div class="middle-content">
     <div class="container">

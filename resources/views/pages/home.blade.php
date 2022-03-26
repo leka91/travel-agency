@@ -25,7 +25,7 @@
                             <p>
                                 {{ $tour->subtitle }}
                             </p>
-                            <a href="{{ route('pages.contact') }}" target="_blank" class="slider-btn">
+                            <a href="{{ route('pages.contact') }}" class="slider-btn">
                                 Book Now
                             </a>
                         </div>
@@ -58,7 +58,7 @@
                     <img src="{{ $tour->thumbnail() }}" alt="{{ $tour->title }}">
                 </div>
                 <div class="list-content">
-                    <a href="{{ route('pages.tour', $tour->slug) }}" class="price-btn" target="_blank">
+                    <a href="{{ route('pages.tour', $tour->slug) }}" class="price-btn">
                         {{ $tour->title }}
                     </a>
                 </div>

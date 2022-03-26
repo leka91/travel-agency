@@ -36,7 +36,7 @@
                     <div class="widget-body">
                         @if ($tour->category_id == 1)
                         <div class="belgrade">
-                            <a href="{{ route('pages.belgrade') }}" class="btn btn-default" target="_blank">
+                            <a href="{{ route('pages.belgrade') }}" class="btn btn-default">
                                 <i class="fa fa-check" aria-hidden="true"></i>
                                 Check Belgrade
                             </a>
@@ -54,7 +54,7 @@
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
                                 @foreach ($tour->tags as $tag)
-                                <a href="{{ route('pages.tagRelatedTours', $tag->slug) }}" target="_blank">
+                                <a href="{{ route('pages.tagRelatedTours', $tag->slug) }}">
                                     <span class="badge">
                                         {{ $tag->name }}
                                     </span>
@@ -63,7 +63,7 @@
                             @endif
                         </div>
                         <p class="widget-title">
-                            <a href="{{ route('pages.categoryRelatedTours', $tour->category_slug) }}" target="_blank">
+                            <a href="{{ route('pages.categoryRelatedTours', $tour->category_slug) }}">
                                 {{ $tour->category_name }}
                             </a>
                         </p>
@@ -121,7 +121,7 @@
                             </tbody>
                         </table>
 
-                        <a href="{{ route('pages.contact') }}" class="book-now" target="_blank">
+                        <a href="{{ route('pages.contact') }}" class="book-now">
                             Book now!
                         </a>
                     </div>
@@ -137,7 +137,7 @@
                             </div>
                             <div class="service-content">
                                 <h4>
-                                    <a href="{{ route('pages.categoryRelatedTours', $category->slug) }}" target="_blank">
+                                    <a href="{{ route('pages.categoryRelatedTours', $category->slug) }}">
                                         {{ $category->name }}
                                     </a>
                                 </h4>

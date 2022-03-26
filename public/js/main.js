@@ -1,4 +1,4 @@
-jQuery(document).ready(function ($) {
+$(function () {
     "use strict";
 
     $(".our-listing").owlCarousel({

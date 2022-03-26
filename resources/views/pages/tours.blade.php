@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="page-top" id="events" style="background: url({{ asset('/images/header_2.jpg') }});background-repeat: no-repeat;-webkit-background-size: cover;background-size: cover;background-position: center"></div>
+<div class="page-top" id="tours"></div>
 
 <div class="middle-content">
     <div class="container tours-container">
@@ -14,20 +14,22 @@
             <div class="col-lg-4 col-md-6 tours-col">
                 <div class="widget-item">
                     <div class="sample-thumb">
-                        <a href="{{ route('pages.tour', $tour->slug) }}" target="_blank">
+                        <a href="{{ route('pages.tour', $tour->slug) }}">
                             <img src="{{ $tour->thumbnail() }}" alt="{{ $tour->title }}">
                         </a>
                     </div>
                     <div class="widget-body">
                         @if ($tour->is_popular)
                         <div class="popular">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            Popular
+                            <a href="{{ route('pages.popularTours') }}">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                Popular
+                            </a>
                         </div>
                         @endif
 
                         <h4 class="consult-title">
-                            <a href="{{ route('pages.tour', $tour->slug) }}" target="_blank">
+                            <a href="{{ route('pages.tour', $tour->slug) }}">
                                 {{ $tour->title }}
                             </a>
                         </h4>
@@ -37,7 +39,7 @@
                         <div class="widget-tags">
                             @if ($tour->tags->isNotEmpty())
                                 @foreach ($tour->tags as $tag)
-                                <a href="{{ route('pages.tagRelatedTours', $tag->slug) }}" target="_blank">
+                                <a href="{{ route('pages.tagRelatedTours', $tag->slug) }}">
                                     <span class="badge">
                                         {{ $tag->name }}
                                     </span>
@@ -55,13 +57,13 @@
                         </div>
                         
                         <p class="widget-title">
-                            <a href="{{ route('pages.categoryRelatedTours', $tour->category_slug) }}" target="_blank">
+                            <a href="{{ route('pages.categoryRelatedTours', $tour->category_slug) }}">
                                 {{ $tour->category_name }}
                             </a>
                         </p>
                         
                         <div>
-                            <a href="{{ route('pages.tour', $tour->slug) }}" class="read-more" target="_blank">
+                            <a href="{{ route('pages.tour', $tour->slug) }}" class="read-more">
                                 Read More
                             </a>
                         </div>

@@ -83,6 +83,31 @@ class TourService
         ->latest('tours.created_at')
         ->simplePaginate(9);
     }
+
+    public static function getPopularTours()
+    {
+        return Tour::select(
+            'tours.id',
+            'tours.category_id',
+            'tours.is_popular',
+            'tours.subtitle',
+            'tours.title',
+            'tours.slug',
+            'tours.price',
+            'tours.hero_image',
+            'categories.name AS category_name',
+            'categories.slug AS category_slug'
+        )
+        ->with([
+            'tags' => function ($query) {
+                $query->select('tags.name', 'tags.slug');
+            }
+        ])
+        ->join('categories', 'tours.category_id', '=', 'categories.id')
+        ->where('tours.is_popular', 1)
+        ->latest('tours.created_at')
+        ->simplePaginate(9);
+    }
     
     public static function getUpdatedPrices($prices)
     {

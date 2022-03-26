@@ -22,14 +22,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// home
 Route::get('/', [PageController::class, 'home'])->name('pages.home');
+
+// tours
 Route::get('/tours', [PageController::class, 'tours'])->name('pages.tours');
 Route::get('/tour/{tourSlug}', [PageController::class, 'showTour'])->name('pages.tour');
 Route::get('/tours/category/{categorySlug}', [PageController::class, 'categoryRelatedTours'])->name('pages.categoryRelatedTours');
 Route::get('/tours/tag/{tagSlug}', [PageController::class, 'tagRelatedTours'])->name('pages.tagRelatedTours');
+Route::get('/tours/popular', [PageController::class, 'popularTours'])->name('pages.popularTours');
+
+// about
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
+
+// contact
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
 Route::post('/contact', [PageController::class, 'sendContactMessage'])->name('pages.sendContactMessage');
+
+// belgrade
 Route::get('/belgrade', [PageController::class, 'belgrade'])->name('pages.belgrade');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
