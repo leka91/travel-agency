@@ -1,5 +1,7 @@
 @extends('index')
 
+@section('title', '| Login')
+
 @section('content')
 
 <div class="page-top"></div>

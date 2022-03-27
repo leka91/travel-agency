@@ -14,7 +14,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Travel Agency @yield('title')</title>
+        <title>{{ config('app.name') }} @yield('title')</title>
 
         <!-- Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600,300' rel='stylesheet' type='text/css'>

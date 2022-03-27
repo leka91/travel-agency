@@ -101,7 +101,7 @@ q {
 
 blockquote {
     font-style: italic;
-    border-left: 5px solid #9ed034;
+    border-left: 5px solid #79ac0c;
 }
 
 blockquote:before,
@@ -237,7 +237,7 @@ body {
 }
 
 a {
-    color: #9ed034;
+    color: #79ac0c;
     text-decoration: none;
     -webkit-transition: all 200ms ease-in-out;
     -moz-transition: all 200ms ease-in-out;
@@ -380,11 +380,11 @@ hr {
 }
 
 .main-menu ul li a:hover {
-    color: #9ed034;
+    color: #79ac0c;
 }
 
 .main-menu ul li.active {
-    background: #9ed034;
+    background: #79ac0c;
 }
 
 .main-menu ul li.active a {
@@ -422,7 +422,7 @@ a.toggle-menu {
 }
 
 .menu-responsive ul li.active a {
-    color: #9ed034;
+    color: #79ac0c;
 }
 
 .flexslider {
@@ -468,7 +468,7 @@ a.toggle-menu {
 }
 
 .flex-caption a.slider-btn {
-    background: #9ed034;
+    background: #79ac0c;
     color: #fff;
     text-transform: uppercase;
     font-size: 14px;
@@ -617,7 +617,7 @@ h3.widget-title {
 }
 
 .list-item .list-thumb .title {
-    background-color: #9ed034;
+    background-color: #79ac0c;
     text-transform: uppercase;
     font-size: 18px;
     font-weight: 600;
@@ -639,7 +639,7 @@ h3.widget-title {
 }
 
 .list-item .list-content h5 {
-    color: #9ed034;
+    color: #79ac0c;
     font-weight: 600;
     font-size: 14px;
     margin: 15px 0 5px 0;
@@ -654,7 +654,7 @@ h3.widget-title {
 
 .list-item .list-content a.price-btn {
     display: block;
-    background-color: #9ed034;
+    background-color: #79ac0c;
     color: #fff;
     padding: 12px;
     text-align: center;
@@ -675,7 +675,7 @@ h3.widget-title {
     margin-top: -20px;
     width: 40px;
     height: 40px;
-    background-color: #9ed034;
+    background-color: #79ac0c;
     color: #fff;
     text-align: center;
     line-height: 40px;
@@ -878,7 +878,7 @@ h3.widget-title {
 
 .widget-item a.read-more {
     display: inline-block;
-    background: #9ed034;
+    background: #79ac0c;
     color: #fff;
     font-weight: bold;
     font-size: 14px;
@@ -982,7 +982,7 @@ h3.widget-title {
 .service-item .service-icon {
     float: left;
     margin-right: 20px;
-    background: #9ed034;
+    background: #79ac0c;
     color: #fff;
     font-size: 1.5em;
     font-weight: 600;
@@ -1038,7 +1038,7 @@ h4.consult-title a {
 }
 
 .post-small .post-date {
-    background-color: #9ed034;
+    background-color: #79ac0c;
     color: #fff;
     width: 70px;
     height: 70px;
@@ -1077,7 +1077,7 @@ h4.consult-title a {
 }
 
 .post-small .post-content span {
-    color: #9ed034;
+    color: #79ac0c;
     font-size: 18px;
     font-weight: 300;
     margin-bottom: 10px;
@@ -1089,7 +1089,7 @@ h4.consult-title a {
 }
 
 .act-btn {
-    background: #9ed034;
+    background: #79ac0c;
     position: relative;
     min-height: 120px;
     height: 120px;
@@ -1220,7 +1220,7 @@ h4.consult-title a {
 
 .ticket-item a.ticket-btn {
     margin-top: 25px;
-    background: #9ed034;
+    background: #79ac0c;
     color: #fff;
     padding: 12px;
     display: block;
@@ -1348,7 +1348,7 @@ div.contact-form textarea {
 
 div.contact-form input.mainBtn {
     border: 0;
-    background: #9ed034;
+    background: #79ac0c;
     color: #fff;
     text-transform: uppercase;
     font-weight: bold;
@@ -1373,6 +1373,10 @@ div.contact-form input.mainBtn:hover {
     text-align: right;
 }
 
+ul.social-icons {
+    padding: 0;
+}
+
 .social-icons li {
     display: inline-block;
     margin: 0 2px;
@@ -1381,13 +1385,14 @@ div.contact-form input.mainBtn:hover {
 .social-icons li a {
     width: 36px;
     height: 36px;
-    color: #9ed034;
+    color: #79ac0c;
     text-align: center;
     line-height: 36px;
+    font-size: 20px;
 }
 
 .social-icons li a:hover {
-    background: #9ed034;
+    background: #79ac0c;
     color: #fff;
 }
 
@@ -1426,7 +1431,7 @@ div.contact-form input.mainBtn:hover {
 .login-form .loginBtn {
     width: 100%;
     border: 0;
-    background: #9ed034;
+    background: #79ac0c;
     color: #fff;
     text-transform: uppercase;
     font-weight: 700;
