@@ -55,6 +55,7 @@
                 <th>@sortablelink('title', 'Title')</th>
                 <th>@sortablelink('subtitle', 'Subtitle')</th>
                 <th>@sortablelink('created_at', 'Created at')</th>
+                <th>Popular</th>
                 <th>Category</th>
                 <th>Requirements</th>
                 <th>Tags</th>
@@ -68,6 +69,11 @@
                 <td>{{ $tour->title }}</td>
                 <td>{{ $tour->subtitle }}</td>
                 <td>{{ $tour->created_at->format('d M Y') }}</td>
+                <td class="popular">
+                    @if ($tour->is_popular)
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    @endif
+                </td>
                 <td>{{ $tour->category_name }}</td>
                 <td class="badge-size">
                     @foreach ($tour->requirements as $requirement)

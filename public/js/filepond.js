@@ -17,7 +17,7 @@ $(function () {
             },
         },
         multiple: true,
-        maxFiles: 5,
+        maxFiles: 15,
         labelFileProcessingError: (error) => {
             let err = error.body;
             let errorMessage = err.slice(1, -1);

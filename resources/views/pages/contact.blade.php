@@ -9,6 +9,7 @@
 <div class="contact-page">
     <div class="container">
         <div class="row">
+            <div class="col-md-3 col-sm-3"></div>
             <div class="col-md-6 col-sm-6">
                 <h3 class="widget-title">Contact Us</h3>
 
@@ -57,25 +58,9 @@
                         </div>
                         <input type="submit" class="mainBtn" id="submit" value="Send Message">
                     </form>
-                </div> <!-- /.contact-form -->
-            </div>
-
-            <div class="col-md-6 col-sm-6 map-wrapper">
-                <h3 class="widget-title">Our Location</h3>
-                <div class="map-holder"></div>
-                <div class="contact-infos">
-                    <ul>
-                        <li>987 Nay Yar Street, Analog Estate</li>
-                        <li>Yangon 10440, Myanmar</li>
-                        <li>Tel: 090-090-0880</li>
-                        <li>Email: 
-                            <a href="mailto:info@company.com">
-                                info@company.com
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
+            <div class="col-md-3 col-sm-3"></div>
         </div>
     </div>
 </div>

@@ -24,6 +24,7 @@ class TourController extends Controller
             'tours.category_id',
             'tours.title',
             'tours.subtitle',
+            'tours.is_popular',
             'tours.created_at',
             'categories.name AS category_name'
         )->with([

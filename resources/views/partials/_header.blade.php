@@ -1,6 +1,6 @@
 <div class="site-header">
     <div class="container">
-        <div class="main-header">
+        <div class="main-header {{ Request::is('/') ? '' : 'shadow' }}">
             <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-10">
                     <div class="logo">

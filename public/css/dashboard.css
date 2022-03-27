@@ -161,3 +161,8 @@ body {
 .badge-size {
     width: 200px;
 }
+
+.popular i {
+    font-size: 16px;
+    color: #4abd68;
+}
