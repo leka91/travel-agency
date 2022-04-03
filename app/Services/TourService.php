@@ -60,28 +60,31 @@ class TourService
         ->simplePaginate(9);
     }
     
-    public static function getAllTours()
+    public static function getAllTours($page, $perPage)
     {
-        return Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.is_popular',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->latest('tours.created_at')
-        ->simplePaginate(9);
+        $query = Tour::select('tours.id')->latest('tours.created_at');
+
+        $total = $query->get()->count();
+        $tours = $query->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        $cachedTours = self::getCachedTours($tours);
+
+        return $cachedTours->paginate($perPage, $total, $page);
+    }
+
+    public static function getCachedTours($tours)
+    {
+        $cachedTours = collect();
+
+        foreach ($tours as $tour) {
+            $cachedTour = CacheService::getCachedTourForList($tour->id);
+
+            $cachedTours->push($cachedTour);
+        }
+
+        return $cachedTours;
     }
 
     public static function getPopularTours()

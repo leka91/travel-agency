@@ -37,6 +37,32 @@ class CacheService
             ->get();
         });
     }
+
+    public static function getCachedTourForList($tourId)
+    {
+        $key = "tour_id_{$tourId}";
+
+        return Cache::rememberForever($key, function () use ($tourId) {
+            return Tour::with([
+                'tags' => function ($query) {
+                    $query->select('tags.name', 'tags.slug');
+                }
+            ])
+            ->join('categories', 'tours.category_id', '=', 'categories.id')
+            ->find($tourId, [
+                'tours.id',
+                'tours.category_id',
+                'tours.is_popular',
+                'tours.subtitle',
+                'tours.title',
+                'tours.slug',
+                'tours.price',
+                'tours.hero_image',
+                'categories.name AS category_name',
+                'categories.slug AS category_slug'
+            ]);
+        });
+    }
     
     public static function getCachedTour($tourSlug)
     {

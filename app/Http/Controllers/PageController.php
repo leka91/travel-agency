@@ -36,7 +36,10 @@ class PageController extends Controller
 
     public function tours()
     {
-        $tours = TourService::getAllTours();
+        $page = request('page', 1);
+        $perPage = 9;
+        
+        $tours = TourService::getAllTours($page, $perPage);
 
         return view('pages.tours', compact('tours'));
     }

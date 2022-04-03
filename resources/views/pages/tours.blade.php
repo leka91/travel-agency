@@ -74,7 +74,7 @@
         </div>
 
         <div class="custom-pagination">
-            {{ $tours->links() }}
+            {{ $tours->links('vendor.pagination.simple-default') }}
         </div>
     </div>
 </div> 
