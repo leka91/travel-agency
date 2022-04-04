@@ -123,19 +123,4 @@ class CacheService
             }
         }
     }
-
-    public static function clearPaginateCachedKeys($prefixes)
-    {
-        foreach ($prefixes as $prefix) {
-            for ($i = 1; $i <= 100; $i++) {
-                $key = $prefix . $i;
-
-                if (Cache::has($key)) {
-                    Cache::forget($key);
-                } else {
-                    break;
-                }
-            }
-        }
-    }
 }

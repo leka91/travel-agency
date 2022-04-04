@@ -10,6 +10,8 @@ use App\Services\TourService;
 
 class PageController extends Controller
 {
+    protected $perPage = 9;
+    
     public function home()
     {
         $topNineTours = CacheService::getCachedPopularTours();
@@ -22,14 +24,26 @@ class PageController extends Controller
 
     public function tagRelatedTours($tagSlug)
     {
-        $tours = TourService::getTagRelatedTours($tagSlug);
+        $page = request('page', 1);
+        
+        $tours = TourService::getTagRelatedTours(
+            $page,
+            $this->perPage,
+            $tagSlug
+        );
 
         return view('pages.tours', compact('tours'));
     }
 
     public function categoryRelatedTours($categorySlug)
     {
-        $tours = TourService::getCategoryRelatedTours($categorySlug);
+        $page = request('page', 1);
+        
+        $tours = TourService::getCategoryRelatedTours(
+            $page,
+            $this->perPage,
+            $categorySlug
+        );
         
         return view('pages.tours', compact('tours'));
     }
@@ -37,16 +51,17 @@ class PageController extends Controller
     public function tours()
     {
         $page = request('page', 1);
-        $perPage = 9;
         
-        $tours = TourService::getAllTours($page, $perPage);
+        $tours = TourService::getAllTours($page, $this->perPage);
 
         return view('pages.tours', compact('tours'));
     }
 
     public function popularTours()
     {
-        $tours = TourService::getPopularTours();
+        $page = request('page', 1);
+        
+        $tours = TourService::getPopularTours($page, $this->perPage);
 
         return view('pages.tours', compact('tours'));
     }

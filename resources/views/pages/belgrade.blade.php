@@ -46,7 +46,7 @@
                             </div>
                             <div class="service-content">
                                 <h4>
-                                    <a href="{{ route('pages.categoryRelatedTours', $category->slug) }}" target="_blank">
+                                    <a href="{{ route('pages.categoryRelatedTours', $category->slug) }}">
                                         {{ $category->name }}
                                     </a>
                                 </h4>

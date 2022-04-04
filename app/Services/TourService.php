@@ -10,64 +10,61 @@ use Intervention\Image\Facades\Image;
 
 class TourService
 {
-    public static function getTagRelatedTours($tagSlug)
+    public static function getTagRelatedTours($page, $perPage, $tagSlug)
     {
-        return Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.is_popular',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->tagRelatedPosts($tagSlug)
-        ->latest('tours.created_at')
-        ->simplePaginate(9);
+        $query = Tour::tagRelated($tagSlug)->latest('tours.created_at');
+
+        $total = $query->count();
+        $tours = $query->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get(['tours.id']);
+
+        $cachedTours = self::getCachedTours($tours);
+
+        return $cachedTours->paginate($perPage, $total, $page);
     }
     
-    public static function getCategoryRelatedTours($categorySlug)
+    public static function getCategoryRelatedTours(
+        $page,
+        $perPage,
+        $categorySlug
+    )
     {
-        return Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.is_popular',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->where('categories.slug', $categorySlug)
-        ->latest('tours.created_at')
-        ->simplePaginate(9);
+        $query = Tour::categoryRelated($categorySlug)
+            ->latest('tours.created_at');
+
+        $total = $query->count();
+        $tours = $query->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get(['tours.id']);
+
+        $cachedTours = self::getCachedTours($tours);
+
+        return $cachedTours->paginate($perPage, $total, $page);
     }
     
     public static function getAllTours($page, $perPage)
     {
-        $query = Tour::select('tours.id')->latest('tours.created_at');
+        $query = Tour::latest('tours.created_at');
 
-        $total = $query->get()->count();
+        $total = $query->count();
         $tours = $query->skip(($page - 1) * $perPage)
             ->take($perPage)
-            ->get();
+            ->get(['tours.id']);
+
+        $cachedTours = self::getCachedTours($tours);
+
+        return $cachedTours->paginate($perPage, $total, $page);
+    }
+
+    public static function getPopularTours($page, $perPage)
+    {
+        $query = Tour::popular()->latest('tours.created_at');
+
+        $total = $query->count();
+        $tours = $query->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get(['tours.id']);
 
         $cachedTours = self::getCachedTours($tours);
 
@@ -85,31 +82,6 @@ class TourService
         }
 
         return $cachedTours;
-    }
-
-    public static function getPopularTours()
-    {
-        return Tour::select(
-            'tours.id',
-            'tours.category_id',
-            'tours.is_popular',
-            'tours.subtitle',
-            'tours.title',
-            'tours.slug',
-            'tours.price',
-            'tours.hero_image',
-            'categories.name AS category_name',
-            'categories.slug AS category_slug'
-        )
-        ->with([
-            'tags' => function ($query) {
-                $query->select('tags.name', 'tags.slug');
-            }
-        ])
-        ->join('categories', 'tours.category_id', '=', 'categories.id')
-        ->where('tours.is_popular', 1)
-        ->latest('tours.created_at')
-        ->simplePaginate(9);
     }
     
     public static function getUpdatedPrices($prices)
@@ -143,7 +115,10 @@ class TourService
         })->values()->toArray();
     }
     
-    public static function getUpdatedHeroImage($requestHeroImage, $tourHeroImage)
+    public static function getUpdatedHeroImage(
+        $requestHeroImage,
+        $tourHeroImage
+    )
     {
         $heroImage = null;
         

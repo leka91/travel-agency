@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
@@ -20,11 +19,23 @@ class Tour extends Model
         'deleted_at'
     ];
 
-    public function scopeTagRelatedPosts($query, $tagSlug)
+    public function scopePopular($query)
     {
-        return $query->whereHas('tags', function (Builder $query) use ($tagSlug) {
-            $query->where('tags.slug', $tagSlug);
-        });
+        return $query->where('tours.is_popular', 1);
+    }
+
+    public function scopeCategoryRelated($query, $categorySlug)
+    {
+        return $query->join(
+            'categories', 'tours.category_id', '=', 'categories.id'
+        )->where('categories.slug', $categorySlug);
+    }
+
+    public function scopeTagRelated($query, $tagSlug)
+    {
+        return $query->join('tag_tour', 'tours.id', '=', 'tag_tour.tour_id')
+            ->join('tags', 'tag_tour.tag_id', '=', 'tags.id')
+            ->where('tags.slug', $tagSlug);
     }
 
     public function user()
@@ -50,13 +61,6 @@ class Tour extends Model
     public function prices()
     {
         return $this->hasMany(Price::class)->orderBy('amount');
-    }
-
-    public function firstPrice()
-    {
-        $price = $this->prices->first();
-
-        return "{$price->amount} €";
     }
 
     public function locations()
@@ -87,15 +91,5 @@ class Tour extends Model
     public function galleryImage($image)
     {
         return asset("/storage/uploads/gallery/{$this->id}/{$image}");
-    }
-
-    public function timeToRead() 
-    {
-        $wordsPerMinute = 200;
-        $numOfWords     = str_word_count(strip_tags($this->description));
-        $minutes        = $numOfWords / $wordsPerMinute;
-        $readTime       = ceil($minutes);
-
-        return "{$readTime} min read";
     }
 }
