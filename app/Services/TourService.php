@@ -14,7 +14,18 @@ class TourService
     {
         $query = Tour::tagRelated($tagSlug)->latest('tours.created_at');
 
-        $total = $query->count();
+        /**
+         * TODO
+         * 
+         * Test delete total count from cache for tags and categories
+         */
+
+        // $total = $query->count();
+        $total = CacheService::getCachedTotalCount(
+            $query,
+            "total_tag_{$tagSlug}"
+        );
+
         $tours = $query->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get(['tours.id']);
@@ -33,7 +44,12 @@ class TourService
         $query = Tour::categoryRelated($categorySlug)
             ->latest('tours.created_at');
 
-        $total = $query->count();
+        // $total = $query->count();
+        $total = CacheService::getCachedTotalCount(
+            $query,
+            "total_category_{$categorySlug}"
+        );
+
         $tours = $query->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get(['tours.id']);
@@ -47,7 +63,9 @@ class TourService
     {
         $query = Tour::latest('tours.created_at');
 
-        $total = $query->count();
+        // $total = $query->count();
+        $total = CacheService::getCachedTotalCount($query, 'total_all');
+
         $tours = $query->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get(['tours.id']);
@@ -61,7 +79,9 @@ class TourService
     {
         $query = Tour::popular()->latest('tours.created_at');
 
-        $total = $query->count();
+        // $total = $query->count();
+        $total = CacheService::getCachedTotalCount($query, 'total_popular');
+
         $tours = $query->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get(['tours.id']);
