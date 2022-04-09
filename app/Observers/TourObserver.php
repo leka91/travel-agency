@@ -17,9 +17,7 @@ class TourObserver
     {
         CacheService::clearCachedKeys([
             'popular_tours',
-            'categories',
-            'total_all',
-            'total_popular'
+            'categories'
         ]);
     }
 
@@ -51,9 +49,7 @@ class TourObserver
             'popular_tours',
             "tour_{$tour->slug}",
             "tour_id_{$tour->id}",
-            'categories',
-            'total_all',
-            'total_popular'
+            'categories'
         ]);
     }
 
@@ -69,9 +65,7 @@ class TourObserver
             'popular_tours',
             "tour_{$tour->slug}",
             "tour_id_{$tour->id}",
-            'categories',
-            'total_all',
-            'total_popular'
+            'categories'
         ]);
     }
 
@@ -87,9 +81,7 @@ class TourObserver
             'popular_tours',
             "tour_{$tour->slug}",
             "tour_id_{$tour->id}",
-            'categories',
-            'total_all',
-            'total_popular'
+            'categories'
         ]);
     }
 }

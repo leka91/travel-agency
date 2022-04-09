@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SendContactMessageRequest;
-use App\Jobs\SendEmail;
-use App\Mail\ContactFormMessage;
+use App\Notifications\TourInquiry;
 use App\Services\CacheService;
 use App\Services\TourService;
+use Illuminate\Support\Facades\Notification;
 
 class PageController extends Controller
 {
@@ -101,7 +101,8 @@ class PageController extends Controller
             'message' => $request->message
         ];
 
-        SendEmail::dispatch('admin@admin.com', new ContactFormMessage($data));
+        Notification::route('mail', 'office@getawayserbia.com')
+            ->notify(new TourInquiry($data));
 
         return back()->with('status', 'You have successfully sent the message');
     }

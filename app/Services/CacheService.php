@@ -38,13 +38,6 @@ class CacheService
         });
     }
 
-    public static function getCachedTotalCount($query, $key)
-    {
-        return Cache::rememberForever($key, function () use ($query) {
-            return $query->count();
-        });
-    }
-
     public static function getCachedTourForList($tourId)
     {
         $key = "tour_id_{$tourId}";
