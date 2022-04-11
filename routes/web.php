@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,9 @@ Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 
 // contact
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
-Route::post('/contact', [PageController::class, 'sendContactMessage'])->name('pages.sendContactMessage');
+Route::post('/contact', [PageController::class, 'sendContactMessage'])
+    ->name('pages.sendContactMessage')
+    ->middleware(ProtectAgainstSpam::class);
 
 // belgrade
 Route::get('/belgrade', [PageController::class, 'belgrade'])->name('pages.belgrade');

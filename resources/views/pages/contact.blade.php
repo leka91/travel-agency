@@ -19,7 +19,7 @@
                 <div class="contact-form">
                     <form name="contactform" id="contactform" action="{{ route('pages.sendContactMessage') }}" method="POST">
                         @csrf
-
+                        @honeypot
                         <div class="form-group">
                             <input type="text" name="name" class="@error('name') has-error @enderror" id="name" placeholder="Your Name" value="{{ old('name') }}">
                     

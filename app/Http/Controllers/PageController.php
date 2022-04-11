@@ -101,8 +101,10 @@ class PageController extends Controller
             'message' => $request->message
         ];
 
-        Notification::route('mail', 'office@getawayserbia.com')
-            ->notify(new TourInquiry($data));
+        Notification::route(
+            'mail',
+            'office@getawayserbia.com'
+        )->notify(new TourInquiry($data));
 
         return back()->with('status', 'You have successfully sent the message');
     }
