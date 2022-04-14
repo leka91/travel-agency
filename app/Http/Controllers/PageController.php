@@ -14,12 +14,9 @@ class PageController extends Controller
     
     public function home()
     {
-        $topNineTours = CacheService::getCachedPopularTours();
-        
-        $latestThree = $topNineTours->slice(0,3)->values();
-        $latestSix   = $topNineTours->slice(3)->values();
+        $popularTours = CacheService::getCachedPopularTours();
 
-        return view('pages.home', compact('latestThree', 'latestSix'));
+        return view('pages.home', compact('popularTours'));
     }
 
     public function tagRelatedTours($tagSlug)

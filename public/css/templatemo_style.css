@@ -610,6 +610,7 @@ h3.widget-title {
 .list-item {
     overflow: hidden;
     margin: 0 15px;
+    /* box-shadow: 0 0 10px #ccc; */
 }
 
 .list-item .list-thumb {
@@ -625,7 +626,7 @@ h3.widget-title {
     text-align: center;
 }
 
-.list-item .list-thumb .title h4 {
+.list-item .list-thumb .title h4 a {
     color: #fff;
     line-height: 50px;
 }
@@ -638,18 +639,18 @@ h3.widget-title {
     text-align: center;
 }
 
-.list-item .list-content h5 {
+.list-item .list-content h5 a {
+    display: block;
     color: #79ac0c;
     font-weight: 600;
-    font-size: 14px;
-    margin: 15px 0 5px 0;
+    font-size: 16px;
+    margin: 15px 0 10px 0;
 }
 
 .list-item .list-content span {
     color: #e54747;
-    font-weight: 300;
+    font-weight: 600;
     text-transform: uppercase;
-    margin: 0 0 15px 0;
 }
 
 .list-item .list-content a.price-btn {
@@ -661,7 +662,7 @@ h3.widget-title {
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;
-    /* margin-top: 15px; */
+    margin-top: 15px;
 }
 
 .list-item .list-content a.price-btn:hover {
@@ -675,10 +676,16 @@ h3.widget-title {
     margin-top: -20px;
     width: 40px;
     height: 40px;
-    background-color: #79ac0c;
-    color: #fff;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #000;
     text-align: center;
     line-height: 40px;
+    transition: ease 0.2s;
+}
+
+.owl-next:hover,
+.owl-prev:hover {
+    background-color: #fff;
 }
 
 .owl-next {
