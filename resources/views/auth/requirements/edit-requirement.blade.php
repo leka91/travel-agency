@@ -15,7 +15,10 @@
     @csrf
     @method('PUT')
     <div class="form-group @error('name') has-error @enderror">
-        <label for="name">Name</label>
+        <label for="name">
+            Name
+            <sup class="text-danger">*</sup>
+        </label>
         <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" value="{{ $requirement->name ?? old('name') }}">
 
         @error('name')

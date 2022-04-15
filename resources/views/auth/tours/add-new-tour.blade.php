@@ -41,7 +41,10 @@
     <hr>
 
     <div class="form-group @error('category_id') has-error @enderror">
-        <label for="category">Choose tour category</label>
+        <label for="category">
+            Choose tour category
+            <sup class="text-danger">*</sup>
+        </label>
         <select class="form-control" name="category_id" id="category">
             @foreach ($categories as $category)
             <option value="{{ $category->id }}">
@@ -60,7 +63,10 @@
     </div>
 
     <div class="form-group @error('title') has-error @enderror">
-        <label for="title">Title</label>
+        <label for="title">
+            Title
+            <sup class="text-danger">*</sup>
+        </label>
         <input type="text" name="title" class="form-control" id="title" placeholder="Enter title" value="{{ old('title') }}">
 
         @error('title')
@@ -73,7 +79,10 @@
     </div>
 
     <div class="form-group @error('subtitle') has-error @enderror">
-        <label for="subtitle">Subtitle</label>
+        <label for="subtitle">
+            Subtitle
+            <sup class="text-danger">*</sup>
+        </label>
         <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Enter subtitle" value="{{ old('subtitle') }}">
 
         @error('subtitle')
@@ -87,12 +96,13 @@
 
     <div class="form-group @error('meta_keywords') has-error @enderror">
         <label for="meta_keywords">
-            <strong>SEO keywords</strong>
+            SEO keywords
             <small>
                 <em>
                     (Preferebly up to 10 words)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <input type="text" class="form-control" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords') }}">
 
@@ -107,12 +117,13 @@
 
     <div class="form-group @error('meta_description') has-error @enderror">
         <label for="meta_description">
-            <strong>SEO description</strong>
+            SEO description
             <small>
                 <em>
                     (A brief description of the tour)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <input type="text" class="form-control" id="meta_description" name="meta_description" value="{{ old('meta_description') }}">
 
@@ -127,12 +138,13 @@
 
     <div class="form-group">
         <label for="description">
-            <strong>Description</strong>
+            Description
             <small>
                 <em>
                     (Includes steps, about and concept of tour)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <textarea name="description" class="form-control" id="description">{{ old('description') }}</textarea>
 
@@ -172,7 +184,10 @@
     </div>
 
     <div class="form-group">
-        <label for="heroimage">Hero image</label>
+        <label for="heroimage">
+            Hero image
+            <sup class="text-danger">*</sup>
+        </label>
         <input type="file" id="heroimage" name="heroimage" class="filepond" data-max-file-size="1MB">
         <p class="help-block">Upload hero image</p>
 
@@ -222,7 +237,10 @@
     </div>
 
     <div class="form-group">
-        <label>Prices</label>
+        <label>
+            Prices
+            <sup class="text-danger">*</sup>
+        </label>
 
         @for ($i = 0; $i < 3; $i++)
         <div class="prices">

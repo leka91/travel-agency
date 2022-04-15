@@ -46,7 +46,10 @@
     <hr>
 
     <div class="form-group @error('category_id') has-error @enderror">
-        <label for="category">Choose tour category</label>
+        <label for="category">
+            Choose tour category
+            <sup class="text-danger">*</sup>
+        </label>
         <select class="form-control" name="category_id" id="category">
             @foreach ($categories as $category)
             <option value="{{ $category->id }}" {{ $tour->category_id == $category->id ? 'selected' : '' }}>
@@ -65,7 +68,10 @@
     </div>
 
     <div class="form-group @error('title') has-error @enderror">
-        <label for="title">Title</label>
+        <label for="title">
+            Title
+            <sup class="text-danger">*</sup>
+        </label>
         <input type="text" name="title" class="form-control" id="title" placeholder="Enter title" value="{{ $tour->title ?? old('title') }}">
 
         @error('title')
@@ -78,7 +84,10 @@
     </div>
 
     <div class="form-group @error('subtitle') has-error @enderror">
-        <label for="subtitle">Subtitle</label>
+        <label for="subtitle">
+            Subtitle
+            <sup class="text-danger">*</sup>
+        </label>
         <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Enter subtitle" value="{{ $tour->subtitle ?? old('subtitle') }}">
 
         @error('subtitle')
@@ -92,12 +101,13 @@
 
     <div class="form-group @error('meta_keywords') has-error @enderror">
         <label for="meta_keywords">
-            <strong>SEO keywords</strong>
+            SEO keywords
             <small>
                 <em>
                     (Preferebly up to 10 words)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <input type="text" class="form-control" id="meta_keywords" name="meta_keywords" value="{{ $tour->meta_keywords ?? old('meta_keywords') }}">
 
@@ -112,12 +122,13 @@
 
     <div class="form-group @error('meta_description') has-error @enderror">
         <label for="meta_description">
-            <strong>SEO description</strong>
+            SEO description
             <small>
                 <em>
                     (A brief description of the tour)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <input type="text" class="form-control" id="meta_description" name="meta_description" value="{{ $tour->meta_description ?? old('meta_description') }}">
 
@@ -132,12 +143,13 @@
 
     <div class="form-group">
         <label for="description">
-            <strong>Description</strong>
+            Description
             <small>
                 <em>
                     (Includes steps, about and concept of tour)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <textarea name="description" class="form-control" id="description">{{ $tour->description ?? old('description') }}</textarea>
 
@@ -267,6 +279,7 @@
     <div class="form-group">
         <label>
             Prices
+            <sup class="text-danger">*</sup>
         </label>
 
         @foreach ($prices as $key => $price)

@@ -24,12 +24,13 @@
 
     <div class="form-group @error('meta_keywords') has-error @enderror">
         <label for="meta_keywords">
-            <strong>SEO keywords</strong>
+            SEO keywords
             <small>
                 <em>
                     (Preferebly up to 10 words)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <input type="text" class="form-control" id="meta_keywords" name="meta_keywords" value="{{ $belgrade->meta_keywords ?? old('meta_keywords') }}">
 
@@ -44,12 +45,13 @@
 
     <div class="form-group @error('meta_description') has-error @enderror">
         <label for="meta_description">
-            <strong>SEO description</strong>
+            SEO description
             <small>
                 <em>
                     (A brief description of Belgrade)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <input type="text" class="form-control" id="meta_description" name="meta_description" value="{{ $belgrade->meta_description ?? old('meta_description') }}">
 
@@ -63,7 +65,12 @@
     </div>
 
     <div class="form-group">
-        <label for="belgradeimage">Belgrade image</label>
+        <label for="belgradeimage">
+            Belgrade image
+            @if (!$belgrade)
+            <sup class="text-danger">*</sup>
+            @endif
+        </label>
         <input type="file" id="belgradeimage" name="belgradeimage" class="filepond" data-max-file-size="1MB">
         <p class="help-block">Upload Belgrade image</p>
 
@@ -84,12 +91,13 @@
 
     <div class="form-group">
         <label for="description">
-            <strong>Description</strong>
+            Description
             <small>
                 <em>
                     (Includes about and Belgrade quotes)
                 </em>
             </small>
+            <sup class="text-danger">*</sup>
         </label>
         <textarea name="description" class="form-control" id="description">{{ $belgrade->description ?? old('description') }}</textarea>
 
