@@ -5,7 +5,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-10">
                     <div class="logo">
                         <a href="{{ route('pages.home') }}">
-                            <img src="{{ asset('images/logo.png') }}" alt="Get away Serbia">
+                            <img src="{{ asset('/images/logo.png') }}" alt="Get away Serbia">
                         </a>
                     </div> <!-- /.logo -->
                 </div> <!-- /.col-md-4 -->

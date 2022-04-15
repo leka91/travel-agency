@@ -1,5 +1,12 @@
 @extends('index')
 
+@section('meta-tags')
+    <meta name="description" content="Get away Serbia, tours page">
+    <meta name="keywords" content="Get away Serbia, tours, serbia, travel">
+    <meta property="og:title" content="Tours">
+    <meta property="og:description" content="Tours page">
+@endsection
+
 @section('title', '| Tours')
 
 @section('content')

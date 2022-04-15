@@ -8,7 +8,7 @@
         @yield('meta-tags')
         <meta property="og:url" content="{{ Request::url() }}">
         <meta property="og:type" content="website">
-        <meta property="og:site_name" content="Travel Agency"/>
+        <meta property="og:site_name" content="{{ config('app.name') }}">
         <link rel="canonical" href="{{ Request::url() }}">
 
         <!-- CSRF Token -->

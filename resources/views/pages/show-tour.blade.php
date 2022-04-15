@@ -1,7 +1,7 @@
 @extends('index')
 
 @section('meta-tags')
-    <meta name="description" content="{{ $tour->meta_description }}"/>
+    <meta name="description" content="{{ $tour->meta_description }}">
     <meta name="keywords" content="{{ $tour->meta_keywords }}">
     <meta property="og:title" content="{{ $tour->title }}">
     <meta property="og:description" content="{{ $tour->meta_description }}">
